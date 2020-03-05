@@ -17,7 +17,7 @@ buildscript {
         okhttpVersion = '4.2.2'
         retrofitVersion = '2.6.0'
         glideVersion = '4.10.0'
-        daggerVersion = '2.26.0'
+        daggerVersion = '2.26'
     }
 
     repositories {
