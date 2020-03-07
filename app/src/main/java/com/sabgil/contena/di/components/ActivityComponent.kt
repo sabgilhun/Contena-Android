@@ -2,7 +2,7 @@ package com.sabgil.contena.di.components
 
 import com.sabgil.contena.di.annotations.ActivityScope
 import com.sabgil.contena.di.modules.ViewModelModule
-import com.sabgil.contena.ui.base.base.InjectActivity
+import com.sabgil.contena.ui.base.InjectActivity
 import dagger.Subcomponent
 
 
