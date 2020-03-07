@@ -4,6 +4,7 @@ import android.content.Context
 import com.sabgil.contena.di.annotations.ApplicationScope
 import com.sabgil.contena.di.modules.ApiModule
 import com.sabgil.contena.di.modules.NetworkModule
+import com.sabgil.contena.di.modules.RepositoryModule
 import dagger.BindsInstance
 import dagger.Component
 
@@ -11,7 +12,8 @@ import dagger.Component
 @Component(
     modules = [
         ApiModule::class,
-        NetworkModule::class
+        NetworkModule::class,
+        RepositoryModule::class
     ]
 )
 interface ApplicationComponent {
