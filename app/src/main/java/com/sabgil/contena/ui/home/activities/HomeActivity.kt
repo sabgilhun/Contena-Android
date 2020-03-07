@@ -8,7 +8,7 @@ import com.sabgil.contena.ui.home.viewmodels.HomeViewModel
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
-    val viewModel: HomeViewModel by lazy {
+    private val viewModel: HomeViewModel by lazy {
         getViewModel(HomeViewModel::class)
     }
 

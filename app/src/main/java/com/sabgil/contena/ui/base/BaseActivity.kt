@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.WidgetProgressBarBinding
+import com.sabgil.contena.ext.setVisiblity
 import kotlin.reflect.KClass
 
 abstract class BaseActivity<B : ViewDataBinding>(
@@ -46,16 +47,11 @@ abstract class BaseActivity<B : ViewDataBinding>(
     }
 
     private fun observingBaseViewModel(baseViewModel: BaseViewModel) {
-        baseViewModel.nonBlockingLoading.observe(this, Observer { isLoading ->
-            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-        })
+        baseViewModel.nonBlockingLoading.observe(this, Observer(progressBar::setVisiblity))
 
         baseViewModel.blockingLoading.observe(this, Observer { isLoading ->
             setWindowClickable(isLoading)
-            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-        })
-
-        baseViewModel.showApiErrorMessage.observe(this, Observer {
+            progressBar.setVisiblity(isLoading)
         })
     }
 
