@@ -5,8 +5,6 @@ import com.sabgil.contena.ui.base.BaseViewModel
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    contenaRepository: ContenaRepository
+    private val contenaRepository: ContenaRepository
 ) : BaseViewModel() {
-    fun test() {}
-
 }

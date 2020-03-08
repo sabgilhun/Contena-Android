@@ -5,6 +5,7 @@ import com.sabgil.contena.data.remote.contena.request.PostSubscriptionRequest
 import com.sabgil.contena.data.remote.contena.response.GetNewItemListResponse
 import com.sabgil.contena.data.remote.contena.response.GetPostListResponse
 import com.sabgil.contena.data.remote.contena.response.GetShopListResponse
+import io.reactivex.Maybe
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -31,13 +32,13 @@ interface ContenaApi {
         @Query(value = "user_id") userId: String
     ): Single<GetShopListResponse>
 
-    @POST
+    @POST(value = "subscription")
     fun postSubscription(
         @Body postSubscriptionRequest: PostSubscriptionRequest
-    ): Single<Void>
+    ): Maybe<Void>
 
-    @DELETE
+    @DELETE(value = "subscription")
     fun deleteSubscription(
         @Body deleteSubscriptionRequest: DeleteSubscriptionRequest
-    ): Single<Void>
+    ): Maybe<Void>
 }

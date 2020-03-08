@@ -56,9 +56,10 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
 
-    // RxJava, RxAndroid
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    // RxJava, RxAndroid, RxKotlin
     implementation "io.reactivex.rxjava3:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
 
     // LifeCycle components
     implementation "android.arch.lifecycle:extensions:$lifeCycleVersion"

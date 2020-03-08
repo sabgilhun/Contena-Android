@@ -7,6 +7,7 @@ import com.sabgil.contena.data.model.Shop
 import com.sabgil.contena.data.model.Subscription
 import com.sabgil.contena.data.remote.contena.ContenaApi
 import com.sabgil.contena.data.remote.contena.ContenaMapper
+import io.reactivex.Maybe
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -31,9 +32,9 @@ class ContenaRepositoryImpl @Inject constructor(
         contenaApi.getSubscribedShopList(userId)
             .map(contenaMapper::toShopList)
 
-    override fun postSubscription(subscription: Subscription): Single<Void> =
+    override fun postSubscription(subscription: Subscription): Maybe<Void> =
         contenaApi.postSubscription(contenaMapper.toPostSubscriptionRequest(subscription))
 
-    override fun deleteSubscription(subscription: Subscription): Single<Void> =
+    override fun deleteSubscription(subscription: Subscription): Maybe<Void> =
         contenaApi.deleteSubscription(contenaMapper.toDeleteSubscriptionRequest(subscription))
 }

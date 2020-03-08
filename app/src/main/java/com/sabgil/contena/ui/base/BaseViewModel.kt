@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sabgil.contena.commons.SingleLiveEvent
+import io.reactivex.MaybeTransformer
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -36,8 +37,17 @@ abstract class BaseViewModel : ViewModel() {
         disposables.add(this)
     }
 
-    protected fun <T> apiBlockingLoadingTransformer(): SingleTransformer<T, T> {
+    protected fun <T> apiBlockingLoadingSingleTransformer(): SingleTransformer<T, T> {
         return SingleTransformer {
+            it.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { _blockingLoading.value = true }
+                .doFinally { _blockingLoading.value = false }
+        }
+    }
+
+    protected fun <T> apiBlockingLoadingMaybeTransformer(): MaybeTransformer<T, T> {
+        return MaybeTransformer {
             it.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { _blockingLoading.value = true }
