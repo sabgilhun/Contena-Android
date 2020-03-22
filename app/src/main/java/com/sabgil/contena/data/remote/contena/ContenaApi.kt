@@ -7,7 +7,10 @@ import com.sabgil.contena.data.remote.contena.response.GetPostListResponse
 import com.sabgil.contena.data.remote.contena.response.GetShopListResponse
 import io.reactivex.Maybe
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ContenaApi {
 
@@ -37,7 +40,7 @@ interface ContenaApi {
         @Body postSubscriptionRequest: PostSubscriptionRequest
     ): Maybe<Void>
 
-    @DELETE(value = "subscription")
+    @POST(value = "unsubscription")
     fun deleteSubscription(
         @Body deleteSubscriptionRequest: DeleteSubscriptionRequest
     ): Maybe<Void>

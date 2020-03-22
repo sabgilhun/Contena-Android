@@ -1,17 +1,13 @@
 package com.sabgil.contena.ui.base
 
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.sabgil.contena.R
-import com.sabgil.contena.databinding.WidgetProgressBarBinding
-import com.sabgil.contena.ext.setVisiblity
 import kotlin.reflect.KClass
 
 abstract class BaseActivity<B : ViewDataBinding>(
@@ -21,23 +17,17 @@ abstract class BaseActivity<B : ViewDataBinding>(
     protected lateinit var binding: B
         private set
 
-    private lateinit var progressBar: View
+    private val loadingDialog: AlertDialog by lazy {
+        AlertDialog.Builder(this, R.style.LoadingDialog)
+            .setCancelable(false)
+            .setView(R.layout.widget_progress_bar)
+            .create()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
-
-        baseViewSetUp()
-    }
-
-    private fun baseViewSetUp() {
-        progressBar = DataBindingUtil.inflate<WidgetProgressBarBinding>(
-            layoutInflater,
-            R.layout.widget_progress_bar,
-            binding.root as ViewGroup,
-            true
-        ).root
     }
 
     protected fun <VM : BaseViewModel> getViewModel(clazz: KClass<VM>): VM {
@@ -47,21 +37,9 @@ abstract class BaseActivity<B : ViewDataBinding>(
     }
 
     private fun observingBaseViewModel(baseViewModel: BaseViewModel) {
-        baseViewModel.nonBlockingLoading.observe(this, Observer(progressBar::setVisiblity))
-
-        baseViewModel.blockingLoading.observe(this, Observer { isLoading ->
-            setWindowClickable(isLoading)
-            progressBar.setVisiblity(isLoading)
+        baseViewModel.isLoading.observe(this, Observer { isLoading ->
+            if (isLoading) loadingDialog.show() else loadingDialog.hide()
         })
-    }
-
-    private fun setWindowClickable(isClickable: Boolean) {
-        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE.let { notTouchableFlag ->
-            window.setFlags(
-                if (isClickable) notTouchableFlag.inv() else notTouchableFlag,
-                notTouchableFlag
-            )
-        }
     }
 }
 

@@ -16,13 +16,10 @@ abstract class BaseViewModel : ViewModel() {
 
     protected val disposables = CompositeDisposable()
 
-    private val _blockingLoading = MutableLiveData<Boolean>()
-    val blockingLoading: LiveData<Boolean> = _blockingLoading
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _nonBlockingLoading = MutableLiveData<Boolean>()
-    val nonBlockingLoading: LiveData<Boolean> = _nonBlockingLoading
-
-    private val _showApiErrorMessage = SingleLiveEvent<String>()
+    protected val _showApiErrorMessage = SingleLiveEvent<String>()
     val showApiErrorMessage: LiveData<String> = _showApiErrorMessage
 
     override fun onCleared() {
@@ -37,30 +34,21 @@ abstract class BaseViewModel : ViewModel() {
         disposables.add(this)
     }
 
-    protected fun <T> apiBlockingLoadingSingleTransformer(): SingleTransformer<T, T> {
+    protected fun <T> apiLoadingSingleTransformer(): SingleTransformer<T, T> {
         return SingleTransformer {
             it.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { _blockingLoading.value = true }
-                .doFinally { _blockingLoading.value = false }
+                .doOnSubscribe { _isLoading.value = true }
+                .doFinally { _isLoading.value = false }
         }
     }
 
-    protected fun <T> apiBlockingLoadingMaybeTransformer(): MaybeTransformer<T, T> {
+    protected fun <T> apiLoadingMaybeTransformer(): MaybeTransformer<T, T> {
         return MaybeTransformer {
             it.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { _blockingLoading.value = true }
-                .doFinally { _blockingLoading.value = false }
-        }
-    }
-
-    protected fun <T> apiNonBlockingLoadingTransformer(): SingleTransformer<T, T> {
-        return SingleTransformer {
-            it.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { _nonBlockingLoading.value = true }
-                .doFinally { _nonBlockingLoading.value = false }
+                .doOnSubscribe { _isLoading.value = true }
+                .doFinally { _isLoading.value = false }
         }
     }
 }
