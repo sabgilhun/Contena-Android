@@ -5,6 +5,7 @@ import com.sabgil.contena.di.annotations.ApplicationScope
 import com.sabgil.contena.di.modules.ApiModule
 import com.sabgil.contena.di.modules.NetworkModule
 import com.sabgil.contena.di.modules.RepositoryModule
+import com.sabgil.contena.di.modules.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 
@@ -13,7 +14,8 @@ import dagger.Component
     modules = [
         ApiModule::class,
         NetworkModule::class,
-        RepositoryModule::class
+        RepositoryModule::class,
+        ViewModelModule::class
     ]
 )
 interface ApplicationComponent {

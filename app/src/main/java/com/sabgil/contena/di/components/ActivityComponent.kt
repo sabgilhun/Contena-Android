@@ -7,8 +7,10 @@ import dagger.Subcomponent
 
 
 @ActivityScope
-@Subcomponent(modules = [ViewModelModule::class])
+@Subcomponent
 interface ActivityComponent {
+
+    val fragmentComponent: FragmentComponent
 
     fun inject(injectActivity: InjectActivity)
 }

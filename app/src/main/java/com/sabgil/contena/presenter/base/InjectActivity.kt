@@ -4,18 +4,24 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.sabgil.contena.ContenaApplication
+import com.sabgil.contena.di.components.ActivityComponent
 import javax.inject.Inject
+import javax.inject.Named
 
 abstract class InjectActivity : AppCompatActivity() {
+
+    lateinit var activityComponent: ActivityComponent
+        private set
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as ContenaApplication)
+        activityComponent = (application as ContenaApplication)
             .applicationComponent
             .activityComponent
-            .inject(this)
+
+        activityComponent.inject(this)
 
         super.onCreate(savedInstanceState)
     }
