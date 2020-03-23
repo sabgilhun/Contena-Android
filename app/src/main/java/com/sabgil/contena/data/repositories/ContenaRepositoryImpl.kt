@@ -1,10 +1,10 @@
 package com.sabgil.contena.data.repositories
 
 import com.sabgil.contena.commons.PageHolder
-import com.sabgil.contena.data.model.DetailNewItem
-import com.sabgil.contena.data.model.NewItemPost
-import com.sabgil.contena.data.model.Shop
-import com.sabgil.contena.data.model.Subscription
+import com.sabgil.contena.domain.model.DetailNewItem
+import com.sabgil.contena.domain.model.NewItemPost
+import com.sabgil.contena.domain.model.Shop
+import com.sabgil.contena.domain.model.Subscription
 import com.sabgil.contena.data.remote.contena.ContenaApi
 import com.sabgil.contena.data.remote.contena.ContenaMapper
 import io.reactivex.Maybe
@@ -35,6 +35,6 @@ class ContenaRepositoryImpl @Inject constructor(
     override fun postSubscription(subscription: Subscription): Maybe<Void> =
         contenaApi.postSubscription(contenaMapper.toPostSubscriptionRequest(subscription))
 
-    override fun deleteSubscription(subscription: Subscription): Maybe<Void> =
-        contenaApi.deleteSubscription(contenaMapper.toDeleteSubscriptionRequest(subscription))
+    override fun postUnsubscription(subscription: Subscription): Maybe<Void> =
+        contenaApi.postUnsubscription(contenaMapper.toPostUnsubscriptionRequest(subscription))
 }

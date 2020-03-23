@@ -1,9 +1,9 @@
-package com.sabgil.contena.ui.home.viewmodels
+package com.sabgil.contena.presenter.home.viewmodels
 
 import android.util.Log
-import com.sabgil.contena.data.model.Subscription
+import com.sabgil.contena.domain.model.Subscription
 import com.sabgil.contena.data.repositories.ContenaRepository
-import com.sabgil.contena.ui.base.BaseViewModel
+import com.sabgil.contena.presenter.base.BaseViewModel
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
@@ -14,7 +14,7 @@ class HomeViewModel @Inject constructor(
     fun test() {
         val subscription = Subscription("11", "bluesman")
 
-        contenaRepository.deleteSubscription(subscription)
+        contenaRepository.postUnsubscription(subscription)
             .compose(apiLoadingMaybeTransformer())
             .subscribeBy(
                 onComplete = {

@@ -1,4 +1,4 @@
-package com.sabgil.contena.ui.base
+package com.sabgil.contena.presenter.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

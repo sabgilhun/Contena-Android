@@ -1,4 +1,4 @@
-package com.sabgil.contena.data.model
+package com.sabgil.contena.domain.model
 
 data class NewItemPost(
     val postId: Long,

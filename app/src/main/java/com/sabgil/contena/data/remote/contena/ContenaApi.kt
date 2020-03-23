@@ -1,6 +1,6 @@
 package com.sabgil.contena.data.remote.contena
 
-import com.sabgil.contena.data.remote.contena.request.DeleteSubscriptionRequest
+import com.sabgil.contena.data.remote.contena.request.PostUnsubscriptionRequest
 import com.sabgil.contena.data.remote.contena.request.PostSubscriptionRequest
 import com.sabgil.contena.data.remote.contena.response.GetNewItemListResponse
 import com.sabgil.contena.data.remote.contena.response.GetPostListResponse
@@ -41,7 +41,7 @@ interface ContenaApi {
     ): Maybe<Void>
 
     @POST(value = "unsubscription")
-    fun deleteSubscription(
-        @Body deleteSubscriptionRequest: DeleteSubscriptionRequest
+    fun postUnsubscription(
+        @Body postUnsubscription: PostUnsubscriptionRequest
     ): Maybe<Void>
 }

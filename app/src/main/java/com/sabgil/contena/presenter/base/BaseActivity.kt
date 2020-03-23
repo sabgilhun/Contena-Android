@@ -1,4 +1,4 @@
-package com.sabgil.contena.ui.base
+package com.sabgil.contena.presenter.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes

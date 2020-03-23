@@ -1,12 +1,12 @@
 package com.sabgil.contena.data.remote.contena
 
 import com.sabgil.contena.commons.PageHolder
-import com.sabgil.contena.data.model.*
-import com.sabgil.contena.data.remote.contena.request.DeleteSubscriptionRequest
+import com.sabgil.contena.data.remote.contena.request.PostUnsubscriptionRequest
 import com.sabgil.contena.data.remote.contena.request.PostSubscriptionRequest
 import com.sabgil.contena.data.remote.contena.response.GetNewItemListResponse
 import com.sabgil.contena.data.remote.contena.response.GetPostListResponse
 import com.sabgil.contena.data.remote.contena.response.GetShopListResponse
+import com.sabgil.contena.domain.model.*
 import javax.inject.Inject
 
 class ContenaMapper @Inject constructor() {
@@ -57,8 +57,8 @@ class ContenaMapper @Inject constructor() {
             PostSubscriptionRequest(it.userId, it.shopName)
         }
 
-    fun toDeleteSubscriptionRequest(subscription: Subscription): DeleteSubscriptionRequest =
+    fun toPostUnsubscriptionRequest(subscription: Subscription): PostUnsubscriptionRequest =
         subscription.let {
-            DeleteSubscriptionRequest(it.userId, it.shopName)
+            PostUnsubscriptionRequest(it.userId, it.shopName)
         }
 }
