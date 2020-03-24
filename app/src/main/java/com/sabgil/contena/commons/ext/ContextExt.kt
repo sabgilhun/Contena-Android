@@ -7,5 +7,3 @@ import androidx.core.content.ContextCompat
 
 val Context.layoutInflater
     get() = requireNotNull(LayoutInflater.from(this))
-
-fun Context.getColor(@ColorRes color: Int) = ContextCompat.getColor(this, color)

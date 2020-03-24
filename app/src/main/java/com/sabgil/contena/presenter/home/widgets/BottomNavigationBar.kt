@@ -26,15 +26,16 @@ class BottomNavigationBar : FrameLayout {
     }
 
     private lateinit var binding: WidgetBottomNavigationBarBinding
+
     var tabClickConsumer: ((Int) -> (Unit))? = null
 
-    private var selectedTab: Tab = Tab.HOME
+    var selectedTab: Tab? = null
         set(value) {
-            tabClickConsumer?.invoke(value.index)
-            if (field != value) {
-                changeTabColor(field, value)
-                field = value
+            value?.let {
+                tabClickConsumer?.invoke(it.index)
+                if (field != it) changeTabColor(field, it)
             }
+            field = value
         }
 
     private fun initView() {
@@ -49,8 +50,6 @@ class BottomNavigationBar : FrameLayout {
         binding.searchItem.setOnClickListener { selectedTab = Tab.SEARCH }
         binding.bookmarkItem.setOnClickListener { selectedTab = Tab.BOOKMARK }
         binding.settingsItem.setOnClickListener { selectedTab = Tab.SETTINGS }
-
-        changeTabColor(null, Tab.HOME)
     }
 
     private fun tintTabItem(tab: Tab, isSelected: Boolean) {
@@ -68,7 +67,6 @@ class BottomNavigationBar : FrameLayout {
         oldTab?.let {
             tintTabItem(it, false)
         }
-
         tintTabItem(newTab, true)
     }
 
@@ -78,8 +76,13 @@ class BottomNavigationBar : FrameLayout {
         text.setTextColor(color)
     }
 
-    private enum class Tab(val index: Int) {
-        HOME(1), SEARCH(2), BOOKMARK(3), SETTINGS(4)
+    enum class Tab(val index: Int) {
+        HOME(1), SEARCH(2), BOOKMARK(3), SETTINGS(4);
+
+        companion object {
+            fun from(index: Int) = values().find { it.index == index }
+                ?: throw IllegalArgumentException("excess tab index range")
+        }
     }
 
     companion object {
