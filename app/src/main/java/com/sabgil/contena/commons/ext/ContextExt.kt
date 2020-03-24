@@ -1,11 +1,11 @@
 package com.sabgil.contena.commons.ext
 
-import android.view.View
+import android.content.Context
+import android.view.LayoutInflater
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 
-fun View.setVisible(isVisible: Boolean) {
-    visibility = if (isVisible) View.VISIBLE else View.GONE
-}
+val Context.layoutInflater
+    get() = requireNotNull(LayoutInflater.from(this))
 
-fun View.setGone(isGone: Boolean) {
-    visibility = if (isGone) View.GONE else View.VISIBLE
-}
+fun Context.getColor(@ColorRes color: Int) = ContextCompat.getColor(this, color)

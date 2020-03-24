@@ -1,7 +1,11 @@
 package com.sabgil.contena.commons.ext
 
-import android.content.Context
-import android.view.LayoutInflater
+import android.view.View
 
-val Context.layoutInflater
-    get() = requireNotNull(LayoutInflater.from(this))
+fun View.setVisible(isVisible: Boolean) {
+    visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
+fun View.setGone(isGone: Boolean) {
+    visibility = if (isGone) View.GONE else View.VISIBLE
+}
