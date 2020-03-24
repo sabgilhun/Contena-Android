@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentSettingsTabBinding
-import com.sabgil.contena.presenter.base.BaseFragment
-import com.sabgil.contena.presenter.home.fragments.tabmanager.TabFragment
+import com.sabgil.contena.presenter.home.fragments.tabmanager.BaseTabFragment
 
-class SettingsTabFragment : BaseFragment<FragmentSettingsTabBinding>(R.layout.fragment_settings_tab),
-    TabFragment {
+class SettingsTabFragment :
+    BaseTabFragment<FragmentSettingsTabBinding>(R.layout.fragment_settings_tab) {
 
     override var backStackTabIndex: Int? = null
 

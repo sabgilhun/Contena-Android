@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentSearchTabBinding
-import com.sabgil.contena.presenter.base.BaseFragment
-import com.sabgil.contena.presenter.home.fragments.tabmanager.TabFragment
+import com.sabgil.contena.presenter.home.fragments.tabmanager.BaseTabFragment
 
-class SearchTabFragment : BaseFragment<FragmentSearchTabBinding>(R.layout.fragment_search_tab),
-    TabFragment {
+class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fragment_search_tab) {
 
     override var backStackTabIndex: Int? = null
 

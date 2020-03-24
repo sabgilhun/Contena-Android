@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentBookmarkTabBinding
-import com.sabgil.contena.presenter.base.BaseFragment
-import com.sabgil.contena.presenter.home.fragments.tabmanager.TabFragment
+import com.sabgil.contena.presenter.home.fragments.tabmanager.BaseTabFragment
 
-class BookmarkTabFragment : BaseFragment<FragmentBookmarkTabBinding>(R.layout.fragment_bookmark_tab),
-    TabFragment {
+class BookmarkTabFragment :
+    BaseTabFragment<FragmentBookmarkTabBinding>(R.layout.fragment_bookmark_tab) {
 
     override var backStackTabIndex: Int? = null
 

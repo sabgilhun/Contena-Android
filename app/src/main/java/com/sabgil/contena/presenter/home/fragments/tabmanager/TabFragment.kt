@@ -1,8 +1,10 @@
 package com.sabgil.contena.presenter.home.fragments.tabmanager
 
-interface TabFragment {
+import com.sabgil.contena.presenter.base.InjectFragment
 
-    var backStackTabIndex: Int?
+abstract class TabFragment : InjectFragment() {
 
-    fun refreshTab()
+    abstract var backStackTabIndex: Int?
+
+    abstract fun refreshTab()
 }

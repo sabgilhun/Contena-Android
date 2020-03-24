@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentHomeTabBinding
-import com.sabgil.contena.presenter.base.BaseFragment
-import com.sabgil.contena.presenter.home.fragments.tabmanager.TabFragment
+import com.sabgil.contena.presenter.home.fragments.tabmanager.BaseTabFragment
 
-class HomeTabFragment : BaseFragment<FragmentHomeTabBinding>(R.layout.fragment_home_tab),
-    TabFragment {
+class HomeTabFragment : BaseTabFragment<FragmentHomeTabBinding>(R.layout.fragment_home_tab) {
 
     override var backStackTabIndex: Int? = null
 

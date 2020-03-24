@@ -49,9 +49,8 @@ class TabFragmentManager(
         tabFragment: TabFragment
     ): FragmentTransaction =
         if (isNewTab) {
-            this.add(fragmentContainer, tabFragment as Fragment)
+            this.add(fragmentContainer, tabFragment)
         } else {
-            this.show(tabFragment as Fragment)
+            this.show(tabFragment)
         }
-
 }
