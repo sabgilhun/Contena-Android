@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.sabgil.contena.di.annotations.ApplicationScope
 import com.sabgil.contena.di.annotations.ViewModelKey
 import com.sabgil.contena.di.factories.ViewModelFactory
+import com.sabgil.contena.presenter.home.viewmodels.HomeTabViewModel
 import com.sabgil.contena.presenter.home.viewmodels.HomeViewModel
 import dagger.Binds
 import dagger.Module
@@ -21,4 +22,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeTabViewModel::class)
+    abstract fun bindHomeTabViewModel(homeTabViewModel: HomeTabViewModel): ViewModel
 }

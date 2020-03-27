@@ -6,6 +6,7 @@
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:textViewStyle">@style/TextStyle</item>
 	</style>
 	
 	<style name="LoadingDialog" parent="Theme.AppCompat.Dialog.Alert">
@@ -13,5 +14,11 @@
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowNoTitle">true</item>
 		<item name="android:backgroundDimEnabled">true</item>
+	</style>
+	
+	<style name="TextStyle">
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/colorBlack</item>
+		<item name="android:textColorHint">@color/colorGray400</item>
 	</style>
 </resources>
