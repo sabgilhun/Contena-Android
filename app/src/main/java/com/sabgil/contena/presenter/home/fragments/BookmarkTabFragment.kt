@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentBookmarkTabBinding
-import com.sabgil.contena.presenter.home.fragments.tabmanager.BaseTabFragment
+import com.sabgil.contena.presenter.base.BaseFragment
+import com.sabgil.contena.presenter.home.fragments.tabmanager.Tab
+import com.sabgil.contena.presenter.home.widgets.BottomNavigationBar
 
 class BookmarkTabFragment :
-    BaseTabFragment<FragmentBookmarkTabBinding>(R.layout.fragment_bookmark_tab) {
+    BaseFragment<FragmentBookmarkTabBinding>(R.layout.fragment_bookmark_tab), Tab {
 
-    override var backStackTabIndex: Int? = null
+    override var backTabIndex: BottomNavigationBar.TabIndex? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

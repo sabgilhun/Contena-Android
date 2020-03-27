@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.ColorRes
 import androidx.databinding.DataBindingUtil
 import com.sabgil.contena.R
 import com.sabgil.contena.commons.ext.layoutInflater
@@ -25,18 +24,32 @@ class BottomNavigationBar : FrameLayout {
         initView()
     }
 
-    private lateinit var binding: WidgetBottomNavigationBarBinding
-
-    var tabClickConsumer: ((Int) -> (Unit))? = null
-
-    var selectedTab: Tab? = null
+    var tabManager: TabManager? = null
         set(value) {
-            value?.let {
-                tabClickConsumer?.invoke(it.index)
-                if (field != it) changeTabColor(field, it)
-            }
+            value?.initTab(selectedTabIndex)
             field = value
         }
+
+    private lateinit var binding: WidgetBottomNavigationBarBinding
+
+    private var selectedTabIndex: TabIndex = TabIndex.HOME
+
+    private val tabClickConsumer: (TabIndex) -> Unit = { handleTabClick(selectedTabIndex, it) }
+
+    fun goToBackTab() {
+        tabManager?.let {
+            val backTabIndex = it.getBackTab(selectedTabIndex)
+
+            if (backTabIndex == null) {
+                it.emptyTabBackStack()
+            } else {
+                changeTabColor(selectedTabIndex, backTabIndex)
+                it.changeTab(selectedTabIndex, backTabIndex)
+                it.emptyBackTab(selectedTabIndex)
+                selectedTabIndex = backTabIndex
+            }
+        }
+    }
 
     private fun initView() {
         binding = DataBindingUtil.inflate(
@@ -46,49 +59,121 @@ class BottomNavigationBar : FrameLayout {
             true
         )
 
-        binding.homeItem.setOnClickListener { selectedTab = Tab.HOME }
-        binding.searchItem.setOnClickListener { selectedTab = Tab.SEARCH }
-        binding.bookmarkItem.setOnClickListener { selectedTab = Tab.BOOKMARK }
-        binding.settingsItem.setOnClickListener { selectedTab = Tab.SETTINGS }
+        initTabState()
+        setupTabClickListener()
     }
 
-    private fun tintTabItem(tab: Tab, isSelected: Boolean) {
-        val colorRes = if (isSelected) SELECTED_ITEM_COLOR else NOT_SELECTED_ITEM_COLOR
+    private fun setupTabClickListener() {
+        binding.homeItem.setOnClickListener { tabClickConsumer(TabIndex.HOME) }
+        binding.searchItem.setOnClickListener { tabClickConsumer(TabIndex.SEARCH) }
+        binding.bookmarkItem.setOnClickListener { tabClickConsumer(TabIndex.BOOKMARK) }
+        binding.settingsItem.setOnClickListener { tabClickConsumer(TabIndex.SETTINGS) }
+    }
 
-        when (tab) {
-            Tab.HOME -> paintColorToItem(binding.homeIcon, binding.homeTitle, colorRes)
-            Tab.SEARCH -> paintColorToItem(binding.searchIcon, binding.searchTitle, colorRes)
-            Tab.BOOKMARK -> paintColorToItem(binding.bookmarkIcon, binding.bookmarkTitle, colorRes)
-            Tab.SETTINGS -> paintColorToItem(binding.settingsIcon, binding.settingsTitle, colorRes)
+    private fun initTabState() {
+        tintTab(selectedTabIndex, true)
+    }
+
+    private fun handleTabClick(oldTabIndex: TabIndex, newTabIndex: TabIndex) {
+        changeTabColor(oldTabIndex, newTabIndex)
+
+        tabManager?.let {
+            if (oldTabIndex == newTabIndex) {
+                it.refreshTab(newTabIndex)
+            } else {
+                it.changeTab(oldTabIndex, newTabIndex)
+                it.setBackTab(newTabIndex, oldTabIndex)
+            }
+        }
+
+        selectedTabIndex = newTabIndex
+    }
+
+    private fun changeTabColor(oldTabIndex: TabIndex, newTabIndex: TabIndex) {
+        tintTab(oldTabIndex, false)
+        tintTab(newTabIndex, true)
+    }
+
+    private fun tintTab(tabIndex: TabIndex, isSelected: Boolean) {
+        when (tabIndex) {
+            TabIndex.HOME -> tintIconAndText(
+                icon = binding.homeIcon,
+                text = binding.homeTitle,
+                iconRes = tabIndex.mapToDrawableRes(isSelected),
+                textColorRes = isSelected.mapToTextColor()
+            )
+            TabIndex.SEARCH -> tintIconAndText(
+                icon = binding.searchIcon,
+                text = binding.searchTitle,
+                iconRes = tabIndex.mapToDrawableRes(isSelected),
+                textColorRes = isSelected.mapToTextColor()
+            )
+            TabIndex.BOOKMARK -> tintIconAndText(
+                icon = binding.bookmarkIcon,
+                text = binding.bookmarkTitle,
+                iconRes = tabIndex.mapToDrawableRes(isSelected),
+                textColorRes = isSelected.mapToTextColor()
+            )
+            TabIndex.SETTINGS -> tintIconAndText(
+                icon = binding.settingsIcon,
+                text = binding.settingsTitle,
+                iconRes = tabIndex.mapToDrawableRes(isSelected),
+                textColorRes = isSelected.mapToTextColor()
+            )
         }
     }
 
-    private fun changeTabColor(oldTab: Tab?, newTab: Tab) {
-        oldTab?.let {
-            tintTabItem(it, false)
+    private fun tintIconAndText(icon: ImageView, text: TextView, iconRes: Int, textColorRes: Int) {
+        icon.setImageResource(iconRes)
+        text.setTextColor(textColorRes)
+    }
+
+    private fun Boolean.mapToTextColor() =
+        if (this) context.getColor(R.color.colorAmber600) else context.getColor(R.color.colorGray800)
+
+    private fun TabIndex.mapToDrawableRes(isSelected: Boolean) =
+        when (this) {
+            TabIndex.HOME ->
+                if (isSelected)
+                    R.drawable.ic_home_amber600_24dp
+                else
+                    R.drawable.ic_home_gray800_24dp
+
+            TabIndex.SEARCH ->
+                if (isSelected)
+                    R.drawable.ic_search_amber600_24dp
+                else
+                    R.drawable.ic_search_gray800_24dp
+            TabIndex.BOOKMARK ->
+                if (isSelected)
+                    R.drawable.ic_bookmark_amber600_24dp
+                else
+                    R.drawable.ic_bookmark_gray800_24dp
+            TabIndex.SETTINGS ->
+                if (isSelected)
+                    R.drawable.ic_settings_amber600_24dp
+                else
+                    R.drawable.ic_settings_gray800_24dp
         }
-        tintTabItem(newTab, true)
+
+    enum class TabIndex {
+        HOME, SEARCH, BOOKMARK, SETTINGS;
     }
 
-    private fun paintColorToItem(icon: ImageView, text: TextView, @ColorRes colorRes: Int) {
-        val color = context.getColor(colorRes)
-        icon.background.setTint(color)
-        text.setTextColor(color)
-    }
+    interface TabManager {
 
-    enum class Tab(val index: Int) {
-        HOME(1), SEARCH(2), BOOKMARK(3), SETTINGS(4);
+        fun initTab(initialTabIndex: TabIndex)
 
-        companion object {
-            fun from(index: Int) = values().find { it.index == index }
-                ?: throw IllegalArgumentException("excess tab index range")
-        }
-    }
+        fun changeTab(oldTabIndex: TabIndex, newTabIndex: TabIndex)
 
-    companion object {
-        @ColorRes
-        private const val SELECTED_ITEM_COLOR = R.color.colorAmber600
-        @ColorRes
-        private const val NOT_SELECTED_ITEM_COLOR = R.color.colorGray800
+        fun refreshTab(tabIndex: TabIndex)
+
+        fun emptyTabBackStack()
+
+        fun setBackTab(targetIndex: TabIndex, backIndex: TabIndex)
+
+        fun emptyBackTab(targetIndex: TabIndex)
+
+        fun getBackTab(targetIndex: TabIndex): TabIndex?
     }
 }
