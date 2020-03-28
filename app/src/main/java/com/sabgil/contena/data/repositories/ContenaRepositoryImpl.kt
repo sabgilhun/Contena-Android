@@ -2,7 +2,7 @@ package com.sabgil.contena.data.repositories
 
 import com.sabgil.contena.commons.PageHolder
 import com.sabgil.contena.domain.model.DetailNewItem
-import com.sabgil.contena.domain.model.NewItemPost
+import com.sabgil.contena.domain.model.Post
 import com.sabgil.contena.domain.model.Shop
 import com.sabgil.contena.domain.model.Subscription
 import com.sabgil.contena.data.remote.contena.ContenaApi
@@ -16,7 +16,7 @@ class ContenaRepositoryImpl @Inject constructor(
     private val contenaMapper: ContenaMapper
 ) : ContenaRepository {
 
-    override fun getPostList(userId: String, cursor: Long?): Single<PageHolder<NewItemPost>> =
+    override fun getPostList(userId: String, cursor: Long?): Single<PageHolder<Post>> =
         contenaApi.getPostList(userId, cursor)
             .map(contenaMapper::toNewItemPostPage)
 

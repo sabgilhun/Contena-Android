@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".presenter.home.widgets.BottomNavigationBar">
+	
+	<data>
+		
+		<variable
+			name="post"
+			type="com.sabgil.contena.domain.model.Post" />
+	</data>
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="360dp">
+		
+		<FrameLayout
+			android:id="@+id/logoHolder"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="4dp"
+			android:layout_marginBottom="4dp"
+			android:background="@drawable/shapre_circle_white_backgorund_gray200_border"
+			android:padding="8dp"
+			app:layout_constraintBottom_toTopOf="@id/newItemViewPager"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+			
+			<ImageView
+				android:id="@+id/shopLogoImageView"
+				android:layout_width="32dp"
+				android:layout_height="32dp"
+				app:image="@{post.shopLogoUrl}"
+				tools:ignore="ContentDescription" />
+		</FrameLayout>
+		
+		<TextView
+			android:id="@+id/shopNameTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_marginStart="12dp"
+			android:text="@{post.shopName}"
+			android:textSize="16dp"
+			app:layout_constraintBottom_toTopOf="@id/uploadDate"
+			app:layout_constraintStart_toEndOf="@id/logoHolder"
+			app:layout_constraintTop_toTopOf="@id/logoHolder"
+			tools:ignore="SpUsage"
+			tools:text="bluesman" />
+		
+		<TextView
+			android:id="@+id/uploadDate"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_marginStart="12dp"
+			android:text="@{post.uploadDate}"
+			android:textColor="@color/colorGray400"
+			android:textSize="12dp"
+			app:layout_constraintBottom_toBottomOf="@id/logoHolder"
+			app:layout_constraintStart_toEndOf="@id/logoHolder"
+			app:layout_constraintTop_toBottomOf="@id/shopNameTextView"
+			app:layout_constraintVertical_chainStyle="packed"
+			tools:ignore="SpUsage"
+			tools:text="20.03.01" />
+		
+		<androidx.viewpager.widget.ViewPager
+			android:id="@+id/newItemViewPager"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/logoHolder" />
+		
+		<View
+			android:layout_width="0dp"
+			android:layout_height="0.5dp"
+			android:background="@color/colorGray200"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="@id/newItemViewPager" />
+		
+		<View
+			android:layout_width="0dp"
+			android:layout_height="0.5dp"
+			android:background="@color/colorGray200"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

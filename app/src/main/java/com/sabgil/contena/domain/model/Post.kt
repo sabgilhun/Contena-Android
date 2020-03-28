@@ -1,6 +1,6 @@
 package com.sabgil.contena.domain.model
 
-data class NewItemPost(
+data class Post(
     val postId: Long,
     val uploadDate: String,
     val shopName: String,

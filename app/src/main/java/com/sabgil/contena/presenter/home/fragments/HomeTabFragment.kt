@@ -3,11 +3,10 @@ package com.sabgil.contena.presenter.home.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentHomeTabBinding
 import com.sabgil.contena.presenter.base.BaseFragment
+import com.sabgil.contena.presenter.home.adapters.PostAdapter
 import com.sabgil.contena.presenter.home.adapters.ShopShortcutAdapter
 import com.sabgil.contena.presenter.home.fragments.tabmanager.Tab
 import com.sabgil.contena.presenter.home.viewmodels.HomeTabViewModel
@@ -20,7 +19,8 @@ class HomeTabFragment :
         getViewModel(HomeTabViewModel::class)
     }
 
-    private lateinit var adapter: ShopShortcutAdapter
+    private lateinit var shopShortcutAdapter: ShopShortcutAdapter
+    private lateinit var postAdapter: PostAdapter
 
     override var backTabIndex: BottomNavigationBar.TabIndex? = null
 
@@ -28,16 +28,30 @@ class HomeTabFragment :
         super.onViewCreated(view, savedInstanceState)
 
         setupShopShortcutRecyclerView()
+        setupPostRecyclerView()
 
         viewModel.loadSubscribedShopList()
-        viewModel.subscribedShopList.observe(viewLifecycleOwner, Observer(adapter::addAll))
+        viewModel.loadPostList()
+
+        viewModel.subscribedShopList.observe(
+            viewLifecycleOwner,
+            Observer(shopShortcutAdapter::addAll)
+        )
+
+        viewModel.postList.observe(
+            viewLifecycleOwner,
+            Observer(postAdapter::addAll)
+        )
     }
 
     private fun setupShopShortcutRecyclerView() {
-        adapter = ShopShortcutAdapter()
-        binding.shopShortcutRecyclerView.layoutManager =
-            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        binding.shopShortcutRecyclerView.adapter = adapter
+        shopShortcutAdapter = ShopShortcutAdapter()
+        binding.shopShortcutRecyclerView.adapter = shopShortcutAdapter
+    }
+
+    private fun setupPostRecyclerView() {
+        postAdapter = PostAdapter()
+        binding.postRecyclerView.adapter = postAdapter
     }
 
     override fun refreshTab() {

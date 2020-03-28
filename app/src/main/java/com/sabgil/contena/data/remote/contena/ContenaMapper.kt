@@ -22,10 +22,10 @@ class ContenaMapper @Inject constructor() {
             )
         }
 
-    fun toNewItemPostPage(getPostListResponse: GetPostListResponse): PageHolder<NewItemPost> =
+    fun toNewItemPostPage(getPostListResponse: GetPostListResponse): PageHolder<Post> =
         PageHolder(
             items = getPostListResponse.postList.map { postData ->
-                NewItemPost(
+                Post(
                     postId = postData.postId,
                     uploadDate = postData.uploadDate,
                     shopName = postData.shopName,
