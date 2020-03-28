@@ -1,6 +1,6 @@
 package com.sabgil.contena.data.repositories
 
-import com.sabgil.contena.commons.PageHolder
+import com.sabgil.contena.commons.pagemanager.PageHolder
 import com.sabgil.contena.domain.model.DetailNewItem
 import com.sabgil.contena.domain.model.Post
 import com.sabgil.contena.domain.model.Shop

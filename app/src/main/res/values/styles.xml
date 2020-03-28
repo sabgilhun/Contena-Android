@@ -2,7 +2,7 @@
 	
 	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="android:statusBarColor">@color/colorWhite</item>
-		<item name="android:background">@color/colorWhite</item>
+		<item name="android:windowBackground">@color/colorWhite</item>
 		<item name="android:windowLightStatusBar">true</item>
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primaryDark</item>

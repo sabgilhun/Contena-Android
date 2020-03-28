@@ -1,6 +1,8 @@
 package com.sabgil.contena.presenter.home.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.lifecycle.Observer
 import com.sabgil.contena.R
@@ -31,7 +33,7 @@ class HomeTabFragment :
         setupPostRecyclerView()
 
         viewModel.loadSubscribedShopList()
-        viewModel.loadPostList()
+        postAdapter.initialDataLoad()
 
         viewModel.subscribedShopList.observe(
             viewLifecycleOwner,
@@ -40,7 +42,7 @@ class HomeTabFragment :
 
         viewModel.postList.observe(
             viewLifecycleOwner,
-            Observer(postAdapter::addAll)
+            Observer(postAdapter.dataObserver)
         )
     }
 
@@ -50,7 +52,7 @@ class HomeTabFragment :
     }
 
     private fun setupPostRecyclerView() {
-        postAdapter = PostAdapter()
+        postAdapter = PostAdapter(Handler(Looper.getMainLooper()), viewModel::loadPostList)
         binding.postRecyclerView.adapter = postAdapter
     }
 

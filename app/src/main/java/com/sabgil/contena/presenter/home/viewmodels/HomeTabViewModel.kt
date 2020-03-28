@@ -2,6 +2,7 @@ package com.sabgil.contena.presenter.home.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sabgil.contena.commons.pagemanager.PageHolder
 import com.sabgil.contena.data.repositories.ContenaRepository
 import com.sabgil.contena.domain.model.Post
 import com.sabgil.contena.domain.model.Shop
@@ -16,8 +17,8 @@ class HomeTabViewModel @Inject constructor(
     private val _subscribedShopList = MutableLiveData<List<Shop>>()
     val subscribedShopList: LiveData<List<Shop>> = _subscribedShopList
 
-    private val _postList = MutableLiveData<List<Post>>()
-    val postList: LiveData<List<Post>> = _postList
+    private val _postList = MutableLiveData<PageHolder<Post>>()
+    val postList: LiveData<PageHolder<Post>> = _postList
 
     fun loadSubscribedShopList() {
         contenaRepository.getSubscribedShopList("1")
@@ -28,10 +29,14 @@ class HomeTabViewModel @Inject constructor(
             ).add()
     }
 
-    fun loadPostList() {
-        contenaRepository.getPostList("1")
+    fun loadPostList(cursor: Long) {
+
+        contenaRepository.getPostList("1", if (cursor == 0L) -1 else cursor)
+            .map {
+                Thread.sleep(2000)
+                return@map it
+            }
             .compose(apiLoadingSingleTransformer())
-            .map { it.items }
             .subscribeBy(
                 onSuccess = _postList::setValue,
                 onError = { _showApiErrorMessage.setValue(it.message ?: "") }

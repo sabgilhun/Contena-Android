@@ -1,6 +1,6 @@
 package com.sabgil.contena.data.remote.contena
 
-import com.sabgil.contena.commons.PageHolder
+import com.sabgil.contena.commons.pagemanager.PageHolder
 import com.sabgil.contena.data.remote.contena.request.PostUnsubscriptionRequest
 import com.sabgil.contena.data.remote.contena.request.PostSubscriptionRequest
 import com.sabgil.contena.data.remote.contena.response.GetNewItemListResponse
