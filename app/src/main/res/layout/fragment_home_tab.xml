@@ -22,18 +22,16 @@
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="12dp"
-					android:layout_marginEnd="12dp"
 					android:orientation="vertical">
 					
 					<TextView
 						android:id="@+id/title"
 						android:layout_width="match_parent"
 						android:layout_height="40dp"
-						android:layout_marginStart="8dp"
-						android:layout_marginEnd="8dp"
 						android:background="@color/colorWhite"
 						android:gravity="center_vertical"
+						android:paddingStart="8dp"
+						android:paddingEnd="8dp"
 						android:text="@string/fragment_home_tab_title"
 						android:textSize="16dp"
 						tools:ignore="SpUsage" />
@@ -42,6 +40,7 @@
 						android:id="@+id/shop_shortcut_recycler_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
+						android:background="@drawable/common_top_border"
 						android:orientation="horizontal"
 						app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 						tools:itemCount="3"
@@ -56,18 +55,11 @@
 			android:layout_height="match_parent"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior">
 			
-<!--			<TextView-->
-<!--				android:id="@+id/postUploadHintTextView"-->
-<!--				android:layout_width="0dp"-->
-<!--				android:layout_height="wrap_content"-->
-<!--				app:layout_constraintEnd_toEndOf="parent"-->
-<!--				app:layout_constraintStart_toStartOf="parent"-->
-<!--				app:layout_constraintTop_toTopOf="parent" />-->
-			
 			<androidx.recyclerview.widget.RecyclerView
 				android:id="@+id/postRecyclerView"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
+				android:paddingTop="36dp"
 				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
@@ -75,6 +67,29 @@
 				app:layout_constraintTop_toTopOf="parent"
 				tools:itemCount="3"
 				tools:listitem="@layout/item_post" />
+			
+			<TextView
+				android:id="@+id/uploadDateHintTextView"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:gravity="center_vertical"
+				android:paddingStart="8dp"
+				android:paddingEnd="8dp"
+				android:textColor="@color/colorGray600"
+				android:textSize="14dp"
+				app:layout_constraintBottom_toBottomOf="@id/guideLine"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:ignore="SpUsage"
+				tools:text="20-03-20" />
+			
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guideLine"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				app:layout_constraintGuide_begin="36dp" />
 		
 		</androidx.constraintlayout.widget.ConstraintLayout>
 	</androidx.coordinatorlayout.widget.CoordinatorLayout>
