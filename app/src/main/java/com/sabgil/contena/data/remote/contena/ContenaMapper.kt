@@ -1,12 +1,13 @@
 package com.sabgil.contena.data.remote.contena
 
 import com.sabgil.contena.commons.pagemanager.PageHolder
-import com.sabgil.contena.data.remote.contena.request.PostUnsubscriptionRequest
 import com.sabgil.contena.data.remote.contena.request.PostSubscriptionRequest
+import com.sabgil.contena.data.remote.contena.request.PostUnsubscriptionRequest
 import com.sabgil.contena.data.remote.contena.response.GetNewItemListResponse
 import com.sabgil.contena.data.remote.contena.response.GetPostListResponse
 import com.sabgil.contena.data.remote.contena.response.GetShopListResponse
 import com.sabgil.contena.domain.model.*
+import com.sabgil.contena.utils.DateUtils
 import javax.inject.Inject
 
 class ContenaMapper @Inject constructor() {
@@ -27,7 +28,7 @@ class ContenaMapper @Inject constructor() {
             items = getPostListResponse.postList.map { postData ->
                 Post(
                     postId = postData.postId,
-                    uploadDate = postData.uploadDate,
+                    uploadDate = DateUtils.parseContenaToHangul(postData.uploadDate),
                     shopName = postData.shopName,
                     shopLogoUrl = postData.shopLogoUrl,
                     newItemList = postData.newItemList.map { newItemData ->

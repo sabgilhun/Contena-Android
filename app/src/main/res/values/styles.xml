@@ -8,6 +8,7 @@
 		<item name="colorPrimaryDark">@color/primaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
 		<item name="android:textViewStyle">@style/TextStyle</item>
+		<item name="android:buttonStyle">@style/ButtonStyle</item>
 	</style>
 	
 	<style name="LoadingDialog" parent="Theme.AppCompat.Dialog.Alert">
@@ -19,7 +20,14 @@
 	
 	<style name="TextStyle">
 		<item name="android:textSize">14sp</item>
-		<item name="android:textColor">@color/colorBlack</item>
+		<item name="android:textColor">@color/colorGray800</item>
 		<item name="android:textColorHint">@color/colorGray400</item>
+	</style>
+	
+	<style name="ButtonStyle" parent="TextStyle">
+		<item name="android:textColor">@color/colorGray800</item>
+		<item name="android:background">@drawable/ripple_shape_r6_background_amber400</item>
+		<item name="android:focusable">true</item>
+		<item name="android:clickable">true</item>
 	</style>
 </resources>

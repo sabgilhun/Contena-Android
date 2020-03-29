@@ -135,23 +135,23 @@ class BottomNavigationBar : FrameLayout {
         when (this) {
             TabIndex.HOME ->
                 if (isSelected)
-                    R.drawable.ic_home_amber600_24dp
+                    R.drawable.ic_home_amber400_24dp
                 else
                     R.drawable.ic_home_gray800_24dp
 
             TabIndex.SEARCH ->
                 if (isSelected)
-                    R.drawable.ic_search_amber600_24dp
+                    R.drawable.ic_search_amber400_24dp
                 else
                     R.drawable.ic_search_gray800_24dp
             TabIndex.BOOKMARK ->
                 if (isSelected)
-                    R.drawable.ic_bookmark_amber600_24dp
+                    R.drawable.ic_bookmark_amber400_24dp
                 else
                     R.drawable.ic_bookmark_gray800_24dp
             TabIndex.SETTINGS ->
                 if (isSelected)
-                    R.drawable.ic_settings_amber600_24dp
+                    R.drawable.ic_settings_amber400_24dp
                 else
                     R.drawable.ic_settings_gray800_24dp
         }

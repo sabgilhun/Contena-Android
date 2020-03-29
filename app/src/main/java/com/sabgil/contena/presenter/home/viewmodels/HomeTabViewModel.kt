@@ -31,7 +31,7 @@ class HomeTabViewModel @Inject constructor(
 
     fun loadPostList(cursor: Long) {
 
-        contenaRepository.getPostList("1", if (cursor == 0L) -1 else cursor)
+        contenaRepository.getPostList("0", if (cursor == 0L) -1 else cursor)
             .map {
                 Thread.sleep(2000)
                 return@map it

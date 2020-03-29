@@ -11,6 +11,8 @@ abstract class PageManageAdapter<ITEM, B : ViewDataBinding>(
     private val viewHolderInitializer: ViewHolderInitializer<B>
 ) : RecyclerView.Adapter<PageManagerViewHolder<B>>() {
 
+    private val rawItemList: MutableList<ITEM> = mutableListOf()
+
     private val items = ItemsWrapper()
 
     private var cursor: Long = 0
@@ -26,6 +28,8 @@ abstract class PageManageAdapter<ITEM, B : ViewDataBinding>(
     }
 
     fun initialDataLoad() = loadNextPage(cursor)
+
+    fun getItem(position: Int): ITEM? = if(rawItemList.isNotEmpty()) rawItemList[position] else null
 
     abstract fun onBindItemHolder(item: ITEM, binding: B)
 
@@ -102,6 +106,8 @@ abstract class PageManageAdapter<ITEM, B : ViewDataBinding>(
             val changedBeforeSize = items.size
             items.addAll(loadedPageHolder.toItemList())
             handler.post { this@PageManageAdapter.notifyItemInserted(changedBeforeSize) }
+
+            rawItemList.addAll(loadedPageHolder.items)
         }
 
         fun isLastPosition(position: Int) = position == items.size - 1

@@ -12,6 +12,7 @@
 	
 	<!--item_post-->
 	<string name="emptyItem">구독하신 쇼핑몰에\n신상품 포스트가 없습니다.</string>
-	<string name="noMoreItem">더 이전의 포스트가 존재 하지 않습니다.</string>
+	<string name="noMoreItem">더 이상 이전 포스트가 존재 하지 않습니다.</string>
+	<string name="goToSubscription">구독하로 가기</string>
 
 </resources>

@@ -5,6 +5,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentHomeTabBinding
 import com.sabgil.contena.presenter.base.BaseFragment
@@ -20,6 +22,24 @@ class HomeTabFragment :
     private val viewModel: HomeTabViewModel by lazy {
         getViewModel(HomeTabViewModel::class)
     }
+
+    private val postRecyclerViewScrollHandler =
+        object : RecyclerView.OnScrollListener() {
+            var oldPosition: Int = -1
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val position = (recyclerView.layoutManager as LinearLayoutManager)
+                    .findFirstVisibleItemPosition()
+
+                if (position != oldPosition) {
+                    val post = (recyclerView.adapter as PostAdapter).getItem(position)
+                    binding.uploadDateHintTextView.text = post?.uploadDate
+                    oldPosition = position
+                }
+            }
+        }
 
     private lateinit var shopShortcutAdapter: ShopShortcutAdapter
     private lateinit var postAdapter: PostAdapter
@@ -54,6 +74,7 @@ class HomeTabFragment :
     private fun setupPostRecyclerView() {
         postAdapter = PostAdapter(Handler(Looper.getMainLooper()), viewModel::loadPostList)
         binding.postRecyclerView.adapter = postAdapter
+        binding.postRecyclerView.addOnScrollListener(postRecyclerViewScrollHandler)
     }
 
     override fun refreshTab() {
