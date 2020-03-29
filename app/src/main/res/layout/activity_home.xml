@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	tools:context=".presenter.home.activities.HomeActivity">
+	tools:context=".presenter.home.activity.HomeActivity">
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
@@ -17,7 +17,7 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
 		
-		<com.sabgil.contena.presenter.home.widgets.BottomNavigationBar
+		<com.sabgil.contena.presenter.home.widget.BottomNavigationBar
 			android:id="@+id/bottomNavigation"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"

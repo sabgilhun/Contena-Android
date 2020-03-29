@@ -3,9 +3,8 @@ package com.sabgil.contena.presenter.base
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.sabgil.contena.di.components.FragmentComponent
+import com.sabgil.contena.di.component.FragmentComponent
 import javax.inject.Inject
-import javax.inject.Named
 
 abstract class InjectFragment : Fragment() {
 

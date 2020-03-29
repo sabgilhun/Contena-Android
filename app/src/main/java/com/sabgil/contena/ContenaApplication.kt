@@ -1,8 +1,8 @@
 package com.sabgil.contena
 
 import android.app.Application
-import com.sabgil.contena.di.components.ApplicationComponent
-import com.sabgil.contena.di.components.DaggerApplicationComponent
+import com.sabgil.contena.di.component.ApplicationComponent
+import com.sabgil.contena.di.component.DaggerApplicationComponent
 
 class ContenaApplication : Application() {
 

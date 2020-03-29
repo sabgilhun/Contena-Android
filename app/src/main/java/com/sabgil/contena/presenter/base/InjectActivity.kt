@@ -4,9 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.sabgil.contena.ContenaApplication
-import com.sabgil.contena.di.components.ActivityComponent
+import com.sabgil.contena.di.component.ActivityComponent
 import javax.inject.Inject
-import javax.inject.Named
 
 abstract class InjectActivity : AppCompatActivity() {
 
