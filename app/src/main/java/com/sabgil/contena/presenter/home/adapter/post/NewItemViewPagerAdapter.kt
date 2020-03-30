@@ -1,4 +1,4 @@
-package com.sabgil.contena.presenter.home.adapter
+package com.sabgil.contena.presenter.home.adapter.post
 
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.sabgil.contena.common.ext.layoutInflater
 import com.sabgil.contena.databinding.PagePostImageBinding
 import com.sabgil.contena.domain.model.SummaryNewItem
 
-class PostImagePagerAdapter : PagerAdapter() {
+class NewItemViewPagerAdapter : PagerAdapter() {
 
     private val items: MutableList<SummaryNewItem> = mutableListOf()
 

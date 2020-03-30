@@ -2,14 +2,13 @@ package com.sabgil.contena.common.pagemanager
 
 import android.os.Handler
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class PageManageAdapter<ITEM, B : ViewDataBinding>(
+abstract class PageManageAdapter<ITEM>(
     private val handler: Handler,
     private val loadNextPage: (cursor: Long) -> Unit,
-    private val viewHolderInitializer: ViewHolderInitializer<B>
-) : RecyclerView.Adapter<PageManagerViewHolder<B>>() {
+    private val viewHolderInitializer: ViewHolderInitializer
+) : RecyclerView.Adapter<PageManagerViewHolder>() {
 
     private val rawItemList: MutableList<ITEM> = mutableListOf()
 
@@ -29,14 +28,17 @@ abstract class PageManageAdapter<ITEM, B : ViewDataBinding>(
 
     fun initialDataLoad() = loadNextPage(cursor)
 
-    fun getItem(position: Int): ITEM? = if(rawItemList.isNotEmpty()) rawItemList[position] else null
+    fun getItem(position: Int): ITEM? =
+        if (rawItemList.isNotEmpty()) rawItemList[position] else null
 
-    abstract fun onBindItemHolder(item: ITEM, binding: B)
+    abstract fun onCreateItemViewHolder(parent: ViewGroup): PageManagerViewHolder.ItemViewHolder
+
+    abstract fun onBindItemViewHolder(item: ITEM, viewHolder: PageManagerViewHolder.ItemViewHolder)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PageManagerViewHolder<B> = when (viewType) {
+    ): PageManagerViewHolder = when (viewType) {
         ItemHolder.EMPTY -> PageManagerViewHolder.EmptyViewHolder(
             viewHolderInitializer.emptyViewHolderInit(parent)
         )
@@ -46,25 +48,19 @@ abstract class PageManageAdapter<ITEM, B : ViewDataBinding>(
         ItemHolder.LOADING -> PageManagerViewHolder.LoadingViewHolder(
             viewHolderInitializer.loadingViewHolderInit(parent)
         )
-        ItemHolder.ITEM -> PageManagerViewHolder.ItemViewHolder(
-            viewHolderInitializer.itemViewHolderInit(parent)
-        )
+        ItemHolder.ITEM -> onCreateItemViewHolder(parent)
         else -> throw IllegalArgumentException()
     }
 
-    override fun onBindViewHolder(holder: PageManagerViewHolder<B>, position: Int) {
+    override fun onBindViewHolder(holder: PageManagerViewHolder, position: Int) {
         val itemHolder = items[position]
 
-        if (itemHolder is ItemHolder.Item) {
+        if (itemHolder is ItemHolder.Item && holder is PageManagerViewHolder.ItemViewHolder) {
             if (items.isLastPosition(position)) {
                 items.addLoadingItem()
                 loadNextPage(cursor)
             }
-
-            onBindItemHolder(
-                itemHolder.item,
-                (holder as PageManagerViewHolder.ItemViewHolder<B>).binding
-            )
+            onBindItemViewHolder(itemHolder.item, holder)
         }
     }
 

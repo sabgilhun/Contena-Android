@@ -9,7 +9,7 @@ import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.addOnFirstVisibleChangedListener
 import com.sabgil.contena.databinding.FragmentHomeTabBinding
 import com.sabgil.contena.presenter.base.BaseFragment
-import com.sabgil.contena.presenter.home.adapter.PostAdapter
+import com.sabgil.contena.presenter.home.adapter.post.PostAdapter
 import com.sabgil.contena.presenter.home.adapter.ShopShortcutAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.Tab
 import com.sabgil.contena.presenter.home.viewmodel.HomeTabViewModel
@@ -53,7 +53,10 @@ class HomeTabFragment :
     }
 
     private fun setupPostRecyclerView() {
-        postAdapter = PostAdapter(Handler(Looper.getMainLooper()), viewModel::loadPostList)
+        postAdapter = PostAdapter(
+            Handler(Looper.getMainLooper()),
+            viewModel::loadPostList
+        )
         binding.postRecyclerView.adapter = postAdapter
         binding.postRecyclerView.addOnFirstVisibleChangedListener {
             binding.uploadDateHintTextView.text = postAdapter.getItem(it)?.uploadDate

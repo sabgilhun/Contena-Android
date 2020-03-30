@@ -30,7 +30,6 @@ class HomeTabViewModel @Inject constructor(
     }
 
     fun loadPostList(cursor: Long) {
-
         contenaRepository.getPostList("1", if (cursor == 0L) -1 else cursor)
             .compose(apiLoadingSingleTransformer())
             .map { PageHolder(it.first.map(PostListItem.Companion::from), it.second) }
