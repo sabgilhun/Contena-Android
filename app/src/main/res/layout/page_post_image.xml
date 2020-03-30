@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".presenter.home.adapter.PostImagePagerAdapter">
+	
+	<data>
+		
+		<variable
+			name="summaryNewItem"
+			type="com.sabgil.contena.domain.model.SummaryNewItem" />
+	</data>
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<ImageView
+			android:id="@+id/newItemImageView"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:image="@{summaryNewItem.imageUrl}"
+			app:layout_constraintBottom_toTopOf="@id/brandNameTextView"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:ignore="ContentDescription" />
+		
+		<TextView
+			android:id="@+id/brandNameTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:padding="4dp"
+			android:text="@{summaryNewItem.brandName}"
+			app:layout_constraintBottom_toTopOf="@id/productNameTextView"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/newItemImageView"
+			tools:text="브랜드명" />
+		
+		<TextView
+			android:id="@+id/productNameTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:padding="4dp"
+			android:text="@{summaryNewItem.productName}"
+			app:layout_constraintBottom_toTopOf="@id/priceTextView"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/brandNameTextView"
+			tools:text="상품명" />
+		
+		<TextView
+			android:id="@+id/priceTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:padding="4dp"
+			android:text="@{summaryNewItem.price}"
+			android:textSize="12sp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/productNameTextView"
+			tools:text="상품 가격" />
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

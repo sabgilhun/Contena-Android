@@ -7,13 +7,13 @@
 	<data>
 		
 		<variable
-			name="post"
-			type="com.sabgil.contena.domain.model.Post" />
+			name="postListItem"
+			type="com.sabgil.contena.presenter.home.model.PostListItem" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="360dp">
+		android:layout_height="520dp">
 		
 		<FrameLayout
 			android:id="@+id/logoHolder"
@@ -24,16 +24,16 @@
 			android:layout_marginTop="4dp"
 			android:layout_marginBottom="4dp"
 			android:background="@drawable/shapre_circle_white_backgorund_gray200_border"
-			android:padding="8dp"
+			android:padding="6dp"
 			app:layout_constraintBottom_toTopOf="@id/newItemViewPager"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent">
 			
 			<ImageView
 				android:id="@+id/shopLogoImageView"
-				android:layout_width="32dp"
-				android:layout_height="32dp"
-				app:image="@{post.shopLogoUrl}"
+				android:layout_width="28dp"
+				android:layout_height="28dp"
+				app:image="@{postListItem.shopLogoUrl}"
 				tools:ignore="ContentDescription" />
 		</FrameLayout>
 		
@@ -43,7 +43,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
 			android:layout_marginStart="12dp"
-			android:text="@{post.shopName}"
+			android:text="@{postListItem.shopName}"
 			android:textSize="16dp"
 			app:layout_constraintBottom_toTopOf="@id/uploadDate"
 			app:layout_constraintStart_toEndOf="@id/logoHolder"
@@ -57,7 +57,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
 			android:layout_marginStart="12dp"
-			android:text="@{post.uploadDate}"
+			android:text="@{postListItem.uploadDate}"
 			android:textColor="@color/colorGray400"
 			android:textSize="12dp"
 			app:layout_constraintBottom_toBottomOf="@id/logoHolder"
@@ -71,6 +71,7 @@
 			android:id="@+id/newItemViewPager"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
+			app:currentItem="@{postListItem.viewingPosition}"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
