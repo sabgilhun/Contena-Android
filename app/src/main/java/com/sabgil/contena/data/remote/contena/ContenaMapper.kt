@@ -1,6 +1,5 @@
 package com.sabgil.contena.data.remote.contena
 
-import com.sabgil.contena.common.pagemanager.PageHolder
 import com.sabgil.contena.data.remote.contena.request.PostSubscriptionRequest
 import com.sabgil.contena.data.remote.contena.request.PostUnsubscriptionRequest
 import com.sabgil.contena.data.remote.contena.response.GetNewItemListResponse
@@ -23,9 +22,9 @@ class ContenaMapper @Inject constructor() {
             )
         }
 
-    fun toNewItemPostPage(getPostListResponse: GetPostListResponse): PageHolder<Post> =
-        PageHolder(
-            items = getPostListResponse.postList.map { postData ->
+    fun toPostAndCursor(getPostListResponse: GetPostListResponse): Pair<List<Post>, Long> =
+        Pair(
+            first = getPostListResponse.postList.map { postData ->
                 Post(
                     postId = postData.postId,
                     uploadDate = DateUtils.parseContenaToHangul(postData.uploadDate),
@@ -41,7 +40,7 @@ class ContenaMapper @Inject constructor() {
                     }
                 )
             },
-            cursor = getPostListResponse.lastCursor
+            second = getPostListResponse.lastCursor
         )
 
     fun toShopList(getShopListResponse: GetShopListResponse): List<Shop> =

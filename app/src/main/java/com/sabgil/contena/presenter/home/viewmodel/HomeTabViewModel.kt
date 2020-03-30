@@ -33,7 +33,7 @@ class HomeTabViewModel @Inject constructor(
 
         contenaRepository.getPostList("1", if (cursor == 0L) -1 else cursor)
             .compose(apiLoadingSingleTransformer())
-            .map { PageHolder(it.items.map(PostListItem.Companion::from), it.cursor) }
+            .map { PageHolder(it.first.map(PostListItem.Companion::from), it.second) }
             .subscribeBy(
                 onSuccess = _postList::setValue,
                 onError = { _showApiErrorMessage.setValue(it.message ?: "") }

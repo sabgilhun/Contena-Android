@@ -1,12 +1,11 @@
 package com.sabgil.contena.data.repository
 
-import com.sabgil.contena.common.pagemanager.PageHolder
+import com.sabgil.contena.data.remote.contena.ContenaApi
+import com.sabgil.contena.data.remote.contena.ContenaMapper
 import com.sabgil.contena.domain.model.DetailNewItem
 import com.sabgil.contena.domain.model.Post
 import com.sabgil.contena.domain.model.Shop
 import com.sabgil.contena.domain.model.Subscription
-import com.sabgil.contena.data.remote.contena.ContenaApi
-import com.sabgil.contena.data.remote.contena.ContenaMapper
 import io.reactivex.Maybe
 import io.reactivex.Single
 import javax.inject.Inject
@@ -16,9 +15,9 @@ class ContenaRepositoryImpl @Inject constructor(
     private val contenaMapper: ContenaMapper
 ) : ContenaRepository {
 
-    override fun getPostList(userId: String, cursor: Long?): Single<PageHolder<Post>> =
+    override fun getPostList(userId: String, cursor: Long?): Single<Pair<List<Post>, Long>> =
         contenaApi.getPostList(userId, cursor)
-            .map(contenaMapper::toNewItemPostPage)
+            .map(contenaMapper::toPostAndCursor)
 
     override fun getNewItemList(postId: Long): Single<List<DetailNewItem>> =
         contenaApi.getNewItemList(postId)

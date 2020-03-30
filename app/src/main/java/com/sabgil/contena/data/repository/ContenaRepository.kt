@@ -1,6 +1,5 @@
 package com.sabgil.contena.data.repository
 
-import com.sabgil.contena.common.pagemanager.PageHolder
 import com.sabgil.contena.domain.model.DetailNewItem
 import com.sabgil.contena.domain.model.Post
 import com.sabgil.contena.domain.model.Shop
@@ -10,7 +9,7 @@ import io.reactivex.Single
 
 interface ContenaRepository {
 
-    fun getPostList(userId: String, cursor: Long? = null): Single<PageHolder<Post>>
+    fun getPostList(userId: String, cursor: Long? = null): Single<Pair<List<Post>, Long>>
 
     fun getNewItemList(postId: Long): Single<List<DetailNewItem>>
 
