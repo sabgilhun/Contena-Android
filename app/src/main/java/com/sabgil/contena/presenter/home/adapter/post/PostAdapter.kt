@@ -27,8 +27,10 @@ class PostAdapter(
             binding.postListItem = item
 
             pageObserver.unRegisterObserver()
-            binding.newItemViewPager.currentItem = item.viewingPosition
-            (binding.newItemViewPager.adapter as NewItemViewPagerAdapter).replaceAll(item.newItemList)
+            binding.newItemViewPager.apply {
+                currentItem = item.viewingPosition
+                (adapter as NewItemViewPagerAdapter).replaceAll(item.newItemList)
+            }
             pageObserver.registerObserver { item.viewingPosition = it }
         }
     }
@@ -41,9 +43,11 @@ class PostAdapter(
             R.layout.item_post,
             parent,
             false
-        ).apply {
-            newItemViewPager.adapter = NewItemViewPagerAdapter()
-            newItemViewPager.addOnPageChangeListener(pageChangeObserver)
+        )
+
+        binding.newItemViewPager.apply {
+            adapter = NewItemViewPagerAdapter()
+            addOnPageChangeListener(pageChangeObserver)
         }
 
         return PostItemViewHolder(
