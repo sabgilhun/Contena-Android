@@ -6,11 +6,10 @@ import android.os.Looper
 import android.view.View
 import androidx.lifecycle.Observer
 import com.sabgil.contena.R
-import com.sabgil.contena.common.ext.addOnFirstVisibleChangedListener
 import com.sabgil.contena.databinding.FragmentHomeTabBinding
 import com.sabgil.contena.presenter.base.BaseFragment
-import com.sabgil.contena.presenter.home.adapter.post.PostAdapter
 import com.sabgil.contena.presenter.home.adapter.ShopShortcutAdapter
+import com.sabgil.contena.presenter.home.adapter.post.PostAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.Tab
 import com.sabgil.contena.presenter.home.viewmodel.HomeTabViewModel
 import com.sabgil.contena.presenter.home.widget.BottomNavigationBar
@@ -58,9 +57,6 @@ class HomeTabFragment :
             viewModel::loadPostList
         )
         binding.postRecyclerView.adapter = postAdapter
-        binding.postRecyclerView.addOnFirstVisibleChangedListener {
-            binding.uploadDateHintTextView.text = postAdapter.getItem(it)?.uploadDate
-        }
     }
 
     override fun refreshTab() {

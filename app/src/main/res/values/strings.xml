@@ -2,7 +2,7 @@
 	<string name="app_name">Contena</string>
 	
 	<!--fragment_home_tab-->
-	<string name="fragment_home_tab_title">콘테나</string>
+	<string name="fragment_home_tab_title">로고 자리</string>
 	
 	<!--widget_bottom_navigation_bar-->
 	<string name="homeTitle">홈</string>

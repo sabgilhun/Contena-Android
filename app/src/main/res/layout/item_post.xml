@@ -9,11 +9,17 @@
 		<variable
 			name="postListItem"
 			type="com.sabgil.contena.presenter.home.model.PostListItem" />
+		
+		<variable
+			name="currentNewItem"
+			type="com.sabgil.contena.domain.model.SummaryNewItem" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="520dp">
+		android:layout_height="wrap_content"
+		android:background="@drawable/common_top_border"
+		android:paddingBottom="12dp">
 		
 		<FrameLayout
 			android:id="@+id/logoHolder"
@@ -25,7 +31,7 @@
 			android:layout_marginBottom="4dp"
 			android:background="@drawable/shapre_circle_white_backgorund_gray200_border"
 			android:padding="6dp"
-			app:layout_constraintBottom_toTopOf="@id/newItemViewPager"
+			app:layout_constraintBottom_toTopOf="@id/newItemImageViewPager"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent">
 			
@@ -68,30 +74,95 @@
 			tools:text="20.03.01" />
 		
 		<androidx.viewpager.widget.ViewPager
-			android:id="@+id/newItemViewPager"
+			android:id="@+id/newItemImageViewPager"
 			android:layout_width="0dp"
-			android:layout_height="0dp"
-			app:currentItem="@{postListItem.viewingPosition}"
-			app:layout_constraintBottom_toBottomOf="parent"
+			android:layout_height="440dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/logoHolder" />
+			app:layout_constraintTop_toBottomOf="@id/logoHolder"
+			tools:layout_height="300dp" />
+		
+		<com.google.android.material.tabs.TabLayout
+			android:id="@+id/imagePageTabLayout"
+			android:layout_width="0dp"
+			android:layout_height="44dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/newItemImageViewPager"
+			app:tabBackground="@drawable/selector_tab_indicator"
+			app:tabGravity="center"
+			app:tabIndicatorHeight="0dp"
+			app:tabMode="fixed" />
+		
+		<ImageView
+			android:id="@+id/bookmarkIcon"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="24dp"
+			android:src="@drawable/ic_bookmark_border_gray800_32dp"
+			app:layout_constraintBottom_toBottomOf="@id/imagePageTabLayout"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@id/imagePageTabLayout"
+			tools:ignore="ContentDescription" />
+		
+		<TextView
+			android:id="@+id/brandTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:includeFontPadding="false"
+			android:paddingStart="8dp"
+			android:paddingEnd="8dp"
+			android:text="@{currentNewItem.brandName}"
+			android:textSize="14sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/imagePageTabLayout"
+			tools:text="브랜드" />
+		
+		<TextView
+			android:id="@+id/productNameTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:includeFontPadding="false"
+			android:paddingStart="8dp"
+			android:paddingEnd="8dp"
+			android:text="@{currentNewItem.productName}"
+			android:textSize="14sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/brandTextView"
+			tools:text="상품 이름" />
+		
+		<TextView
+			android:id="@+id/priceTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:paddingStart="8dp"
+			android:paddingEnd="8dp"
+			android:text="@{currentNewItem.price}"
+			android:textSize="16sp"
+			android:textStyle="bold"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/productNameTextView"
+			tools:text="100,000" />
 		
 		<View
 			android:layout_width="0dp"
 			android:layout_height="0.5dp"
-			android:background="@color/colorGray200"
+			android:background="@color/commonBorderColor"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@id/newItemViewPager" />
+			app:layout_constraintTop_toTopOf="@id/newItemImageViewPager" />
 		
 		<View
 			android:layout_width="0dp"
 			android:layout_height="0.5dp"
-			android:background="@color/colorGray200"
+			android:background="@color/commonBorderColor"
+			app:layout_constraintBottom_toBottomOf="@id/newItemImageViewPager"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintStart_toStartOf="parent" />
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

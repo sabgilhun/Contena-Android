@@ -20,11 +20,11 @@ class PageChangeObserver : ViewPager.OnPageChangeListener {
         observer?.invoke(position)
     }
 
-    fun registerObserver(observer: (Int) -> Unit) {
+    fun registerOnChangeConsumer(observer: (Int) -> Unit) {
         this.observer = observer
     }
 
-    fun unRegisterObserver() {
+    fun unRegisterConsumer() {
         observer = null
     }
 }

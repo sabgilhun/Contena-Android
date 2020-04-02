@@ -24,14 +24,20 @@ class PostAdapter(
         viewHolder: PageManagerViewHolder.ItemViewHolder
     ) {
         (viewHolder as PostItemViewHolder).apply {
-            binding.postListItem = item
+            pageChangeObserver.unRegisterConsumer()
 
-            pageObserver.unRegisterObserver()
-            binding.newItemViewPager.apply {
-                currentItem = item.viewingPosition
+            binding.postListItem = item
+            binding.currentNewItem = item.newItemList[item.viewingPosition]
+
+            binding.newItemImageViewPager.apply {
                 (adapter as NewItemViewPagerAdapter).replaceAll(item.newItemList)
+                currentItem = item.viewingPosition
             }
-            pageObserver.registerObserver { item.viewingPosition = it }
+
+            pageChangeObserver.registerOnChangeConsumer {
+                item.viewingPosition = it
+                binding.currentNewItem = item.newItemList[it]
+            }
         }
     }
 
@@ -45,10 +51,13 @@ class PostAdapter(
             false
         )
 
-        binding.newItemViewPager.apply {
+        binding.newItemImageViewPager.apply {
             adapter = NewItemViewPagerAdapter()
+
             addOnPageChangeListener(pageChangeObserver)
         }
+
+        binding.imagePageTabLayout.setupWithViewPager(binding.newItemImageViewPager)
 
         return PostItemViewHolder(
             binding,
@@ -58,6 +67,6 @@ class PostAdapter(
 
     private class PostItemViewHolder(
         val binding: ItemPostBinding,
-        val pageObserver: PageChangeObserver
+        val pageChangeObserver: PageChangeObserver
     ) : PageManagerViewHolder.ItemViewHolder(binding.root)
 }

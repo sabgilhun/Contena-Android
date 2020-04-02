@@ -17,37 +17,36 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:background="@color/colorWhite"
-				app:layout_scrollFlags="scroll|enterAlways">
+				app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
 				
-				<LinearLayout
+				<androidx.appcompat.widget.Toolbar
+					android:layout_width="match_parent"
+					android:layout_height="40dp" />
+				
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/shop_shortcut_recycler_view"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:orientation="vertical">
-					
-					<TextView
-						android:id="@+id/title"
-						android:layout_width="match_parent"
-						android:layout_height="40dp"
-						android:background="@color/colorWhite"
-						android:gravity="center_vertical"
-						android:paddingStart="8dp"
-						android:paddingEnd="8dp"
-						android:text="@string/fragment_home_tab_title"
-						android:textSize="16dp"
-						tools:ignore="SpUsage" />
-					
-					<androidx.recyclerview.widget.RecyclerView
-						android:id="@+id/shop_shortcut_recycler_view"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:background="@drawable/common_top_border"
-						android:orientation="horizontal"
-						android:overScrollMode="never"
-						app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-						tools:itemCount="3"
-						tools:listitem="@layout/item_shop_shortcut" />
+					android:layout_marginTop="40dp"
+					android:orientation="horizontal"
+					android:overScrollMode="never"
+					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+					tools:itemCount="3"
+					tools:listitem="@layout/item_shop_shortcut" />
 				
-				</LinearLayout>
+				<TextView
+					android:id="@+id/title"
+					android:layout_width="match_parent"
+					android:layout_height="40dp"
+					android:background="@color/colorWhite"
+					android:gravity="center_vertical"
+					android:paddingStart="8dp"
+					android:paddingEnd="8dp"
+					android:text="@string/fragment_home_tab_title"
+					android:textSize="16dp"
+					app:layout_collapseMode="pin"
+					tools:ignore="SpUsage" />
+			
 			</com.google.android.material.appbar.CollapsingToolbarLayout>
 		</com.google.android.material.appbar.AppBarLayout>
 		
@@ -61,7 +60,6 @@
 				android:layout_width="0dp"
 				android:layout_height="0dp"
 				android:overScrollMode="never"
-				android:paddingTop="36dp"
 				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
@@ -69,28 +67,6 @@
 				app:layout_constraintTop_toTopOf="parent"
 				tools:itemCount="3"
 				tools:listitem="@layout/item_post" />
-			
-			<TextView
-				android:id="@+id/uploadDateHintTextView"
-				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:gravity="center_vertical"
-				android:paddingStart="8dp"
-				android:paddingEnd="8dp"
-				android:textSize="14dp"
-				app:layout_constraintBottom_toBottomOf="@id/guideLine"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				tools:ignore="SpUsage"
-				tools:text="20년 03월 02일" />
-			
-			<androidx.constraintlayout.widget.Guideline
-				android:id="@+id/guideLine"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				app:layout_constraintGuide_begin="36dp" />
 		
 		</androidx.constraintlayout.widget.ConstraintLayout>
 	</androidx.coordinatorlayout.widget.CoordinatorLayout>
