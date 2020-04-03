@@ -7,6 +7,7 @@ import com.sabgil.contena.di.annotation.ViewModelKey
 import com.sabgil.contena.di.factory.ViewModelFactory
 import com.sabgil.contena.presenter.home.viewmodel.HomeTabViewModel
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
+import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -27,4 +28,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeTabViewModel::class)
     abstract fun bindHomeTabViewModel(homeTabViewModel: HomeTabViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchTabViewModel::class)
+    abstract fun bindSearchTabViewModel(searchTabViewModel: SearchTabViewModel): ViewModel
 }
