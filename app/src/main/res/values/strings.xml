@@ -4,6 +4,9 @@
 	<!--fragment_home_tab-->
 	<string name="fragment_home_tab_title">로고 자리</string>
 	
+	<!--fragment_search_tab-->
+	<string name="fragment_search_tab_search_hint">검색</string>
+	
 	<!--widget_bottom_navigation_bar-->
 	<string name="homeTitle">홈</string>
 	<string name="searchTitle">검색</string>
