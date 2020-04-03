@@ -17,5 +17,9 @@
 	<string name="emptyItem">구독하신 쇼핑몰에\n신상품 포스트가 없습니다.</string>
 	<string name="noMoreItem">더 이상 이전 포스트가 존재 하지 않습니다.</string>
 	<string name="goToSubscription">구독하러 가기</string>
+	
+	<!--item_searched_shop-->
+	<string name="shop_subscribe">구독</string>
+	<string name="shop_subscriber_count">구독자: %d명</string>
 
 </resources>

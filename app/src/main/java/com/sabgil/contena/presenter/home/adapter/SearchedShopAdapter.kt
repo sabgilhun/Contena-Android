@@ -5,10 +5,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.layoutInflater
-import com.sabgil.contena.databinding.ItemShopShortcutBinding
+import com.sabgil.contena.databinding.ItemSearchedShopBinding
 import com.sabgil.contena.domain.model.Shop
 
-class ShopShortcutAdapter : RecyclerView.Adapter<ShopShortcutAdapter.ShopShortCutViewHolder>() {
+class SearchedShopAdapter : RecyclerView.Adapter<SearchedShopAdapter.SearchedShopViewHolder>() {
 
     private val shopItems: MutableList<Shop> = mutableListOf()
 
@@ -18,11 +18,11 @@ class ShopShortcutAdapter : RecyclerView.Adapter<ShopShortcutAdapter.ShopShortCu
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopShortCutViewHolder =
-        ShopShortCutViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchedShopViewHolder =
+        SearchedShopViewHolder(
             DataBindingUtil.inflate(
                 parent.context.layoutInflater,
-                R.layout.item_shop_shortcut,
+                R.layout.item_searched_shop,
                 parent,
                 false
             )
@@ -30,11 +30,11 @@ class ShopShortcutAdapter : RecyclerView.Adapter<ShopShortcutAdapter.ShopShortCu
 
     override fun getItemCount(): Int = shopItems.size
 
-    override fun onBindViewHolder(holder: ShopShortCutViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SearchedShopViewHolder, position: Int) {
         holder.binding.shop = shopItems[position]
     }
 
-    class ShopShortCutViewHolder(
-        val binding: ItemShopShortcutBinding
+    class SearchedShopViewHolder(
+        val binding: ItemSearchedShopBinding
     ) : RecyclerView.ViewHolder(binding.root)
 }

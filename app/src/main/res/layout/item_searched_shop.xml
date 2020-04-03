@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".presenter.home.adapter.SearchedShopAdapter">
+	
+	<data>
+		
+		<variable
+			name="shop"
+			type="com.sabgil.contena.domain.model.Shop" />
+	</data>
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="4dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="4dp">
+		
+		<FrameLayout
+			android:id="@+id/imageHolder"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="@drawable/shapre_circle_white_backgorund_gray200_border"
+			android:padding="8dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+			
+			<ImageView
+				android:id="@+id/shopLogoImageView"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:image="@{shop.shopLogoUrl}"
+				tools:ignore="ContentDescription" />
+		</FrameLayout>
+		
+		<TextView
+			android:id="@+id/shopNameTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:text="@{shop.shopName}"
+			android:textSize="14sp"
+			app:layout_constraintBottom_toTopOf="@id/shopDescriptionTextView"
+			app:layout_constraintStart_toEndOf="@id/imageHolder"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_chainStyle="packed"
+			tools:text="블루스맨" />
+		
+		<TextView
+			android:id="@+id/shopDescriptionTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginBottom="8dp"
+			android:textColor="@color/colorGray600"
+			android:textSize="14sp"
+			app:layout_constrainedWidth="true"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@id/subscribeButton"
+			app:layout_constraintHorizontal_bias="0"
+			app:layout_constraintHorizontal_chainStyle="spread_inside"
+			app:layout_constraintStart_toEndOf="@id/imageHolder"
+			app:layout_constraintTop_toBottomOf="@id/shopNameTextView"
+			tools:text="아메리칸 캐쥬얼 편집샵" />
+		
+		<Button
+			android:id="@+id/subscribeButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="16dp"
+			android:paddingStart="24dp"
+			android:paddingTop="4dp"
+			android:paddingEnd="24dp"
+			android:paddingBottom="4dp"
+			android:text="@string/shop_subscribe"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@id/shopDescriptionTextView"
+			app:layout_constraintTop_toTopOf="parent" />
+		
+		<TextView
+			android:id="@+id/subscriberCountTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="4dp"
+			android:text="@{@string/shop_subscriber_count(shop.subscriberCount)}"
+			android:textColor="@color/colorGray600"
+			android:textSize="10dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="@id/subscribeButton"
+			app:layout_constraintStart_toStartOf="@id/subscribeButton"
+			app:layout_constraintTop_toBottomOf="@id/subscribeButton"
+			tools:ignore="SpUsage"
+			tools:text="구독자: 10명" />
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

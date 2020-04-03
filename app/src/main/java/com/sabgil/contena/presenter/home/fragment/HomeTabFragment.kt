@@ -37,7 +37,7 @@ class HomeTabFragment :
 
         viewModel.subscribedShopList.observe(
             viewLifecycleOwner,
-            Observer(shopShortcutAdapter::addAll)
+            Observer(shopShortcutAdapter::replaceAll)
         )
 
         viewModel.postList.observe(
