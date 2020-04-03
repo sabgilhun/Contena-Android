@@ -12,18 +12,6 @@ import com.sabgil.contena.databinding.WidgetBottomNavigationBarBinding
 
 class BottomNavigationBar : FrameLayout {
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
-        initView()
-    }
-
     var tabManager: TabManager? = null
         set(value) {
             value?.initTab(selectedTabIndex)
@@ -35,6 +23,18 @@ class BottomNavigationBar : FrameLayout {
     private var selectedTabIndex: TabIndex = TabIndex.HOME
 
     private val tabClickConsumer: (TabIndex) -> Unit = { handleTabClick(selectedTabIndex, it) }
+
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        initView()
+    }
 
     fun goToBackTab() {
         tabManager?.let {

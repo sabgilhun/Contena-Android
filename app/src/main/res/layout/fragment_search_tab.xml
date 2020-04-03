@@ -19,52 +19,11 @@
 				android:background="@color/colorWhite"
 				app:layout_scrollFlags="scroll|enterAlways">
 				
-				<androidx.constraintlayout.widget.ConstraintLayout
+				<com.sabgil.contena.presenter.home.widget.SearchEditText
+					android:id="@+id/searchEditText"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content">
-					
-					<ImageView
-						android:id="@+id/searchIcon"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:padding="8dp"
-						android:src="@drawable/ic_search_gray800_24dp"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toStartOf="@id/shopSearchEditText"
-						app:layout_constraintStart_toStartOf="parent"
-						app:layout_constraintTop_toTopOf="parent"
-						tools:ignore="ContentDescription" />
-					
-					<EditText
-						android:id="@+id/shopSearchEditText"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:background="@null"
-						android:hint="@string/fragment_search_tab_search_hint"
-						android:importantForAutofill="no"
-						android:inputType="text"
-						android:padding="4dp"
-						android:textSize="16dp"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toStartOf="@id/clearTextImageButton"
-						app:layout_constraintStart_toEndOf="@id/searchIcon"
-						app:layout_constraintTop_toTopOf="parent"
-						tools:ignore="SpUsage" />
-					
-					<ImageView
-						android:id="@+id/clearTextImageButton"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginEnd="16dp"
-						android:padding="8dp"
-						android:src="@drawable/ic_clear_gray800_16dp"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintStart_toEndOf="@id/shopSearchEditText"
-						app:layout_constraintTop_toTopOf="parent"
-						tools:ignore="ContentDescription" />
-				
-				</androidx.constraintlayout.widget.ConstraintLayout>
+					android:layout_height="wrap_content" />
+			
 			</com.google.android.material.appbar.CollapsingToolbarLayout>
 		</com.google.android.material.appbar.AppBarLayout>
 		
