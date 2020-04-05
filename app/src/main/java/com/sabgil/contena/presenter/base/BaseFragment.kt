@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import kotlin.reflect.KClass
@@ -33,4 +35,8 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     protected fun <VM : ViewModel> getSharedViewModel(clazz: KClass<VM>): VM =
         ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(clazz.java)
+
+    protected fun <T> LiveData<T>.registerObserver(onChange: (T) -> Unit) {
+        this.observe(viewLifecycleOwner, Observer(onChange))
+    }
 }

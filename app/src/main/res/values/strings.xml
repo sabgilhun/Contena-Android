@@ -6,6 +6,8 @@
 	
 	<!--fragment_search_tab-->
 	<string name="fragment_search_tab_search_hint">검색</string>
+	<string name="fragment_search_tab_searching_text"><![CDATA[<b>\"%s\"</b> 검색 중…]]></string>
+	<string name="fragment_search_tab_empty_result_text"><![CDATA[<b>\"%s\"</b> 검색 결과가 없습니다.]]></string>
 	
 	<!--widget_bottom_navigation_bar-->
 	<string name="homeTitle">홈</string>

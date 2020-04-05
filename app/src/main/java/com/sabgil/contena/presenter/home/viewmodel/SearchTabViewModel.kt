@@ -6,7 +6,9 @@ import com.sabgil.contena.data.repository.ContenaRepository
 import com.sabgil.contena.domain.model.Shop
 import com.sabgil.contena.presenter.base.BaseViewModel
 import com.sabgil.contena.presenter.home.enums.SearchingState
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -17,8 +19,7 @@ class SearchTabViewModel @Inject constructor(
     private val contenaRepository: ContenaRepository
 ) : BaseViewModel() {
 
-    private val _subscribedShopList = MutableLiveData<List<Shop>>()
-    val subscribedShopList: LiveData<List<Shop>> = _subscribedShopList
+    private var recommendedShopList: List<Shop> = emptyList()
 
     private val _searchingState = MutableLiveData<SearchingState>()
     val searchingState: LiveData<SearchingState> = _searchingState
@@ -26,26 +27,48 @@ class SearchTabViewModel @Inject constructor(
     private val searchStream = PublishSubject.create<String>()
 
     init {
+        loadRecommendedShopList()
+        initSearchStream()
+    }
+
+    private fun initSearchStream() {
         searchStream
-            .doOnNext { _searchingState.value = SearchingState.SEARCHING }
+            .doOnNext { _searchingState.value = SearchingState.Searching(it) }
             .debounce(DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.computation())
-            .observeOn(Schedulers.io())
-            .flatMap { return@flatMap contenaRepository.getAvailableShopList(it).toObservable() }
+            .flatMap {
+                Observable.zip(
+                    Observable.just(it),
+                    contenaRepository.getAvailableShopList(it).toObservable().observeOn(Schedulers.io()),
+                    BiFunction<String, List<Shop>, SearchResult>(::SearchResult)
+                )
+            }
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { _searchingState.value = SearchingState.COMPLETE }
             .subscribeBy(
-                onNext = _subscribedShopList::setValue,
+                onNext = {
+                    _searchingState.value =
+                        if (it.result.isEmpty()) {
+                            SearchingState.Empty(it.keyword)
+                        } else {
+                            SearchingState.Complete(it.result)
+                        }
+                },
                 onError = {}
             ).add()
     }
 
-    fun loadRecommendedShopList() {
+    private fun loadRecommendedShopList() {
+        if (recommendedShopList.isNotEmpty()) {
+            _searchingState.value = SearchingState.NotStarted(recommendedShopList)
+            return
+        }
+
         contenaRepository.getAvailableShopList("")
             .compose(apiLoadingSingleTransformer())
-            .doOnSuccess { _searchingState.value = SearchingState.NOT_STARTED }
             .subscribeBy(
-                onSuccess = _subscribedShopList::setValue,
+                onSuccess = {
+                    recommendedShopList = it
+                    _searchingState.value = SearchingState.NotStarted(it)
+                },
                 onError = {}
             )
             .add()
@@ -53,14 +76,18 @@ class SearchTabViewModel @Inject constructor(
 
     fun searchAvailableShopList(searchKeyword: String) {
         if (searchKeyword.isEmpty()) {
-            _searchingState.value = SearchingState.COMPLETE
-            _subscribedShopList.value = emptyList()
+            loadRecommendedShopList()
         } else {
             searchStream.onNext(searchKeyword)
         }
     }
 
+    private data class SearchResult(
+        val keyword: String,
+        val result: List<Shop>
+    )
+
     companion object {
-        const val DEBOUNCE_TIMEOUT = 1000L
+        private const val DEBOUNCE_TIMEOUT = 1000L
     }
 }
