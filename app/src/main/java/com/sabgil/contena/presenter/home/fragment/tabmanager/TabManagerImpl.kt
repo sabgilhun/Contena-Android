@@ -4,10 +4,8 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.sabgil.contena.presenter.home.fragment.BookmarkTabFragment
-import com.sabgil.contena.presenter.home.fragment.HomeTabFragment
+import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
 import com.sabgil.contena.presenter.home.fragment.SearchTabFragment
-import com.sabgil.contena.presenter.home.fragment.SettingsTabFragment
 import com.sabgil.contena.presenter.home.widget.BottomNavigationBar
 
 class TabManagerImpl(
@@ -16,20 +14,12 @@ class TabManagerImpl(
     private val emptyBackStackAction: () -> Unit
 ) : BottomNavigationBar.TabManager {
 
-    private val homeTabFragment: HomeTabFragment by lazy {
-        HomeTabFragment.newInstance()
+    private val newItemTabFragment: NewItemTabFragment by lazy {
+        NewItemTabFragment.newInstance()
     }
 
     private val searchTabFragment: SearchTabFragment by lazy {
         SearchTabFragment.newInstance()
-    }
-
-    private val bookmarkTabFragment: BookmarkTabFragment by lazy {
-        BookmarkTabFragment.newInstance()
-    }
-
-    private val settingsTabFragment: SettingsTabFragment by lazy {
-        SettingsTabFragment.newInstance()
     }
 
     override fun initTab(initialTabIndex: BottomNavigationBar.TabIndex) {
@@ -81,18 +71,14 @@ class TabManagerImpl(
 
     private fun BottomNavigationBar.TabIndex.mapToFragment(): Fragment =
         when (this) {
-            BottomNavigationBar.TabIndex.HOME -> homeTabFragment
+            BottomNavigationBar.TabIndex.NEW_ITEM -> newItemTabFragment
             BottomNavigationBar.TabIndex.SEARCH -> searchTabFragment
-            BottomNavigationBar.TabIndex.BOOKMARK -> bookmarkTabFragment
-            BottomNavigationBar.TabIndex.SETTINGS -> settingsTabFragment
         }
 
     private fun BottomNavigationBar.TabIndex.mapToTab(): Tab =
         when (this) {
-            BottomNavigationBar.TabIndex.HOME -> homeTabFragment
+            BottomNavigationBar.TabIndex.NEW_ITEM -> newItemTabFragment
             BottomNavigationBar.TabIndex.SEARCH -> searchTabFragment
-            BottomNavigationBar.TabIndex.BOOKMARK -> bookmarkTabFragment
-            BottomNavigationBar.TabIndex.SETTINGS -> settingsTabFragment
         }
 
     private fun FragmentTransaction.addTab(

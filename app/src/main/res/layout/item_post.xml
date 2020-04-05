@@ -49,11 +49,13 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
 			android:layout_marginStart="12dp"
+			android:includeFontPadding="false"
 			android:text="@{postListItem.shopName}"
 			android:textSize="16dp"
 			app:layout_constraintBottom_toTopOf="@id/uploadDate"
 			app:layout_constraintStart_toEndOf="@id/logoHolder"
 			app:layout_constraintTop_toTopOf="@id/logoHolder"
+			app:layout_constraintVertical_chainStyle="packed"
 			tools:ignore="SpUsage"
 			tools:text="bluesman" />
 		
@@ -63,6 +65,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
 			android:layout_marginStart="12dp"
+			android:includeFontPadding="false"
 			android:text="@{postListItem.uploadDate}"
 			android:textColor="@color/colorGray400"
 			android:textSize="12dp"
@@ -79,31 +82,21 @@
 			android:layout_height="440dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/logoHolder"
-			tools:layout_height="300dp" />
+			app:layout_constraintTop_toBottomOf="@id/logoHolder" />
 		
 		<com.google.android.material.tabs.TabLayout
 			android:id="@+id/imagePageTabLayout"
 			android:layout_width="0dp"
-			android:layout_height="44dp"
+			android:layout_height="20dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/newItemImageViewPager"
 			app:tabBackground="@drawable/selector_tab_indicator"
 			app:tabGravity="center"
 			app:tabIndicatorHeight="0dp"
-			app:tabMode="fixed" />
-		
-		<ImageView
-			android:id="@+id/bookmarkIcon"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginEnd="24dp"
-			android:src="@drawable/ic_bookmark_border_gray800_32dp"
-			app:layout_constraintBottom_toBottomOf="@id/imagePageTabLayout"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="@id/imagePageTabLayout"
-			tools:ignore="ContentDescription" />
+			app:tabMaxWidth="9dp"
+			app:tabMode="fixed"
+			app:tabPadding="0dp" />
 		
 		<TextView
 			android:id="@+id/brandTextView"
@@ -148,21 +141,21 @@
 			app:layout_constraintTop_toBottomOf="@id/productNameTextView"
 			tools:text="100,000" />
 		
-		<View
-			android:layout_width="0dp"
-			android:layout_height="0.5dp"
-			android:background="@color/commonBorderColor"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@id/newItemImageViewPager" />
-		
-		<View
-			android:layout_width="0dp"
-			android:layout_height="0.5dp"
-			android:background="@color/commonBorderColor"
-			app:layout_constraintBottom_toBottomOf="@id/newItemImageViewPager"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent" />
+		<!--		<View-->
+		<!--			android:layout_width="0dp"-->
+		<!--			android:layout_height="0.5dp"-->
+		<!--			android:background="@color/commonBorderColor"-->
+		<!--			app:layout_constraintEnd_toEndOf="parent"-->
+		<!--			app:layout_constraintStart_toStartOf="parent"-->
+		<!--			app:layout_constraintTop_toTopOf="@id/newItemImageViewPager" />-->
+		<!--		-->
+		<!--		<View-->
+		<!--			android:layout_width="0dp"-->
+		<!--			android:layout_height="0.5dp"-->
+		<!--			android:background="@color/commonBorderColor"-->
+		<!--			app:layout_constraintBottom_toBottomOf="@id/newItemImageViewPager"-->
+		<!--			app:layout_constraintEnd_toEndOf="parent"-->
+		<!--			app:layout_constraintStart_toStartOf="parent" />-->
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

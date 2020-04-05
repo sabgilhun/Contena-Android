@@ -6,14 +6,14 @@
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="?attr/actionBarSize">
 		
 		<ImageView
 			android:id="@+id/searchIcon"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:padding="8dp"
-			android:src="@drawable/ic_search_gray800_24dp"
+			android:src="@drawable/vector_search_gray900"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@id/shopSearchEditText"
 			app:layout_constraintStart_toStartOf="parent"
@@ -41,12 +41,12 @@
 		
 		<ImageView
 			android:id="@+id/clearTextImageButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginEnd="14dp"
-			android:background="?selectableItemBackground"
-			android:padding="8dp"
-			android:src="@drawable/ic_clear_gray800_16dp"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			android:layout_marginEnd="16dp"
+			android:background="?selectableItemBackgroundBorderless"
+			android:padding="4dp"
+			android:src="@drawable/vector_clear_gray900"
 			android:visibility="invisible"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"

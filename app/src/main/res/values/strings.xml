@@ -10,10 +10,8 @@
 	<string name="fragment_search_tab_empty_result_text"><![CDATA[<b>\"%s\"</b> 검색 결과가 없습니다.]]></string>
 	
 	<!--widget_bottom_navigation_bar-->
-	<string name="homeTitle">홈</string>
-	<string name="searchTitle">검색</string>
-	<string name="bookmarkTitle">북마크</string>
-	<string name="settingsTitle">설정</string>
+	<string name="newItemTitle">신상품</string>
+	<string name="searchTitle">쇼핑몰 검색</string>
 	
 	<!--item_post-->
 	<string name="emptyItem">구독하신 쇼핑몰에\n신상품 포스트가 없습니다.</string>

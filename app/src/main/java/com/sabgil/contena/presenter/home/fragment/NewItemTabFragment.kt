@@ -6,19 +6,19 @@ import android.os.Looper
 import android.view.View
 import androidx.lifecycle.Observer
 import com.sabgil.contena.R
-import com.sabgil.contena.databinding.FragmentHomeTabBinding
+import com.sabgil.contena.databinding.FragmentNewItemTabBinding
 import com.sabgil.contena.presenter.base.BaseFragment
 import com.sabgil.contena.presenter.home.adapter.ShopShortcutAdapter
 import com.sabgil.contena.presenter.home.adapter.post.PostAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.Tab
-import com.sabgil.contena.presenter.home.viewmodel.HomeTabViewModel
+import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.home.widget.BottomNavigationBar
 
-class HomeTabFragment :
-    BaseFragment<FragmentHomeTabBinding>(R.layout.fragment_home_tab), Tab {
+class NewItemTabFragment :
+    BaseFragment<FragmentNewItemTabBinding>(R.layout.fragment_new_item_tab), Tab {
 
-    private val viewModel: HomeTabViewModel by lazy {
-        getViewModel(HomeTabViewModel::class)
+    private val viewModel: NewItemTabViewModel by lazy {
+        getViewModel(NewItemTabViewModel::class)
     }
 
     private lateinit var shopShortcutAdapter: ShopShortcutAdapter
@@ -63,6 +63,6 @@ class HomeTabFragment :
     }
 
     companion object {
-        fun newInstance() = HomeTabFragment()
+        fun newInstance() = NewItemTabFragment()
     }
 }

@@ -11,56 +11,46 @@
 			type="com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel" />
 	</data>
 	
-	<androidx.coordinatorlayout.widget.CoordinatorLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
 		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/appBar"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@color/transparent">
+			android:background="@color/colorWhite"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
 			
-			<com.google.android.material.appbar.CollapsingToolbarLayout
+			<com.sabgil.contena.presenter.home.widget.SearchEditText
+				android:id="@+id/searchEditText"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:background="@color/colorWhite"
-				app:layout_scrollFlags="scroll|enterAlways">
-				
-				<com.sabgil.contena.presenter.home.widget.SearchEditText
-					android:id="@+id/searchEditText"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content" />
-			
-			</com.google.android.material.appbar.CollapsingToolbarLayout>
+				android:layout_height="wrap_content" />
 		</com.google.android.material.appbar.AppBarLayout>
 		
-		<androidx.constraintlayout.widget.ConstraintLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			app:layout_behavior="@string/appbar_scrolling_view_behavior">
-			
-			<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/searchedShopRecyclerView"
-				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:overScrollMode="never"
-				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				tools:itemCount="3" />
-			
-			<TextView
-				android:id="@+id/searchingStateTextView"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:padding="12dp"
-				android:textSize="14sp"
-				app:layout_constraintEnd_toEndOf="@id/searchedShopRecyclerView"
-				app:layout_constraintStart_toStartOf="@id/searchedShopRecyclerView"
-				app:layout_constraintTop_toTopOf="@id/searchedShopRecyclerView"
-				tools:text="검색 결과가 없습니다." />
-		</androidx.constraintlayout.widget.ConstraintLayout>
-	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/searchedShopRecyclerView"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:overScrollMode="never"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/appBar"
+			tools:itemCount="3" />
+		
+		<TextView
+			android:id="@+id/searchingStateTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:padding="12dp"
+			android:textSize="14sp"
+			app:layout_constraintEnd_toEndOf="@id/searchedShopRecyclerView"
+			app:layout_constraintStart_toStartOf="@id/searchedShopRecyclerView"
+			app:layout_constraintTop_toTopOf="@id/searchedShopRecyclerView"
+			tools:text="검색 결과가 없습니다." />
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

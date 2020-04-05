@@ -20,7 +20,7 @@ class BottomNavigationBar : FrameLayout {
 
     private lateinit var binding: WidgetBottomNavigationBarBinding
 
-    private var selectedTabIndex: TabIndex = TabIndex.HOME
+    private var selectedTabIndex: TabIndex = TabIndex.NEW_ITEM
 
     private val tabClickConsumer: (TabIndex) -> Unit = { handleTabClick(selectedTabIndex, it) }
 
@@ -64,10 +64,8 @@ class BottomNavigationBar : FrameLayout {
     }
 
     private fun setupTabClickListener() {
-        binding.homeItem.setOnClickListener { tabClickConsumer(TabIndex.HOME) }
+        binding.homeItem.setOnClickListener { tabClickConsumer(TabIndex.NEW_ITEM) }
         binding.searchItem.setOnClickListener { tabClickConsumer(TabIndex.SEARCH) }
-        binding.bookmarkItem.setOnClickListener { tabClickConsumer(TabIndex.BOOKMARK) }
-        binding.settingsItem.setOnClickListener { tabClickConsumer(TabIndex.SETTINGS) }
     }
 
     private fun initTabState() {
@@ -96,7 +94,7 @@ class BottomNavigationBar : FrameLayout {
 
     private fun tintTab(tabIndex: TabIndex, isSelected: Boolean) {
         when (tabIndex) {
-            TabIndex.HOME -> tintIconAndText(
+            TabIndex.NEW_ITEM -> tintIconAndText(
                 icon = binding.homeIcon,
                 text = binding.homeTitle,
                 iconRes = tabIndex.mapToDrawableRes(isSelected),
@@ -105,18 +103,6 @@ class BottomNavigationBar : FrameLayout {
             TabIndex.SEARCH -> tintIconAndText(
                 icon = binding.searchIcon,
                 text = binding.searchTitle,
-                iconRes = tabIndex.mapToDrawableRes(isSelected),
-                textColorRes = isSelected.mapToTextColor()
-            )
-            TabIndex.BOOKMARK -> tintIconAndText(
-                icon = binding.bookmarkIcon,
-                text = binding.bookmarkTitle,
-                iconRes = tabIndex.mapToDrawableRes(isSelected),
-                textColorRes = isSelected.mapToTextColor()
-            )
-            TabIndex.SETTINGS -> tintIconAndText(
-                icon = binding.settingsIcon,
-                text = binding.settingsTitle,
                 iconRes = tabIndex.mapToDrawableRes(isSelected),
                 textColorRes = isSelected.mapToTextColor()
             )
@@ -129,35 +115,25 @@ class BottomNavigationBar : FrameLayout {
     }
 
     private fun Boolean.mapToTextColor() =
-        if (this) context.getColor(R.color.colorAmber600) else context.getColor(R.color.colorGray800)
+        if (this) context.getColor(R.color.colorGray900) else context.getColor(R.color.colorGray400)
 
     private fun TabIndex.mapToDrawableRes(isSelected: Boolean) =
         when (this) {
-            TabIndex.HOME ->
+            TabIndex.NEW_ITEM ->
                 if (isSelected)
-                    R.drawable.ic_home_amber400_24dp
+                    R.drawable.vector_list_gray900
                 else
-                    R.drawable.ic_home_gray800_24dp
+                    R.drawable.vector_list_gray400
 
             TabIndex.SEARCH ->
                 if (isSelected)
-                    R.drawable.ic_search_amber400_24dp
+                    R.drawable.vector_search_gray900
                 else
-                    R.drawable.ic_search_gray800_24dp
-            TabIndex.BOOKMARK ->
-                if (isSelected)
-                    R.drawable.ic_bookmark_amber400_24dp
-                else
-                    R.drawable.ic_bookmark_gray800_24dp
-            TabIndex.SETTINGS ->
-                if (isSelected)
-                    R.drawable.ic_settings_amber400_24dp
-                else
-                    R.drawable.ic_settings_gray800_24dp
+                    R.drawable.vector_search_gray400
         }
 
     enum class TabIndex {
-        HOME, SEARCH, BOOKMARK, SETTINGS;
+        NEW_ITEM, SEARCH;
     }
 
     interface TabManager {

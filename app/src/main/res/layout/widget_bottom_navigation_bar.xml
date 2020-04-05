@@ -14,7 +14,7 @@
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="?android:attr/selectableItemBackground"
+			android:background="?android:attr/selectableItemBackgroundBorderless"
 			android:clickable="true"
 			android:focusable="true"
 			android:orientation="vertical"
@@ -23,10 +23,10 @@
 			
 			<ImageView
 				android:id="@+id/homeIcon"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_width="28dp"
+				android:layout_height="28dp"
 				android:layout_gravity="center"
-				android:src="@drawable/ic_home_gray800_24dp"
+				android:src="@drawable/vector_list_gray400"
 				tools:ignore="ContentDescription" />
 			
 			<TextView
@@ -34,7 +34,8 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
-				android:text="@string/homeTitle"
+				android:text="@string/newItemTitle"
+				android:textColor="@color/colorGray400"
 				android:textSize="12dp"
 				tools:ignore="SpUsage" />
 		</LinearLayout>
@@ -44,7 +45,7 @@
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="?android:attr/selectableItemBackground"
+			android:background="?android:attr/selectableItemBackgroundBorderless"
 			android:clickable="true"
 			android:focusable="true"
 			android:orientation="vertical"
@@ -53,10 +54,10 @@
 			
 			<ImageView
 				android:id="@+id/searchIcon"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_width="28dp"
+				android:layout_height="28dp"
 				android:layout_gravity="center"
-				android:src="@drawable/ic_search_gray800_24dp"
+				android:src="@drawable/vector_search_gray400"
 				tools:ignore="ContentDescription" />
 			
 			<TextView
@@ -65,66 +66,7 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
 				android:text="@string/searchTitle"
-				android:textSize="12dp"
-				tools:ignore="SpUsage" />
-		</LinearLayout>
-		
-		<LinearLayout
-			android:id="@+id/bookmarkItem"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="?android:attr/selectableItemBackground"
-			android:clickable="true"
-			android:focusable="true"
-			android:orientation="vertical"
-			android:padding="8dp"
-			tools:ignore="UseCompoundDrawables">
-			
-			<ImageView
-				android:id="@+id/bookmarkIcon"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:src="@drawable/ic_bookmark_gray800_24dp"
-				tools:ignore="ContentDescription" />
-			
-			<TextView
-				android:id="@+id/bookmarkTitle"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:text="@string/bookmarkTitle"
-				android:textSize="12dp"
-				tools:ignore="SpUsage" />
-		</LinearLayout>
-		
-		<LinearLayout
-			android:id="@+id/settingsItem"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="?android:attr/selectableItemBackground"
-			android:clickable="true"
-			android:focusable="true"
-			android:orientation="vertical"
-			android:padding="8dp"
-			tools:ignore="UseCompoundDrawables">
-			
-			<ImageView
-				android:id="@+id/settingsIcon"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:src="@drawable/ic_settings_gray800_24dp"
-				tools:ignore="ContentDescription" />
-			
-			<TextView
-				android:id="@+id/settingsTitle"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:text="@string/settingsTitle"
+				android:textColor="@color/colorGray400"
 				android:textSize="12dp"
 				tools:ignore="SpUsage" />
 		</LinearLayout>

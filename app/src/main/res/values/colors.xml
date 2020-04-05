@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="primary">@color/colorAmber200</color>
-	<color name="primaryDark">@color/colorYellow700</color>
-	<color name="colorAccent">@color/colorBlueGray900</color>
+	<color name="primary">@color/colorLightBlue700</color>
+	<color name="primaryDark">@color/colorLightBlue900</color>
+	<color name="colorAccent">@color/colorBlueGray800</color>
 	
 	<color name="transparent">@android:color/transparent</color>
 	<color name="commonBorderColor">@color/colorGray300</color>
 	
-	<color name="buttonRippleColor">#FFE0E0E0</color>
+	<color name="buttonRippleColor">#FF757575</color>
 	
 	<!--palette-->
 	<color name="colorWhite">#FFFFFF</color>

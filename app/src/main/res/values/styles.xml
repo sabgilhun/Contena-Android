@@ -20,13 +20,13 @@
 	
 	<style name="TextStyle">
 		<item name="android:textSize">14sp</item>
-		<item name="android:textColor">@color/colorGray800</item>
+		<item name="android:textColor">@color/colorGray900</item>
 		<item name="android:textColorHint">@color/colorGray400</item>
 	</style>
 	
 	<style name="ButtonStyle" parent="TextStyle">
-		<item name="android:textColor">@color/colorGray800</item>
-		<item name="android:background">@drawable/ripple_shape_r6_background_amber400</item>
+		<item name="android:textColor">@color/colorWhite</item>
+		<item name="android:background">@drawable/ripple_shape_r6_background_lightblue700</item>
 		<item name="android:focusable">true</item>
 		<item name="android:clickable">true</item>
 	</style>

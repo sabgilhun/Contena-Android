@@ -10,7 +10,7 @@ import com.sabgil.contena.presenter.home.model.PostListItem
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class HomeTabViewModel @Inject constructor(
+class NewItemTabViewModel @Inject constructor(
     private val contenaRepository: ContenaRepository
 ) : BaseViewModel() {
 
