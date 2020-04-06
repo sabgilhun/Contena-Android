@@ -32,10 +32,19 @@ class SearchTabFragment :
         setupSearchEditText()
         setupSearchedShopRecyclerView()
 
-        viewModel.setUpSearchTabViewModel()
+        viewModel.setupObserver()
     }
 
-    private fun SearchTabViewModel.setUpSearchTabViewModel() {
+    private fun setupSearchedShopRecyclerView() {
+        searchedShopAdapter = SearchedShopAdapter()
+        binding.searchedShopRecyclerView.adapter = searchedShopAdapter
+    }
+
+    private fun setupSearchEditText() {
+        binding.searchEditText.textChangeListener = { viewModel.searchAvailableShopList(it) }
+    }
+
+    private fun SearchTabViewModel.setupObserver() {
         searchingState.registerObserver {
             when (it) {
                 is SearchingState.NotStarted -> {
@@ -66,15 +75,6 @@ class SearchTabFragment :
                 }
             }
         }
-    }
-
-    private fun setupSearchedShopRecyclerView() {
-        searchedShopAdapter = SearchedShopAdapter()
-        binding.searchedShopRecyclerView.adapter = searchedShopAdapter
-    }
-
-    private fun setupSearchEditText() {
-        binding.searchEditText.textChangeListener = { viewModel.searchAvailableShopList(it) }
     }
 
     override fun refreshTab() {

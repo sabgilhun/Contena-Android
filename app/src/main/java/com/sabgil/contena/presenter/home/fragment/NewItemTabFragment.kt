@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import androidx.lifecycle.Observer
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentNewItemTabBinding
 import com.sabgil.contena.presenter.base.BaseFragment
@@ -32,18 +31,10 @@ class NewItemTabFragment :
         setupShopShortcutRecyclerView()
         setupPostRecyclerView()
 
+        viewModel.setupObserver()
+
         viewModel.loadSubscribedShopList()
         postAdapter.initialDataLoad()
-
-        viewModel.subscribedShopList.observe(
-            viewLifecycleOwner,
-            Observer(shopShortcutAdapter::replaceAll)
-        )
-
-        viewModel.postList.observe(
-            viewLifecycleOwner,
-            Observer(postAdapter.dataObserver)
-        )
     }
 
     private fun setupShopShortcutRecyclerView() {
@@ -52,11 +43,13 @@ class NewItemTabFragment :
     }
 
     private fun setupPostRecyclerView() {
-        postAdapter = PostAdapter(
-            Handler(Looper.getMainLooper()),
-            viewModel::loadPostList
-        )
+        postAdapter = PostAdapter(Handler(Looper.getMainLooper()), viewModel::loadPostList)
         binding.postRecyclerView.adapter = postAdapter
+    }
+
+    private fun NewItemTabViewModel.setupObserver() {
+        subscribedShopList.registerObserver(shopShortcutAdapter::replaceAll)
+        postList.registerObserver(postAdapter.dataObserver)
     }
 
     override fun refreshTab() {
