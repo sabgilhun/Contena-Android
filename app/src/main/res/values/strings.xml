@@ -22,4 +22,6 @@
 	<string name="shop_subscribe">구독</string>
 	<string name="shop_subscriber_count">구독자: %d명</string>
 
+	<!--activity_post_detail-->
+	<string name="activity_post_detail_title">%s 신상품</string>
 </resources>

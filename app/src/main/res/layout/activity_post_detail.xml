@@ -7,6 +7,56 @@
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
-	
+		
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/appBar"
+			android:layout_width="0dp"
+			android:layout_height="?android:actionBarSize"
+			android:background="@color/colorWhite"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+			
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+				
+				<ImageView
+					android:id="@+id/backButton"
+					android:layout_width="24dp"
+					android:layout_height="24dp"
+					android:layout_marginStart="16dp"
+					android:src="@drawable/vector_arrow_back_gray900"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					tools:ignore="ContentDescription" />
+				
+				<TextView
+					android:id="@+id/title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:textSize="16dp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toEndOf="@id/backButton"
+					app:layout_constraintTop_toTopOf="parent"
+					tools:ignore="SpUsage"
+					tools:text="bluesman 신상품" />
+				
+				<TextView
+					android:id="@+id/uploadDate"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="6dp"
+					android:textColor="@color/colorGray600"
+					android:textSize="12dp"
+					app:layout_constraintBaseline_toBaselineOf="@id/title"
+					app:layout_constraintStart_toEndOf="@id/title"
+					tools:ignore="SpUsage"
+					tools:text="20년 1월 2일" />
+			
+			</androidx.constraintlayout.widget.ConstraintLayout>
+		</com.google.android.material.appbar.AppBarLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
