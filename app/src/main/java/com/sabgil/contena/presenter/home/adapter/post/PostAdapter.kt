@@ -11,6 +11,7 @@ import com.sabgil.contena.databinding.ItemPostBinding
 import com.sabgil.contena.presenter.home.model.PostListItem
 
 class PostAdapter(
+    private val navigator: Navigator,
     handler: Handler,
     loadMoreData: (Long) -> Unit
 ) : PageManageAdapter<PostListItem>(
@@ -51,6 +52,8 @@ class PostAdapter(
             false
         )
 
+        val viewHolder = PostItemViewHolder(binding, pageChangeObserver)
+
         binding.newItemImageViewPager.apply {
             adapter = NewItemViewPagerAdapter()
 
@@ -59,14 +62,24 @@ class PostAdapter(
 
         binding.imagePageTabLayout.setupWithViewPager(binding.newItemImageViewPager)
 
-        return PostItemViewHolder(
-            binding,
-            pageChangeObserver
-        )
+        binding.goTotalNewProductTextView.setOnClickListener {
+            getItem(viewHolder.adapterPosition)?.let {
+                navigator.goToTotalProduction(it.postId, it.shopName, it.uploadDate)
+            }
+        }
+
+        return viewHolder
     }
 
     private class PostItemViewHolder(
         val binding: ItemPostBinding,
         val pageChangeObserver: PageChangeObserver
     ) : PageManagerViewHolder.ItemViewHolder(binding.root)
+
+    interface Navigator {
+
+        fun goToTotalProduction(postId: Long, shopName: String, uploadDate: String)
+
+        fun goToOriginWeb()
+    }
 }

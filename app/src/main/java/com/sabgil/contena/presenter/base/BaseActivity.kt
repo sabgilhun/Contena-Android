@@ -5,6 +5,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.sabgil.contena.R
@@ -40,6 +41,10 @@ abstract class BaseActivity<B : ViewDataBinding>(
         baseViewModel.isLoading.observe(this, Observer { isLoading ->
             if (isLoading) loadingDialog.show() else loadingDialog.hide()
         })
+    }
+
+    protected fun <T> LiveData<T>.registerObserver(onChange: (T) -> Unit) {
+        this.observe(this@BaseActivity, Observer(onChange))
     }
 }
 

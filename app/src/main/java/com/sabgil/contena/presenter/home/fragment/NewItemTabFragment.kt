@@ -1,5 +1,6 @@
 package com.sabgil.contena.presenter.home.fragment
 
+import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +13,7 @@ import com.sabgil.contena.presenter.home.adapter.post.PostAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.Tab
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.home.widget.BottomNavigationBar
+import com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity
 
 class NewItemTabFragment :
     BaseFragment<FragmentNewItemTabBinding>(R.layout.fragment_new_item_tab), Tab {
@@ -43,7 +45,11 @@ class NewItemTabFragment :
     }
 
     private fun setupPostRecyclerView() {
-        postAdapter = PostAdapter(Handler(Looper.getMainLooper()), viewModel::loadPostList)
+        postAdapter = PostAdapter(
+            NavigatorImpl(requireActivity()),
+            Handler(Looper.getMainLooper()),
+            viewModel::loadPostList
+        )
         binding.postRecyclerView.adapter = postAdapter
     }
 
@@ -57,5 +63,14 @@ class NewItemTabFragment :
 
     companion object {
         fun newInstance() = NewItemTabFragment()
+    }
+
+    private class NavigatorImpl(private val activity: Activity) : PostAdapter.Navigator {
+        override fun goToTotalProduction(postId: Long, shopName: String, uploadDate: String) {
+            PostDetailActivity.start(activity, postId, shopName, uploadDate)
+        }
+
+        override fun goToOriginWeb() {
+        }
     }
 }

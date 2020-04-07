@@ -10,7 +10,8 @@ data class PostListItem(
     val uploadDate: String,
     val shopName: String,
     val shopLogoUrl: String,
-    val newItemList: List<SummaryNewItem>
+    val newItemList: List<SummaryNewItem>,
+    val hasMoreItem: Boolean
 ) {
     companion object {
         fun from(post: Post): PostListItem =
@@ -20,7 +21,8 @@ data class PostListItem(
                 uploadDate = post.uploadDate,  // TODO 변경할 예정
                 shopName = post.shopName,
                 shopLogoUrl = post.shopLogoUrl,
-                newItemList = post.newItemList
+                newItemList = post.newItemList,
+                hasMoreItem = post.newItemList.size > 4
             )
     }
 }

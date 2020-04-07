@@ -5,8 +5,7 @@ import android.view.View
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import com.sabgil.contena.R
-import com.sabgil.contena.common.ext.setGone
-import com.sabgil.contena.common.ext.setVisible
+import com.sabgil.contena.common.ext.visibleOrGone
 import com.sabgil.contena.databinding.FragmentSearchTabBinding
 import com.sabgil.contena.presenter.base.BaseFragment
 import com.sabgil.contena.presenter.home.adapter.SearchedShopAdapter
@@ -48,11 +47,11 @@ class SearchTabFragment :
         searchingState.registerObserver {
             when (it) {
                 is SearchingState.NotStarted -> {
-                    binding.searchingStateTextView.setGone(true)
+                    binding.searchingStateTextView.visibleOrGone = false
                     searchedShopAdapter.replaceAll(it.recommendedShopList)
                 }
                 is SearchingState.Searching -> {
-                    binding.searchingStateTextView.setVisible(true)
+                    binding.searchingStateTextView.visibleOrGone = true
                     binding.searchingStateTextView.text =
                         HtmlCompat.fromHtml(
                             getString(R.string.fragment_search_tab_searching_text, it.keyword),
@@ -61,7 +60,7 @@ class SearchTabFragment :
                     searchedShopAdapter.replaceAll(emptyList())
                 }
                 is SearchingState.Empty -> {
-                    binding.searchingStateTextView.setVisible(true)
+                    binding.searchingStateTextView.visibleOrGone = true
                     binding.searchingStateTextView.text =
                         HtmlCompat.fromHtml(
                             getString(R.string.fragment_search_tab_empty_result_text, it.keyword),
@@ -70,7 +69,7 @@ class SearchTabFragment :
                     searchedShopAdapter.replaceAll(emptyList())
                 }
                 is SearchingState.Complete -> {
-                    binding.searchingStateTextView.setGone(true)
+                    binding.searchingStateTextView.visibleOrGone = false
                     searchedShopAdapter.replaceAll(it.searchedShopList)
                 }
             }

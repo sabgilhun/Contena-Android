@@ -8,7 +8,7 @@ import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.layoutInflater
-import com.sabgil.contena.common.ext.setVisible
+import com.sabgil.contena.common.ext.visibleOrGone
 import com.sabgil.contena.databinding.WidgetSearchEditTextBinding
 
 
@@ -67,7 +67,7 @@ class SearchEditText : FrameLayout {
     }
 
     private fun setVisibleClearButtonIfFocused(hasFocus: Boolean) {
-        binding.clearTextImageButton.setVisible(hasFocus && text?.length ?: 0 > 0)
+        binding.clearTextImageButton.visibleOrGone = hasFocus && text?.length ?: 0 > 0
     }
 
     private fun clearText() {

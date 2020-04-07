@@ -4,6 +4,17 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	tools:context=".presenter.home.activity.HomeActivity">
 	
+	<data>
+		
+		<variable
+			name="shopName"
+			type="String" />
+		
+		<variable
+			name="uploadDate"
+			type="String" />
+	</data>
+	
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
@@ -26,6 +37,7 @@
 					android:layout_width="24dp"
 					android:layout_height="24dp"
 					android:layout_marginStart="16dp"
+					android:background="?android:selectableItemBackgroundBorderless"
 					android:src="@drawable/vector_arrow_back_gray900"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
@@ -33,10 +45,11 @@
 					tools:ignore="ContentDescription" />
 				
 				<TextView
-					android:id="@+id/title"
+					android:id="@+id/titleTextView"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
+					android:text="@{@string/activity_post_detail_title(shopName)}"
 					android:textSize="16dp"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintStart_toEndOf="@id/backButton"
@@ -45,18 +58,31 @@
 					tools:text="bluesman 신상품" />
 				
 				<TextView
-					android:id="@+id/uploadDate"
+					android:id="@+id/uploadDateTextView"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="6dp"
+					android:text="@{uploadDate}"
 					android:textColor="@color/colorGray600"
 					android:textSize="12dp"
-					app:layout_constraintBaseline_toBaselineOf="@id/title"
-					app:layout_constraintStart_toEndOf="@id/title"
+					app:layout_constraintBaseline_toBaselineOf="@id/titleTextView"
+					app:layout_constraintStart_toEndOf="@id/titleTextView"
 					tools:ignore="SpUsage"
 					tools:text="20년 1월 2일" />
 			
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</com.google.android.material.appbar.AppBarLayout>
+		
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/newItemRecyclerView"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/appBar"
+			tools:itemCount="3"
+			tools:listitem="@layout/item_new_product" />
+	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

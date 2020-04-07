@@ -1,11 +1,19 @@
 package com.sabgil.contena.common.ext
 
 import android.view.View
+import android.view.View.*
+import androidx.databinding.BindingAdapter
 
-fun View.setVisible(isVisible: Boolean) {
-    visibility = if (isVisible) View.VISIBLE else View.GONE
-}
+@set:BindingAdapter("visibleOrGone")
+var View.visibleOrGone
+    get() = visibility == VISIBLE
+    set(value) {
+        visibility = if (value) VISIBLE else GONE
+    }
 
-fun View.setGone(isGone: Boolean) {
-    visibility = if (isGone) View.GONE else View.VISIBLE
-}
+@set:BindingAdapter("visible")
+var View.visible
+    get() = visibility == VISIBLE
+    set(value) {
+        visibility = if (value) VISIBLE else INVISIBLE
+    }

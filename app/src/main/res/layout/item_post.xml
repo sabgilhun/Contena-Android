@@ -67,7 +67,7 @@
 			android:layout_marginStart="12dp"
 			android:includeFontPadding="false"
 			android:text="@{postListItem.uploadDate}"
-			android:textColor="@color/colorGray400"
+			android:textColor="@color/colorGray600"
 			android:textSize="12dp"
 			app:layout_constraintBottom_toBottomOf="@id/logoHolder"
 			app:layout_constraintStart_toEndOf="@id/logoHolder"
@@ -83,6 +83,28 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/logoHolder" />
+		
+		<TextView
+			android:id="@+id/goTotalNewProductTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="6dp"
+			android:layout_marginEnd="6dp"
+			android:layout_marginBottom="10dp"
+			android:background="@drawable/shape_r4_background_black_transperent"
+			android:drawableEnd="@drawable/vector_keyboard_arrow_right_white"
+			android:gravity="center_vertical"
+			android:paddingStart="8dp"
+			android:paddingTop="8dp"
+			android:paddingEnd="8dp"
+			android:paddingBottom="8dp"
+			android:text="@string/item_post_go_total_new_product"
+			android:textColor="@color/colorWhite"
+			android:textSize="12sp"
+			app:layout_constraintBottom_toBottomOf="@id/newItemImageViewPager"
+			app:layout_constraintEnd_toEndOf="@id/newItemImageViewPager"
+			app:layout_constraintStart_toStartOf="@id/newItemImageViewPager"
+			app:visibleOrGone="@{postListItem.hasMoreItem}" />
 		
 		<com.google.android.material.tabs.TabLayout
 			android:id="@+id/imagePageTabLayout"
@@ -140,22 +162,6 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/productNameTextView"
 			tools:text="100,000" />
-		
-		<!--		<View-->
-		<!--			android:layout_width="0dp"-->
-		<!--			android:layout_height="0.5dp"-->
-		<!--			android:background="@color/commonBorderColor"-->
-		<!--			app:layout_constraintEnd_toEndOf="parent"-->
-		<!--			app:layout_constraintStart_toStartOf="parent"-->
-		<!--			app:layout_constraintTop_toTopOf="@id/newItemImageViewPager" />-->
-		<!--		-->
-		<!--		<View-->
-		<!--			android:layout_width="0dp"-->
-		<!--			android:layout_height="0.5dp"-->
-		<!--			android:background="@color/commonBorderColor"-->
-		<!--			app:layout_constraintBottom_toBottomOf="@id/newItemImageViewPager"-->
-		<!--			app:layout_constraintEnd_toEndOf="parent"-->
-		<!--			app:layout_constraintStart_toStartOf="parent" />-->
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
