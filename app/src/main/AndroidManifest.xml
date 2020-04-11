@@ -30,6 +30,10 @@
 			android:name=".presenter.postdetail.activity.PostDetailActivity"
 			android:screenOrientation="portrait" />
 		
+		<activity
+			android:name=".presenter.settings.SettingsActivity"
+			android:screenOrientation="portrait" />
+	
 	</application>
 
 </manifest>

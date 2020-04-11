@@ -14,6 +14,7 @@ import com.sabgil.contena.presenter.home.fragment.tabmanager.Tab
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.home.widget.BottomNavigationBar
 import com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity
+import com.sabgil.contena.presenter.settings.SettingsActivity
 
 class NewItemTabFragment :
     BaseFragment<FragmentNewItemTabBinding>(R.layout.fragment_new_item_tab), Tab {
@@ -30,6 +31,7 @@ class NewItemTabFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupAppbar()
         setupShopShortcutRecyclerView()
         setupPostRecyclerView()
 
@@ -37,6 +39,12 @@ class NewItemTabFragment :
 
         viewModel.loadSubscribedShopList()
         postAdapter.initialDataLoad()
+    }
+
+    private fun setupAppbar() {
+        binding.settingImageButton.setOnClickListener {
+            SettingsActivity.start(requireActivity())
+        }
     }
 
     private fun setupShopShortcutRecyclerView() {
