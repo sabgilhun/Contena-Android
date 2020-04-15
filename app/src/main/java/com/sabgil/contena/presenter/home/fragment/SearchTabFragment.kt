@@ -47,11 +47,12 @@ class SearchTabFragment :
         searchingState.registerObserver {
             when (it) {
                 is SearchingState.NotStarted -> {
-                    binding.searchingStateTextView.visibleOrGone = false
+                    binding.searchingStateLayout.visibleOrGone = false
                     searchedShopAdapter.replaceAll(it.recommendedShopList)
                 }
                 is SearchingState.Searching -> {
-                    binding.searchingStateTextView.visibleOrGone = true
+                    binding.searchingStateLayout.visibleOrGone = true
+                    binding.progressBar.visibleOrGone = true
                     binding.searchingStateTextView.text =
                         HtmlCompat.fromHtml(
                             getString(R.string.fragment_search_tab_searching_text, it.keyword),
@@ -60,7 +61,8 @@ class SearchTabFragment :
                     searchedShopAdapter.replaceAll(emptyList())
                 }
                 is SearchingState.Empty -> {
-                    binding.searchingStateTextView.visibleOrGone = true
+                    binding.searchingStateLayout.visibleOrGone = true
+                    binding.progressBar.visibleOrGone = false
                     binding.searchingStateTextView.text =
                         HtmlCompat.fromHtml(
                             getString(R.string.fragment_search_tab_empty_result_text, it.keyword),
@@ -69,7 +71,7 @@ class SearchTabFragment :
                     searchedShopAdapter.replaceAll(emptyList())
                 }
                 is SearchingState.Complete -> {
-                    binding.searchingStateTextView.visibleOrGone = false
+                    binding.searchingStateLayout.visibleOrGone = false
                     searchedShopAdapter.replaceAll(it.searchedShopList)
                 }
             }
