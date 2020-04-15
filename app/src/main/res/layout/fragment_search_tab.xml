@@ -24,7 +24,7 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent">
 			
-			<com.sabgil.contena.presenter.home.widget.SearchEditText
+			<com.sabgil.contena.presenter.widget.SearchEditText
 				android:id="@+id/searchEditText"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content" />

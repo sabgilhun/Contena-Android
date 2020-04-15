@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
 import com.sabgil.contena.presenter.home.fragment.SearchTabFragment
-import com.sabgil.contena.presenter.home.widget.BottomNavigationBar
+import com.sabgil.contena.presenter.widget.BottomNavigationBar
 
 class TabManagerImpl(
     private val fragmentManager: FragmentManager,

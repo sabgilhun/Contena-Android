@@ -5,7 +5,7 @@ import com.sabgil.contena.R
 import com.sabgil.contena.databinding.ActivityHomeBinding
 import com.sabgil.contena.presenter.base.BaseActivity
 import com.sabgil.contena.presenter.home.fragment.tabmanager.TabManagerImpl
-import com.sabgil.contena.presenter.home.widget.BottomNavigationBar
+import com.sabgil.contena.presenter.widget.BottomNavigationBar
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 

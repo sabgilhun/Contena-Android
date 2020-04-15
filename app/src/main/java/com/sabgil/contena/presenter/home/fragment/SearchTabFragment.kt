@@ -12,7 +12,7 @@ import com.sabgil.contena.presenter.home.adapter.SearchedShopAdapter
 import com.sabgil.contena.presenter.home.enums.SearchingState
 import com.sabgil.contena.presenter.home.fragment.tabmanager.Tab
 import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
-import com.sabgil.contena.presenter.home.widget.BottomNavigationBar
+import com.sabgil.contena.presenter.widget.BottomNavigationBar
 
 class SearchTabFragment :
     BaseFragment<FragmentSearchTabBinding>(R.layout.fragment_search_tab), Tab {

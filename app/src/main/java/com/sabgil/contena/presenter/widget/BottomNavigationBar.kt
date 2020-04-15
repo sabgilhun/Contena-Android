@@ -1,4 +1,4 @@
-package com.sabgil.contena.presenter.home.widget
+package com.sabgil.contena.presenter.widget
 
 import android.content.Context
 import android.util.AttributeSet
@@ -20,7 +20,8 @@ class BottomNavigationBar : FrameLayout {
 
     private lateinit var binding: WidgetBottomNavigationBarBinding
 
-    private var selectedTabIndex: TabIndex = TabIndex.NEW_ITEM
+    private var selectedTabIndex: TabIndex =
+        TabIndex.NEW_ITEM
 
     private val tabClickConsumer: (TabIndex) -> Unit = { handleTabClick(selectedTabIndex, it) }
 

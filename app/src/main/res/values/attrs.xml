@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="SwitchTextView">
+		<attr name="switchText" format="string" />
+		<attr name="switchTextSize" format="dimension" />
+		<attr name="switchTextColor" format="color" />
+		<attr name="switchOn" format="boolean" />
+	</declare-styleable>
+</resources>

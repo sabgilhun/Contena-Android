@@ -1,4 +1,4 @@
-package com.sabgil.contena.presenter.home.widget
+package com.sabgil.contena.presenter.widget
 
 import android.content.Context
 import android.text.Editable
