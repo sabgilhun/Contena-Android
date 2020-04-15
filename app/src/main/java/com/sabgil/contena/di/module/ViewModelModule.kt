@@ -8,7 +8,9 @@ import com.sabgil.contena.di.factory.ViewModelFactory
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
+import com.sabgil.contena.presenter.manage.viewmodel.ShopManageViewModel
 import com.sabgil.contena.presenter.postdetail.viewmodel.PostDetailViewModel
+import com.sabgil.contena.presenter.settings.viewmodel.SettingsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -39,4 +41,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PostDetailViewModel::class)
     abstract fun bindPostDetailViewModel(postDetailViewModel: PostDetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SettingsViewModel::class)
+    abstract fun bindSettingsViewModel(settingsViewModel: SettingsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ShopManageViewModel::class)
+    abstract fun bindShopManageViewModel(shopManageViewModel: ShopManageViewModel): ViewModel
 }

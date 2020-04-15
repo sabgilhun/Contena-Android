@@ -31,9 +31,12 @@
 			android:screenOrientation="portrait" />
 		
 		<activity
-			android:name=".presenter.settings.SettingsActivity"
+			android:name=".presenter.settings.activity.SettingsActivity"
 			android:screenOrientation="portrait" />
-	
+		
+		<activity
+			android:name=".presenter.manage.activity.ShopManageActivity"
+			android:screenOrientation="portrait" />
 	</application>
 
 </manifest>

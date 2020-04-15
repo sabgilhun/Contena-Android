@@ -14,7 +14,7 @@ import com.sabgil.contena.presenter.home.fragment.tabmanager.Tab
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.widget.BottomNavigationBar
 import com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity
-import com.sabgil.contena.presenter.settings.SettingsActivity
+import com.sabgil.contena.presenter.settings.activity.SettingsActivity
 
 class NewItemTabFragment :
     BaseFragment<FragmentNewItemTabBinding>(R.layout.fragment_new_item_tab), Tab {

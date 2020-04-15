@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".presenter.home.adapter.SearchedShopAdapter">
+	
+	<data>
+		
+		<variable
+			name="shop"
+			type="com.sabgil.contena.domain.model.Shop" />
+	</data>
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingStart="8dp"
+		android:paddingEnd="8dp">
+		
+		<FrameLayout
+			android:id="@+id/imageHolder"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:layout_marginBottom="4dp"
+			android:background="@drawable/shapre_circle_white_backgorund_gray200_border"
+			android:padding="8dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+			
+			<ImageView
+				android:id="@+id/shopLogoImageView"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:image="@{shop.shopLogoUrl}"
+				tools:ignore="ContentDescription" />
+		</FrameLayout>
+		
+		<TextView
+			android:id="@+id/shopNameTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:text="@{shop.shopName}"
+			android:textSize="14sp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@id/subscribeButton"
+			app:layout_constraintHorizontal_chainStyle="spread_inside"
+			app:layout_constraintStart_toEndOf="@id/imageHolder"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_chainStyle="packed"
+			tools:text="블루스맨" />
+		
+		<Button
+			android:id="@+id/subscribeButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="16dp"
+			android:paddingStart="20dp"
+			android:paddingTop="4dp"
+			android:paddingEnd="20dp"
+			android:paddingBottom="4dp"
+			android:text="@string/shop_subscribe"
+			android:textSize="14sp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@id/shopNameTextView"
+			app:layout_constraintTop_toTopOf="parent" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

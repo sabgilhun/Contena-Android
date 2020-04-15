@@ -35,4 +35,6 @@
 	<string name="activity_settings_send_mail">개발자에게 메일 보내기</string>
 	<string name="activity_settings_share_app">앱 공유하기</string>
 	
+	<!--activity_shop_manage-->
+	<string name="activity_shop_manage_title">구독 쇼핑몰 관리</string>
 </resources>
