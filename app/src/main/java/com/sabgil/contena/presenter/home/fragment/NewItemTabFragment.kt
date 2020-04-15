@@ -9,7 +9,7 @@ import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentNewItemTabBinding
 import com.sabgil.contena.presenter.base.BaseFragment
 import com.sabgil.contena.presenter.home.adapter.ShopShortcutAdapter
-import com.sabgil.contena.presenter.home.adapter.post.PostAdapter
+import com.sabgil.contena.presenter.home.adapter.PostAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.Tab
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.widget.BottomNavigationBar

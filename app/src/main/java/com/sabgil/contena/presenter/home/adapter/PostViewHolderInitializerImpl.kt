@@ -1,4 +1,4 @@
-package com.sabgil.contena.presenter.home.adapter.post
+package com.sabgil.contena.presenter.home.adapter
 
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +11,14 @@ import com.sabgil.contena.databinding.ItemPostLoadingBinding
 import com.sabgil.contena.databinding.ItemPostNoMoreBinding
 
 
-class ViewHolderInitializerImpl : ViewHolderInitializer {
+class PostViewHolderInitializerImpl : ViewHolderInitializer {
     override fun emptyViewHolderInit(parent: ViewGroup): View =
         DataBindingUtil.inflate<ItemPostEmptyBinding>(
             parent.context.layoutInflater,
             R.layout.item_post_empty,
             parent,
             false
-        ).apply {
-
-        }.root
+        ).root
 
     override fun loadingViewHolderInit(parent: ViewGroup): View =
         DataBindingUtil.inflate<ItemPostLoadingBinding>(

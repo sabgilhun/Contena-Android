@@ -2,24 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	tools:context=".presenter.home.adapter.post.PostAdapter">
+	tools:context=".presenter.home.adapter.PostAdapter">
 	
 	<data>
 		
 		<variable
 			name="postListItem"
 			type="com.sabgil.contena.presenter.home.model.PostListItem" />
-		
-		<variable
-			name="currentNewItem"
-			type="com.sabgil.contena.domain.model.SummaryNewItem" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@drawable/common_top_border"
-		android:paddingBottom="12dp">
+		android:layout_height="wrap_content">
 		
 		<FrameLayout
 			android:id="@+id/logoHolder"
@@ -31,7 +25,6 @@
 			android:layout_marginBottom="4dp"
 			android:background="@drawable/shapre_circle_white_backgorund_gray200_border"
 			android:padding="6dp"
-			app:layout_constraintBottom_toTopOf="@id/newItemImageViewPager"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent">
 			
@@ -76,92 +69,24 @@
 			tools:ignore="SpUsage"
 			tools:text="20.03.01" />
 		
-		<androidx.viewpager.widget.ViewPager
-			android:id="@+id/newItemImageViewPager"
+		<com.sabgil.contena.presenter.widget.NewProductsSummaryView
+			android:id="@+id/newProductsSummaryView"
 			android:layout_width="0dp"
-			android:layout_height="440dp"
+			android:layout_height="0dp"
+			android:layout_marginTop="4dp"
+			android:foreground="?android:selectableItemBackground"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintDimensionRatio="1"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/logoHolder" />
 		
-		<TextView
-			android:id="@+id/goTotalNewProductTextView"
+		<View
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="6dp"
-			android:layout_marginEnd="6dp"
-			android:layout_marginBottom="10dp"
-			android:background="@drawable/shape_r4_background_black_transperent"
-			android:drawableEnd="@drawable/vector_keyboard_arrow_right_white"
-			android:gravity="center_vertical"
-			android:paddingStart="8dp"
-			android:paddingTop="8dp"
-			android:paddingEnd="8dp"
-			android:paddingBottom="8dp"
-			android:text="@string/item_post_go_total_new_product"
-			android:textColor="@color/colorWhite"
-			android:textSize="12sp"
-			app:layout_constraintBottom_toBottomOf="@id/newItemImageViewPager"
-			app:layout_constraintEnd_toEndOf="@id/newItemImageViewPager"
-			app:layout_constraintStart_toStartOf="@id/newItemImageViewPager"
-			app:visibleOrGone="@{postListItem.hasMoreItem}" />
-		
-		<com.google.android.material.tabs.TabLayout
-			android:id="@+id/imagePageTabLayout"
-			android:layout_width="0dp"
-			android:layout_height="20dp"
+			android:layout_height="0.5dp"
+			android:background="@color/commonBorderColor"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/newItemImageViewPager"
-			app:tabBackground="@drawable/selector_tab_indicator"
-			app:tabGravity="center"
-			app:tabIndicatorHeight="0dp"
-			app:tabMaxWidth="9dp"
-			app:tabMode="fixed"
-			app:tabPadding="0dp" />
-		
-		<TextView
-			android:id="@+id/brandTextView"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:includeFontPadding="false"
-			android:paddingStart="8dp"
-			android:paddingEnd="8dp"
-			android:text="@{currentNewItem.brandName}"
-			android:textSize="14sp"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/imagePageTabLayout"
-			tools:text="브랜드" />
-		
-		<TextView
-			android:id="@+id/productNameTextView"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:includeFontPadding="false"
-			android:paddingStart="8dp"
-			android:paddingEnd="8dp"
-			android:text="@{currentNewItem.productName}"
-			android:textSize="14sp"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/brandTextView"
-			tools:text="상품 이름" />
-		
-		<TextView
-			android:id="@+id/priceTextView"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="4dp"
-			android:paddingStart="8dp"
-			android:paddingEnd="8dp"
-			android:text="@{currentNewItem.price}"
-			android:textSize="16sp"
-			android:textStyle="bold"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/productNameTextView"
-			tools:text="100,000" />
-	
+			app:layout_constraintTop_toTopOf="parent" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

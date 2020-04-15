@@ -13,6 +13,9 @@
 	<string name="newItemTitle">신상품</string>
 	<string name="searchTitle">쇼핑몰 검색</string>
 	
+	<!--widget_new_products_summary_view-->
+	<string name="widget_new_products_summary_view_more_item_format">+%d</string>
+	
 	<!--item_post-->
 	<string name="emptyItem">구독하신 쇼핑몰에\n신상품 포스트가 없습니다.</string>
 	<string name="noMoreItem">더 이상 이전 포스트가 존재 하지 않습니다.</string>
@@ -22,7 +25,7 @@
 	<!--item_searched_shop-->
 	<string name="shop_subscribe">구독</string>
 	<string name="shop_subscriber_count">구독자: %d명</string>
-
+	
 	<!--activity_post_detail-->
 	<string name="activity_post_detail_title">%s 신상품</string>
 	

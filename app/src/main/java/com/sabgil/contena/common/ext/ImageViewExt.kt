@@ -5,26 +5,20 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 @BindingAdapter("imageWithCircleCrop")
-fun setImageWithCircleCrop(
-    imageView: ImageView,
-    uri: String?
-) {
+fun ImageView.setImageWithCircleCrop(uri: String?) {
     if (!uri.isNullOrEmpty()) {
-        Glide.with(imageView)
+        Glide.with(this)
             .load(uri)
             .circleCrop()
-            .into(imageView)
+            .into(this)
     }
 }
 
 @BindingAdapter("image")
-fun setImage(
-    imageView: ImageView,
-    uri: String?
-) {
+fun ImageView.setImage(uri: String?) {
     if (!uri.isNullOrEmpty()) {
-        Glide.with(imageView)
+        Glide.with(this)
             .load(uri)
-            .into(imageView)
+            .into(this)
     }
 }
