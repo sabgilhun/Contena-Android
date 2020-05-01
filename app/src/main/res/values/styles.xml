@@ -30,4 +30,9 @@
 		<item name="android:focusable">true</item>
 		<item name="android:clickable">true</item>
 	</style>
+	
+	<style name="StateButtonStyle" parent="ButtonStyle">
+		<item name="android:background">@drawable/selector_state_button</item>
+		<item name="android:textColor">@drawable/selector_state_button_text_color</item>
+	</style>
 </resources>

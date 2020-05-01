@@ -32,6 +32,9 @@ class SearchedShopAdapter : RecyclerView.Adapter<SearchedShopAdapter.SearchedSho
 
     override fun onBindViewHolder(holder: SearchedShopViewHolder, position: Int) {
         holder.binding.shop = shopItems[position]
+        holder.binding.subscribeButton.setOnClickListener {
+            it.isSelected = !(it.isSelected)
+        }
     }
 
     class SearchedShopViewHolder(
