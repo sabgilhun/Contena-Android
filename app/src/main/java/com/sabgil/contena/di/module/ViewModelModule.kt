@@ -11,6 +11,7 @@ import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
 import com.sabgil.contena.presenter.manage.viewmodel.ShopManageViewModel
 import com.sabgil.contena.presenter.postdetail.viewmodel.PostDetailViewModel
 import com.sabgil.contena.presenter.settings.viewmodel.SettingsViewModel
+import com.sabgil.contena.presenter.splash.SplashViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -21,6 +22,11 @@ abstract class ViewModelModule {
     @ApplicationScope
     @Binds
     abstract fun bindFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SplashViewModel::class)
+    abstract fun bindSplashViewModel(splashViewModel: SplashViewModel): ViewModel
 
     @Binds
     @IntoMap

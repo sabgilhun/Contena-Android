@@ -1,10 +1,13 @@
 package com.sabgil.contena.presenter.home.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.sabgil.contena.R
+import com.sabgil.contena.common.ext.startOnTop
 import com.sabgil.contena.databinding.ActivityHomeBinding
 import com.sabgil.contena.presenter.base.BaseActivity
 import com.sabgil.contena.presenter.home.fragment.tabmanager.TabManagerImpl
@@ -16,18 +19,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         super.onCreate(savedInstanceState)
 
         binding.bottomNavigation.setup()
-
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    return@OnCompleteListener
-                }
-
-                // Get new Instance ID token
-                val token = task.result?.token
-
-                Log.i("토큰", token ?: "없네")
-            })
     }
 
     override fun onBackPressed() = binding.bottomNavigation.goToBackTab()
@@ -38,5 +29,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             fragmentContainerId = R.id.tabContainer,
             emptyBackStackAction = this@HomeActivity::finish
         )
+    }
+
+    companion object {
+
+        fun start(context: Context) {
+            context.startOnTop(HomeActivity::class)
+        }
     }
 }

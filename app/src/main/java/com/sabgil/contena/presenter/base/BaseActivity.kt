@@ -43,8 +43,16 @@ abstract class BaseActivity<B : ViewDataBinding>(
         })
     }
 
-    protected fun <T> LiveData<T>.registerObserver(onChange: (T) -> Unit) {
+    protected fun <T> LiveData<T>.registerObserver(onChange: (T?) -> Unit) {
         this.observe(this@BaseActivity, Observer(onChange))
+    }
+
+    protected fun <T> LiveData<T>.registerNonNullObserver(onChange: (T) -> Unit) {
+        this.observe(this@BaseActivity, Observer<T?> {
+            if (it != null) {
+                onChange(it)
+            }
+        })
     }
 }
 

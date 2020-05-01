@@ -20,11 +20,16 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         super.setValue(value)
     }
 
-    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
-        super.observe(owner, Observer<T> { t ->
+    override fun observe(owner: LifecycleOwner, observer: Observer<in T?>) {
+        super.observe(owner, Observer<T?> { t ->
             if (pendingValue.compareAndSet(true, false)) {
                 observer.onChanged(t)
             }
         })
+    }
+
+    fun call() {
+        pendingValue.set(true)
+        super.setValue(null)
     }
 }

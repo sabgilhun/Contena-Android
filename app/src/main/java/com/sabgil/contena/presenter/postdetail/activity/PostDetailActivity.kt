@@ -43,7 +43,7 @@ class PostDetailActivity : BaseActivity<ActivityPostDetailBinding>(R.layout.acti
     }
 
     private fun PostDetailViewModel.setupObserver() {
-        newItemList.registerObserver(adapter::replaceAll)
+        newItemList.registerNonNullObserver(adapter::replaceAll)
     }
 
     companion object {

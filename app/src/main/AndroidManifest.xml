@@ -18,14 +18,18 @@
 		tools:ignore="GoogleAppIndexingWarning">
 		
 		<activity
-			android:name=".presenter.home.activity.HomeActivity"
-			android:screenOrientation="portrait"
-			android:windowSoftInputMode="adjustNothing">
+			android:name=".presenter.splash.SplashActivity"
+			android:screenOrientation="portrait">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		
+		<activity
+			android:name=".presenter.home.activity.HomeActivity"
+			android:screenOrientation="portrait"
+			android:windowSoftInputMode="adjustNothing" />
 		
 		<activity
 			android:name=".presenter.postdetail.activity.PostDetailActivity"
@@ -46,7 +50,7 @@
 				<action android:name="com.google.firebase.MESSAGING_EVENT" />
 			</intent-filter>
 		</service>
-		
+	
 	</application>
 
 </manifest>

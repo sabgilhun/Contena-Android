@@ -2,10 +2,7 @@ package com.sabgil.contena.di.component
 
 import android.content.Context
 import com.sabgil.contena.di.annotation.ApplicationScope
-import com.sabgil.contena.di.module.ApiModule
-import com.sabgil.contena.di.module.NetworkModule
-import com.sabgil.contena.di.module.RepositoryModule
-import com.sabgil.contena.di.module.ViewModelModule
+import com.sabgil.contena.di.module.*
 import dagger.BindsInstance
 import dagger.Component
 
@@ -13,6 +10,7 @@ import dagger.Component
 @Component(
     modules = [
         ApiModule::class,
+        SharedPrefModule::class,
         NetworkModule::class,
         RepositoryModule::class,
         ViewModelModule::class

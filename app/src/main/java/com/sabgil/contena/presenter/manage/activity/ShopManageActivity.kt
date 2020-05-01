@@ -40,7 +40,7 @@ class ShopManageActivity : BaseActivity<ActivityShopManageBinding>(R.layout.acti
     }
 
     private fun ShopManageViewModel.setupObserver() {
-        subscribedShopList.registerObserver(subscribedShopAdapter::replaceAll)
+        subscribedShopList.registerNonNullObserver(subscribedShopAdapter::replaceAll)
     }
 
     companion object {
