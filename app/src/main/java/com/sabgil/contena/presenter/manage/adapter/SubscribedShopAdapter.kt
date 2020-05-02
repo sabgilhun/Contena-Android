@@ -15,15 +15,15 @@ class SubscribedShopAdapter(
     private val onToggleSubscription: (Boolean, String) -> Unit
 ) : RecyclerView.Adapter<SubscribedShopAdapter.ShopManageViewHolder>() {
 
-    private var shopItems: List<SubscribedShop> by Delegates.observable(mutableListOf())
+    private var subscribedShopItems: List<SubscribedShop> by Delegates.observable(mutableListOf())
     { _, old, new ->
         autoNotify(old, new) { o, n ->
             o.shopName == n.shopName
         }
     }
 
-    fun replaceAll(shopList: List<SubscribedShop>) {
-        shopItems = shopList
+    fun replaceAll(subscribedShops: List<SubscribedShop>) {
+        subscribedShopItems = subscribedShops
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopManageViewHolder =
@@ -36,16 +36,16 @@ class SubscribedShopAdapter(
             )
         ).apply {
             binding.root.subscribeButton.setOnClickListener {
-                shopItems[adapterPosition].let {
+                subscribedShopItems[adapterPosition].let {
                     onToggleSubscription(!it.subscribed, it.shopName)
                 }
             }
         }
 
-    override fun getItemCount(): Int = shopItems.size
+    override fun getItemCount(): Int = subscribedShopItems.size
 
     override fun onBindViewHolder(holder: ShopManageViewHolder, position: Int) {
-        holder.binding.item = shopItems[position]
+        holder.binding.item = subscribedShopItems[position]
     }
 
     class ShopManageViewHolder(

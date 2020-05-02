@@ -24,6 +24,7 @@
 	
 	<!--item_searched_shop-->
 	<string name="shop_subscribe">구독</string>
+	<string name="shop_unsubscribe">구독 해제</string>
 	<string name="shop_subscriber_count">구독자: %d명</string>
 	
 	<!--activity_post_detail-->

@@ -32,10 +32,18 @@ class SearchTabFragment :
         setupSearchedShopRecyclerView()
 
         viewModel.setupObserver()
+        viewModel.initialLoadShopData()
     }
 
     private fun setupSearchedShopRecyclerView() {
-        searchedShopAdapter = SearchedShopAdapter()
+        searchedShopAdapter = SearchedShopAdapter { doSubscribe, shopName ->
+            if (doSubscribe) {
+                viewModel.subscribeShop(shopName)
+            } else {
+                viewModel.unsubscribeShop(shopName)
+            }
+        }
+
         binding.searchedShopRecyclerView.adapter = searchedShopAdapter
     }
 
@@ -72,7 +80,7 @@ class SearchTabFragment :
                 }
                 is SearchingState.Complete -> {
                     binding.searchingStateLayout.visibleOrGone = false
-                    searchedShopAdapter.replaceAll(it.searchedShopList)
+                    searchedShopAdapter.replaceAll(it.searchedShops)
                 }
             }
         }
