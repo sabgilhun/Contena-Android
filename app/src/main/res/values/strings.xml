@@ -40,4 +40,9 @@
 	
 	<!--activity_shop_manage-->
 	<string name="activity_shop_manage_title">구독 쇼핑몰 관리</string>
+	
+	<!--fcm_notification-->
+	<string name="fcm_notification_default_title">구독한 쇼핑몰에 신상품 업데이트</string>
+	<string name="fcm_notification_default_body">오늘의 신상품을 확인하러 오세요.</string>
+
 </resources>
