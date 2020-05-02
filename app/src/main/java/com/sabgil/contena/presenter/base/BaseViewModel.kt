@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sabgil.contena.common.SingleLiveEvent
-import io.reactivex.MaybeTransformer
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -36,15 +35,6 @@ abstract class BaseViewModel : ViewModel() {
 
     protected fun <T> apiLoadingSingleTransformer(): SingleTransformer<T, T> {
         return SingleTransformer {
-            it.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { _isLoading.value = true }
-                .doFinally { _isLoading.value = false }
-        }
-    }
-
-    protected fun <T> apiLoadingMaybeTransformer(): MaybeTransformer<T, T> {
-        return MaybeTransformer {
             it.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { _isLoading.value = true }

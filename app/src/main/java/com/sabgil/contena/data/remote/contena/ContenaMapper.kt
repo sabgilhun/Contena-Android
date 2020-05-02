@@ -1,10 +1,6 @@
 package com.sabgil.contena.data.remote.contena
 
-import com.sabgil.contena.data.remote.contena.request.PostSubscriptionRequest
-import com.sabgil.contena.data.remote.contena.request.PostUnsubscriptionRequest
-import com.sabgil.contena.data.remote.contena.response.GetNewItemListResponse
-import com.sabgil.contena.data.remote.contena.response.GetPostListResponse
-import com.sabgil.contena.data.remote.contena.response.GetShopListResponse
+import com.sabgil.contena.data.remote.contena.response.*
 import com.sabgil.contena.domain.model.*
 import com.sabgil.contena.utils.DateUtils
 import javax.inject.Inject
@@ -52,13 +48,21 @@ class ContenaMapper @Inject constructor() {
             )
         }
 
-    fun toPostSubscriptionRequest(subscription: Subscription): PostSubscriptionRequest =
-        subscription.let {
-            PostSubscriptionRequest(it.userId, it.shopName)
+    fun toSubscription(postSubscribeResponse: PostSubscribeResponse): Subscription =
+        postSubscribeResponse.let {
+            Subscription(
+                subscribed = true,
+                shopName = it.shopName,
+                userId = it.userId
+            )
         }
 
-    fun toPostUnsubscriptionRequest(subscription: Subscription): PostUnsubscriptionRequest =
-        subscription.let {
-            PostUnsubscriptionRequest(it.userId, it.shopName)
+    fun toSubscription(postUnsubscribeResponse: PostUnsubscribeResponse): Subscription =
+        postUnsubscribeResponse.let {
+            Subscription(
+                subscribed = false,
+                shopName = it.shopName,
+                userId = it.userId
+            )
         }
 }

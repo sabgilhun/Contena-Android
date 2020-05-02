@@ -1,11 +1,8 @@
 package com.sabgil.contena.data.remote.contena
 
-import com.sabgil.contena.data.remote.contena.request.PostUnsubscriptionRequest
 import com.sabgil.contena.data.remote.contena.request.PostSubscriptionRequest
-import com.sabgil.contena.data.remote.contena.response.GetNewItemListResponse
-import com.sabgil.contena.data.remote.contena.response.GetPostListResponse
-import com.sabgil.contena.data.remote.contena.response.GetShopListResponse
-import io.reactivex.Maybe
+import com.sabgil.contena.data.remote.contena.request.PostUnsubscriptionRequest
+import com.sabgil.contena.data.remote.contena.response.*
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -38,10 +35,10 @@ interface ContenaApi {
     @POST(value = "subscription")
     fun postSubscription(
         @Body postSubscriptionRequest: PostSubscriptionRequest
-    ): Maybe<Void>
+    ): Single<PostSubscribeResponse>
 
     @POST(value = "unsubscription")
     fun postUnsubscription(
         @Body postUnsubscription: PostUnsubscriptionRequest
-    ): Maybe<Void>
+    ): Single<PostUnsubscribeResponse>
 }
