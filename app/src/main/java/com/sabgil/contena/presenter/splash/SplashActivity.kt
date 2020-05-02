@@ -33,7 +33,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     private fun startSplashAnimation() {
         binding.logoImage.animate().apply {
-            duration = 1000
+            duration = SPLASH_ANIMATION_DURATION
             onAnimationEnd {
                 viewModel.checkFcmToken()
             }
@@ -41,7 +41,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     }
 
     private fun checkLifeCycleAndGoHome() {
-        if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
             HomeActivity.start(this)
         }
     }
@@ -53,12 +53,15 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
                 if (!task.isSuccessful) {
                     return@OnCompleteListener
                 }
-                Thread.sleep(500)
                 binding.loading.visible = false
                 task.result?.token?.let {
                     viewModel.saveToken(it)
                     goNext()
                 } ?: finish()
             })
+    }
+
+    companion object {
+        private const val SPLASH_ANIMATION_DURATION: Long = 2000
     }
 }
