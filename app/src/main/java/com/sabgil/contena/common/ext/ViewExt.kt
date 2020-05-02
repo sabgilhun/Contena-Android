@@ -17,3 +17,10 @@ var View.visible
     set(value) {
         visibility = if (value) VISIBLE else INVISIBLE
     }
+
+@set:BindingAdapter("selected")
+var View.selected
+    get() = isSelected
+    set(value) {
+        isSelected = value
+    }

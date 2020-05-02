@@ -6,6 +6,8 @@ import com.sabgil.contena.data.repository.AppRepository
 import com.sabgil.contena.data.repository.ContenaRepository
 import com.sabgil.contena.domain.model.Shop
 import com.sabgil.contena.presenter.base.BaseViewModel
+import com.sabgil.contena.presenter.manage.model.SubscribedShop
+import com.sabgil.contena.presenter.manage.model.toSubscribedShop
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
@@ -14,16 +16,18 @@ class ShopManageViewModel @Inject constructor(
     private val contenaRepository: ContenaRepository
 ) : BaseViewModel() {
 
-    private val _subscribedShopList = MutableLiveData<List<Shop>>()
-    val subscribedShopList: LiveData<List<Shop>> = _subscribedShopList
+    private val _subscribedShopList = MutableLiveData<List<SubscribedShop>>()
+    val subscribedShopList: LiveData<List<SubscribedShop>> = _subscribedShopList
 
     fun loadSubscribedShopList() {
-        contenaRepository.getSubscribedShopList("1")
-            .compose(apiLoadingSingleTransformer())
-            .subscribeBy(
-                onSuccess = _subscribedShopList::setValue,
-                onError = { _showApiErrorMessage.setValue(it.message ?: "") }
-            ).add()
+        appRepository.getFcmToken()?.let { userId ->
+            contenaRepository.getSubscribedShopList(userId)
+                .compose(apiLoadingSingleTransformer())
+                .subscribeBy(
+                    onSuccess = { _subscribedShopList.value = it.map(Shop::toSubscribedShop) },
+                    onError = { _showApiErrorMessage.setValue(it.message ?: "") }
+                ).add()
+        }
     }
 
     fun subscribeShop(shopName: String) {
@@ -31,7 +35,13 @@ class ShopManageViewModel @Inject constructor(
             contenaRepository.postSubscription(userId, shopName)
                 .compose(apiLoadingSingleTransformer())
                 .subscribeBy(
-                    onSuccess = {},
+                    onSuccess = {
+                        _subscribedShopList.value?.map {
+                            if (it.shopName == shopName) it.apply {
+                                subscribed = true
+                            } else it
+                        }
+                    },
                     onError = {
                         _showApiErrorMessage.setValue(it.message ?: "")
                     })
@@ -44,7 +54,13 @@ class ShopManageViewModel @Inject constructor(
             contenaRepository.postUnsubscription(userId, shopName)
                 .compose(apiLoadingSingleTransformer())
                 .subscribeBy(
-                    onSuccess = {},
+                    onSuccess = {
+                        _subscribedShopList.value?.map {
+                            if (it.shopName == shopName) it.apply {
+                                subscribed = false
+                            } else it
+                        }
+                    },
                     onError = {
                         _showApiErrorMessage.setValue(it.message ?: "")
                     })

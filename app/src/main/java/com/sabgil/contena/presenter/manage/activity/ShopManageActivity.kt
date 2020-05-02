@@ -35,7 +35,13 @@ class ShopManageActivity : BaseActivity<ActivityShopManageBinding>(R.layout.acti
     }
 
     private fun setupSubscribedShopRecyclerView() {
-        subscribedShopAdapter = SubscribedShopAdapter()
+        subscribedShopAdapter = SubscribedShopAdapter { doSubscribe, shopName ->
+            if (doSubscribe) {
+                viewModel.subscribeShop(shopName)
+            } else {
+                viewModel.unsubscribeShop(shopName)
+            }
+        }
         binding.subscribedShopRecyclerView.adapter = subscribedShopAdapter
     }
 
