@@ -60,7 +60,9 @@ class SearchTabViewModel @Inject constructor(
                                 })
                         }
                 },
-                onError = {}
+                onError = {
+                    it.printStackTrace()
+                }
             ).add()
     }
 

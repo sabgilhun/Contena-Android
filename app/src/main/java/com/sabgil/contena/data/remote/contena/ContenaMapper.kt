@@ -40,7 +40,7 @@ class ContenaMapper @Inject constructor() {
         )
 
     fun toShopList(getShopListResponse: GetShopListResponse): List<Shop> =
-        getShopListResponse.availableShopList.map {
+        getShopListResponse.shopList.map {
             Shop(
                 shopName = it.shopName,
                 shopLogoUrl = it.shopLogoUrl,

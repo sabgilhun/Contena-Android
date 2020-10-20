@@ -53,7 +53,12 @@ class NewProductsSummaryView : FrameLayout {
         }
 
         frontImageList.forEachIndexed { index, s ->
-            (binding.imageContainer.getChildAt(index) as ImageView).setImage(s)
+            val view = binding.imageContainer.getChildAt(index)
+            if(view is ImageView) {
+                view.setImage(s)
+            } else{
+                view.background
+            }
         }
 
         binding.indicatorMore.visible = isMoreImage
