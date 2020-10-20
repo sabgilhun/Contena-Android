@@ -1,4 +1,4 @@
-package com.sabgil.contena.data.remote.contena.response
+package com.sabgil.contena.data.remote.contena.dto
 
 import com.google.gson.annotations.SerializedName
 
@@ -11,6 +11,7 @@ data class GetPostListResponse(
         @SerializedName("upload_data") val uploadDate: String,
         @SerializedName("shop_name") val shopName: String,
         @SerializedName("shop_logo_url") val shopLogoUrl: String,
+        @SerializedName("subscriber_count") val subscriberCount: Long,
         @SerializedName("new_item_list") val newItemList: List<NewItem>
     )
 
@@ -18,6 +19,8 @@ data class GetPostListResponse(
         @SerializedName("product_name") val productName: String,
         @SerializedName("brand") val brand: String,
         @SerializedName("image_url") val imageUrl: String,
-        @SerializedName("price") val price: String
+        @SerializedName("page_url") val pageUrl: String,
+        @SerializedName("price") val price: String,
+        @SerializedName("origin_price") val originPrice: String?
     )
 }

@@ -1,7 +1,10 @@
 package com.sabgil.contena.di.module
 
 import com.sabgil.contena.CONTENA_BASE_URL
-import com.sabgil.contena.data.remote.contena.ContenaApi
+import com.sabgil.contena.data.remote.contena.api.NewItemApi
+import com.sabgil.contena.data.remote.contena.api.PostApi
+import com.sabgil.contena.data.remote.contena.api.ReportApi
+import com.sabgil.contena.data.remote.contena.api.ShopApi
 import com.sabgil.contena.di.annotation.ApplicationScope
 import dagger.Module
 import dagger.Provides
@@ -17,17 +20,59 @@ class ApiModule {
 
     @Provides
     @ApplicationScope
-    fun provideContenaApi(
+    fun provideNewItemApi(
         okHttpClient: OkHttpClient,
         callAdapterFactory: CallAdapter.Factory,
         converterFactory: Converter.Factory
-    ): ContenaApi = Retrofit.Builder()
+    ): NewItemApi = Retrofit.Builder()
         .baseUrl(CONTENA_BASE_URL)
         .client(okHttpClient)
         .addCallAdapterFactory(callAdapterFactory)
         .addConverterFactory(converterFactory)
         .build()
-        .create(ContenaApi::class.java)
+        .create(NewItemApi::class.java)
+
+    @Provides
+    @ApplicationScope
+    fun providePostApi(
+        okHttpClient: OkHttpClient,
+        callAdapterFactory: CallAdapter.Factory,
+        converterFactory: Converter.Factory
+    ): PostApi = Retrofit.Builder()
+        .baseUrl(CONTENA_BASE_URL)
+        .client(okHttpClient)
+        .addCallAdapterFactory(callAdapterFactory)
+        .addConverterFactory(converterFactory)
+        .build()
+        .create(PostApi::class.java)
+
+    @Provides
+    @ApplicationScope
+    fun provideReportApi(
+        okHttpClient: OkHttpClient,
+        callAdapterFactory: CallAdapter.Factory,
+        converterFactory: Converter.Factory
+    ): ReportApi = Retrofit.Builder()
+        .baseUrl(CONTENA_BASE_URL)
+        .client(okHttpClient)
+        .addCallAdapterFactory(callAdapterFactory)
+        .addConverterFactory(converterFactory)
+        .build()
+        .create(ReportApi::class.java)
+
+    @Provides
+    @ApplicationScope
+    fun provideShopApi(
+        okHttpClient: OkHttpClient,
+        callAdapterFactory: CallAdapter.Factory,
+        converterFactory: Converter.Factory
+    ): ShopApi = Retrofit.Builder()
+        .baseUrl(CONTENA_BASE_URL)
+        .client(okHttpClient)
+        .addCallAdapterFactory(callAdapterFactory)
+        .addConverterFactory(converterFactory)
+        .build()
+        .create(ShopApi::class.java)
 
     @Provides
     @ApplicationScope

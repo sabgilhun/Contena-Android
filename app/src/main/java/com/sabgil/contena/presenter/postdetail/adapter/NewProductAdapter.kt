@@ -6,17 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.layoutInflater
 import com.sabgil.contena.databinding.ItemNewProductBinding
-import com.sabgil.contena.domain.model.DetailNewItem
 
 class NewProductAdapter : RecyclerView.Adapter<NewProductAdapter.NewItemViewHolder>() {
 
-    private val newProductList: MutableList<DetailNewItem> = mutableListOf()
+    private val newProductList: MutableList<Any> = mutableListOf()
 
-    fun replaceAll(newProductList: List<DetailNewItem>) {
-        this.newProductList.clear()
-        this.newProductList.addAll(newProductList)
-        notifyDataSetChanged()
-    }
+//    fun replaceAll(newProductList: List<DetailNewItem>) {
+//        this.newProductList.clear()
+//        this.newProductList.addAll(newProductList)
+//        notifyDataSetChanged()
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewItemViewHolder =
         NewItemViewHolder(
@@ -31,7 +30,7 @@ class NewProductAdapter : RecyclerView.Adapter<NewProductAdapter.NewItemViewHold
     override fun getItemCount(): Int = newProductList.size
 
     override fun onBindViewHolder(holder: NewItemViewHolder, position: Int) {
-        holder.binding.newProduct = newProductList[position]
+//        holder.binding.newProduct = newProductList[position]
     }
 
     class NewItemViewHolder(

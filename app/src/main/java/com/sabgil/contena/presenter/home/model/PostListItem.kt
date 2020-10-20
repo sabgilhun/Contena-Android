@@ -1,15 +1,14 @@
 package com.sabgil.contena.presenter.home.model
 
 import com.sabgil.contena.domain.model.Post
-import com.sabgil.contena.domain.model.SummaryNewItem
 
 data class PostListItem(
     val postId: Long,
     val diffDate: String,
     val uploadDate: String,
     val shopName: String,
-    val shopLogoUrl: String,
-    val newItemList: List<SummaryNewItem>
+    val shopLogoUrl: String
+//    val newItemList: List<SummaryNewItem>
 ) {
     companion object {
         fun from(post: Post): PostListItem =
@@ -18,8 +17,8 @@ data class PostListItem(
                 diffDate = post.uploadDate,  // TODO 변경할 예정
                 uploadDate = post.uploadDate,  // TODO 변경할 예정
                 shopName = post.shopName,
-                shopLogoUrl = post.shopLogoUrl,
-                newItemList = post.newItemList
+                shopLogoUrl = post.shopLogoUrl
+//                newItemList = post.newItemList
             )
     }
 }

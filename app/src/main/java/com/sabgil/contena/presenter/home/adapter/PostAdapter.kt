@@ -27,7 +27,7 @@ class PostAdapter(
         if (viewHolder is PostItemViewHolder) {
             viewHolder.apply {
                 binding.postListItem = item
-                binding.newProductsSummaryView.imageUrlList = item.newItemList.map { it.imageUrl }
+//                binding.newProductsSummaryView.imageUrlList = item.newItemList.map { it.imageUrl }
                 binding.newProductsSummaryView.setOnClickListener {
                     navigator.goToTotalProduction(item.postId, item.shopName, item.uploadDate)
                 }
