@@ -13,6 +13,7 @@ data class Post(
         val brand: String,
         val imageUrl: String,
         val pageUrl: String,
-        val price: String
+        val price: String,
+        val originPrice: String?
     )
 }

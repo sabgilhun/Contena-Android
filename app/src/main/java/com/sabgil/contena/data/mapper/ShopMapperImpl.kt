@@ -8,15 +8,33 @@ import javax.inject.Inject
 
 class ShopMapperImpl @Inject constructor() : ShopMapper {
 
-    override fun toShopList(from: GetRecommendShopListResponse): List<Shop> {
-        TODO("Not yet implemented")
-    }
+    override fun toShopList(from: GetRecommendShopListResponse): List<Shop> =
+        from.shopList.map {
+            Shop(
+                shopName = it.shopName,
+                shopLogoUrl = it.shopLogoUrl,
+                subscriberCount = it.subscriberCount,
+                shopDescription = it.shopDescription
+            )
+        }
 
-    override fun toShopList(from: GetAvailableShopListResponse): List<Shop> {
-        TODO("Not yet implemented")
-    }
+    override fun toShopList(from: GetAvailableShopListResponse): List<Shop> =
+        from.shopList.map {
+            Shop(
+                shopName = it.shopName,
+                shopLogoUrl = it.shopLogoUrl,
+                subscriberCount = it.subscriberCount,
+                shopDescription = it.shopDescription
+            )
+        }
 
-    override fun toShopList(from: GetSubscriptionShopListResponse): List<Shop> {
-        TODO("Not yet implemented")
-    }
+    override fun toShopList(from: GetSubscriptionShopListResponse): List<Shop> =
+        from.shopList.map {
+            Shop(
+                shopName = it.shopName,
+                shopLogoUrl = it.shopLogoUrl,
+                subscriberCount = it.subscriberCount,
+                shopDescription = it.shopDescription
+            )
+        }
 }

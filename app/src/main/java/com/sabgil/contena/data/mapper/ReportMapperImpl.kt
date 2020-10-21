@@ -6,7 +6,11 @@ import javax.inject.Inject
 
 class ReportMapperImpl @Inject constructor() : ReportMapper {
 
-    override fun toReportResult(from: PostReportResponse): ReportResult {
-        TODO("Not yet implemented")
-    }
+    override fun toReportResult(from: PostReportResponse): ReportResult =
+        ReportResult(
+            userId = from.userId,
+            postId = from.postId,
+            contents = from.contents,
+            reported = from.reported
+        )
 }

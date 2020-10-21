@@ -7,11 +7,17 @@ import javax.inject.Inject
 
 class SubscriptionMapperImpl @Inject constructor() : SubscriptionMapper {
 
-    override fun toSubscriptionResult(from: PostSubscribeResponse): SubscriptionResult {
-        TODO("Not yet implemented")
-    }
+    override fun toSubscriptionResult(from: PostSubscribeResponse): SubscriptionResult =
+        SubscriptionResult(
+            userId = from.userId,
+            shopName = from.shopName,
+            subscriberCount = from.subscriberCount
+        )
 
-    override fun toSubscriptionResult(from: PostUnsubscribeResponse): SubscriptionResult {
-        TODO("Not yet implemented")
-    }
+    override fun toSubscriptionResult(from: PostUnsubscribeResponse): SubscriptionResult =
+        SubscriptionResult(
+            userId = from.userId,
+            shopName = from.shopName,
+            subscriberCount = from.subscriberCount
+        )
 }
