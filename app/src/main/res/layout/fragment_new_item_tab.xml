@@ -16,24 +16,11 @@
 			<com.google.android.material.appbar.CollapsingToolbarLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:background="@color/colorWhite"
 				app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
-				
-				<androidx.recyclerview.widget.RecyclerView
-					android:id="@+id/shopShortcutRecyclerView"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="?attr/actionBarSize"
-					android:orientation="horizontal"
-					android:overScrollMode="never"
-					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-					tools:itemCount="3"
-					tools:listitem="@layout/item_shop_shortcut" />
 				
 				<androidx.appcompat.widget.Toolbar
 					android:layout_width="match_parent"
 					android:layout_height="?attr/actionBarSize"
-					android:background="@color/colorWhite"
 					app:layout_collapseMode="pin">
 					
 					<androidx.constraintlayout.widget.ConstraintLayout
@@ -44,10 +31,11 @@
 							android:id="@+id/title"
 							android:layout_width="0dp"
 							android:layout_height="wrap_content"
-							android:background="@color/colorWhite"
 							android:gravity="center_vertical"
-							android:text="@string/fragment_home_tab_title"
-							android:textSize="16dp"
+							android:text="신상 모아보기"
+							android:textColor="@color/colorWhite2"
+							android:textSize="20dp"
+							android:textStyle="bold"
 							app:layout_constraintBottom_toBottomOf="parent"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toTopOf="parent"
@@ -67,6 +55,7 @@
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintTop_toTopOf="parent"
 							tools:ignore="ContentDescription" />
+						
 					</androidx.constraintlayout.widget.ConstraintLayout>
 				</androidx.appcompat.widget.Toolbar>
 			</com.google.android.material.appbar.CollapsingToolbarLayout>

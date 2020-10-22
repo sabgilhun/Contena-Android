@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.layoutInflater
+import com.sabgil.contena.common.ext.setImage
 import com.sabgil.contena.common.pagemanager.PageManageAdapter
 import com.sabgil.contena.common.pagemanager.PageManagerViewHolder
 import com.sabgil.contena.databinding.ItemPostBinding
@@ -27,10 +28,7 @@ class PostAdapter(
         if (viewHolder is PostItemViewHolder) {
             viewHolder.apply {
                 binding.postListItem = item
-//                binding.newProductsSummaryView.imageUrlList = item.newItemList.map { it.imageUrl }
-                binding.newProductsSummaryView.setOnClickListener {
-                    navigator.goToTotalProduction(item.postId, item.shopName, item.uploadDate)
-                }
+                binding.imageView.setImage(item.newItemList.first().imageUrl)
             }
         }
     }

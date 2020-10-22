@@ -29,16 +29,16 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             BottomNavigationBar.Tab(
                 icon = R.drawable.vector_list_gray900,
                 text = "신상품",
-                colorWhenSelected = R.color.colorGray900,
-                colorWhenUnselected = R.color.colorGray400,
+                colorWhenSelected = R.color.colorWhite2,
+                colorWhenUnselected = R.color.colorGray,
                 tab = NewItemTabFragment::class.java
             ),
 
             BottomNavigationBar.Tab(
                 icon = R.drawable.vector_search_gray900,
                 text = "쇼핑몰 검색",
-                colorWhenSelected = R.color.colorGray900,
-                colorWhenUnselected = R.color.colorGray400,
+                colorWhenSelected = R.color.colorWhite2,
+                colorWhenUnselected = R.color.colorGray,
                 tab = SearchTabFragment::class.java
             )
         )

@@ -10,6 +10,7 @@ import dagger.Component
 @Component(
     modules = [
         ApiModule::class,
+        MapperModule::class,
         SharedPrefModule::class,
         NetworkModule::class,
         RepositoryModule::class,

@@ -7,8 +7,8 @@ data class PostListItem(
     val diffDate: String,
     val uploadDate: String,
     val shopName: String,
-    val shopLogoUrl: String
-//    val newItemList: List<SummaryNewItem>
+    val shopLogoUrl: String,
+    val newItemList: List<Post.NewItem>
 ) {
     companion object {
         fun from(post: Post): PostListItem =
@@ -17,8 +17,8 @@ data class PostListItem(
                 diffDate = post.uploadDate,  // TODO 변경할 예정
                 uploadDate = post.uploadDate,  // TODO 변경할 예정
                 shopName = post.shopName,
-                shopLogoUrl = post.shopLogoUrl
-//                newItemList = post.newItemList
+                shopLogoUrl = post.shopLogoUrl,
+                newItemList = post.newItemList
             )
     }
 }

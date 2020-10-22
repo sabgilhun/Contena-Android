@@ -83,7 +83,9 @@ class BottomNavigationBar @JvmOverloads constructor(
             false
         ).apply {
             icon.setImageResource(button.icon)
+            icon.tintIcon(false, button)
             text.text = button.text
+            text.tintText(false, button)
             root.layoutParams = LinearLayout.LayoutParams(
                 0, LayoutParams.WRAP_CONTENT, 1f
             )

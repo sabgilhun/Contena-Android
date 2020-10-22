@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	F6,F3,ED
 	<color name="primary">@color/colorLightBlue700</color>
 	<color name="primaryDark">@color/colorLightBlue900</color>
 	<color name="colorAccent">@color/colorBlueGray800</color>
@@ -10,6 +11,9 @@
 	<color name="buttonRippleColor">#FF757575</color>
 	
 	<!--palette-->
+	<color name="colorWhite2">#F6F3ED</color>
+	<color name="colorGray">#292929</color>
+	
 	<color name="colorWhite">#FFFFFF</color>
 	<color name="colorBlack">#000000</color>
 	<color name="colorBlackTransparent">#AA000000</color>

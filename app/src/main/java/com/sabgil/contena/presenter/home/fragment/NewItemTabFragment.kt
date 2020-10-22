@@ -8,7 +8,6 @@ import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentNewItemTabBinding
 import com.sabgil.contena.presenter.home.adapter.PostAdapter
-import com.sabgil.contena.presenter.home.adapter.ShopShortcutAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity
@@ -21,7 +20,6 @@ class NewItemTabFragment :
         getViewModel(NewItemTabViewModel::class)
     }
 
-    private lateinit var shopShortcutAdapter: ShopShortcutAdapter
     private lateinit var postAdapter: PostAdapter
 
 
@@ -29,7 +27,6 @@ class NewItemTabFragment :
         super.onViewCreated(view, savedInstanceState)
 
         setupAppbar()
-        setupShopShortcutRecyclerView()
         setupPostRecyclerView()
 
         viewModel.setupObserver()
@@ -44,11 +41,6 @@ class NewItemTabFragment :
         }
     }
 
-    private fun setupShopShortcutRecyclerView() {
-        shopShortcutAdapter = ShopShortcutAdapter()
-        binding.shopShortcutRecyclerView.adapter = shopShortcutAdapter
-    }
-
     private fun setupPostRecyclerView() {
         postAdapter = PostAdapter(
             NavigatorImpl(requireActivity()),
@@ -59,7 +51,6 @@ class NewItemTabFragment :
     }
 
     private fun NewItemTabViewModel.setupObserver() {
-        subscribedShopList.registerObserver(shopShortcutAdapter::replaceAll)
         postList.registerObserver(postAdapter.dataObserver)
     }
 
