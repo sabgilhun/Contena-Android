@@ -33,7 +33,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
                 colorWhenUnselected = R.color.colorGray400,
                 tab = NewItemTabFragment::class.java
             ),
-            
+
             BottomNavigationBar.Tab(
                 icon = R.drawable.vector_search_gray900,
                 text = "쇼핑몰 검색",

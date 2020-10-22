@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">Contena</string>
+	<string name="app_name">Poly</string>
 	
 	<!--fragment_home_tab-->
 	<string name="fragment_home_tab_title">로고 자리</string>
