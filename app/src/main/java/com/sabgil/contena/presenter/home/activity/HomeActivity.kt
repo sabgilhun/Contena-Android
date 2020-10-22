@@ -1,16 +1,13 @@
 package com.sabgil.contena.presenter.home.activity
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.startOnTop
 import com.sabgil.contena.databinding.ActivityHomeBinding
 import com.sabgil.contena.presenter.base.BaseActivity
-import com.sabgil.contena.presenter.home.fragment.tabmanager.TabManagerImpl
+import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
+import com.sabgil.contena.presenter.home.fragment.SearchTabFragment
 import com.sabgil.contena.presenter.widget.BottomNavigationBar
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
@@ -24,15 +21,31 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     override fun onBackPressed() = binding.bottomNavigation.goToBackTab()
 
     private fun BottomNavigationBar.setup() {
-        this.tabManager = TabManagerImpl(
-            fragmentManager = supportFragmentManager,
-            fragmentContainerId = R.id.tabContainer,
-            emptyBackStackAction = this@HomeActivity::finish
+        setup(
+            R.id.tabContainer,
+            supportFragmentManager,
+            this@HomeActivity::finish,
+
+            BottomNavigationBar.Tab(
+                icon = R.drawable.vector_list_gray900,
+                text = "신상품",
+                colorWhenSelected = R.color.colorGray900,
+                colorWhenUnselected = R.color.colorGray400,
+                tab = NewItemTabFragment::class.java
+            ),
+            
+            BottomNavigationBar.Tab(
+                icon = R.drawable.vector_search_gray900,
+                text = "쇼핑몰 검색",
+                colorWhenSelected = R.color.colorGray900,
+                colorWhenUnselected = R.color.colorGray400,
+                tab = SearchTabFragment::class.java
+            )
         )
+        requestLayout()
     }
 
     companion object {
-
         fun start(context: Context) {
             context.startOnTop(HomeActivity::class)
         }

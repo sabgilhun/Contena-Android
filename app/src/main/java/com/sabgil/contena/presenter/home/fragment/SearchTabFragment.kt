@@ -7,23 +7,22 @@ import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.visibleOrGone
 import com.sabgil.contena.databinding.FragmentSearchTabBinding
-import com.sabgil.contena.presenter.base.BaseFragment
 import com.sabgil.contena.presenter.home.adapter.SearchedShopAdapter
 import com.sabgil.contena.presenter.home.enums.SearchingState
-import com.sabgil.contena.presenter.home.fragment.tabmanager.Tab
+import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
 import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
-import com.sabgil.contena.presenter.widget.BottomNavigationBar
 
-class SearchTabFragment :
-    BaseFragment<FragmentSearchTabBinding>(R.layout.fragment_search_tab), Tab {
+class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fragment_search_tab) {
 
     private val viewModel: SearchTabViewModel by lazy {
         getViewModel(SearchTabViewModel::class)
     }
 
-    private lateinit var searchedShopAdapter: SearchedShopAdapter
+    override fun refreshTab() {
 
-    override var backTabIndex: BottomNavigationBar.TabIndex? = null
+    }
+
+    private lateinit var searchedShopAdapter: SearchedShopAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,9 +83,6 @@ class SearchTabFragment :
                 }
             }
         }
-    }
-
-    override fun refreshTab() {
     }
 
     companion object {

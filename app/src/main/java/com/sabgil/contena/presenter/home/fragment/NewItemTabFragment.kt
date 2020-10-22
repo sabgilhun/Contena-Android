@@ -7,17 +7,15 @@ import android.os.Looper
 import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentNewItemTabBinding
-import com.sabgil.contena.presenter.base.BaseFragment
-import com.sabgil.contena.presenter.home.adapter.ShopShortcutAdapter
 import com.sabgil.contena.presenter.home.adapter.PostAdapter
-import com.sabgil.contena.presenter.home.fragment.tabmanager.Tab
+import com.sabgil.contena.presenter.home.adapter.ShopShortcutAdapter
+import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
-import com.sabgil.contena.presenter.widget.BottomNavigationBar
 import com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity
 import com.sabgil.contena.presenter.settings.activity.SettingsActivity
 
 class NewItemTabFragment :
-    BaseFragment<FragmentNewItemTabBinding>(R.layout.fragment_new_item_tab), Tab {
+    BaseTabFragment<FragmentNewItemTabBinding>(R.layout.fragment_new_item_tab) {
 
     private val viewModel: NewItemTabViewModel by lazy {
         getViewModel(NewItemTabViewModel::class)
@@ -26,7 +24,6 @@ class NewItemTabFragment :
     private lateinit var shopShortcutAdapter: ShopShortcutAdapter
     private lateinit var postAdapter: PostAdapter
 
-    override var backTabIndex: BottomNavigationBar.TabIndex? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

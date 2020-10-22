@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".presenter.widget.BottomNavigationBar">
+	
+	<LinearLayout
+		android:id="@+id/homeItem"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:background="?android:attr/selectableItemBackgroundBorderless"
+		android:clickable="true"
+		android:focusable="true"
+		android:orientation="vertical"
+		android:padding="8dp"
+		tools:ignore="UseCompoundDrawables">
+		
+		<ImageView
+			android:id="@+id/icon"
+			android:layout_width="28dp"
+			android:layout_height="28dp"
+			android:layout_gravity="center"
+			android:src="@drawable/vector_list_gray400"
+			tools:ignore="ContentDescription" />
+		
+		<TextView
+			android:id="@+id/text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:textColor="@color/colorGray400"
+			android:textSize="12dp"
+			tools:ignore="SpUsage" />
+	</LinearLayout>
+</layout>
