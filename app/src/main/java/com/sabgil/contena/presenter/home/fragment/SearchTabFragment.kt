@@ -2,13 +2,9 @@ package com.sabgil.contena.presenter.home.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.text.HtmlCompat
-import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import com.sabgil.contena.R
-import com.sabgil.contena.common.ext.visibleOrGone
 import com.sabgil.contena.databinding.FragmentSearchTabBinding
 import com.sabgil.contena.presenter.home.adapter.SearchedShopAdapter
-import com.sabgil.contena.presenter.home.enums.SearchingState
 import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
 import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
 
@@ -19,7 +15,7 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
     }
 
     override fun refreshTab() {
-
+        // TODO: scroll top
     }
 
     private lateinit var searchedShopAdapter: SearchedShopAdapter
@@ -51,37 +47,8 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
     }
 
     private fun SearchTabViewModel.setupObserver() {
-        searchingState.registerObserver {
-            when (it) {
-                is SearchingState.NotStarted -> {
-                    binding.searchingStateLayout.visibleOrGone = false
-                    searchedShopAdapter.replaceAll(it.recommendedShopList)
-                }
-                is SearchingState.Searching -> {
-                    binding.searchingStateLayout.visibleOrGone = true
-                    binding.progressBar.visibleOrGone = true
-                    binding.searchingStateTextView.text =
-                        HtmlCompat.fromHtml(
-                            getString(R.string.fragment_search_tab_searching_text, it.keyword),
-                            FROM_HTML_MODE_LEGACY
-                        )
-                    searchedShopAdapter.replaceAll(emptyList())
-                }
-                is SearchingState.Empty -> {
-                    binding.searchingStateLayout.visibleOrGone = true
-                    binding.progressBar.visibleOrGone = false
-                    binding.searchingStateTextView.text =
-                        HtmlCompat.fromHtml(
-                            getString(R.string.fragment_search_tab_empty_result_text, it.keyword),
-                            FROM_HTML_MODE_LEGACY
-                        )
-                    searchedShopAdapter.replaceAll(emptyList())
-                }
-                is SearchingState.Complete -> {
-                    binding.searchingStateLayout.visibleOrGone = false
-                    searchedShopAdapter.replaceAll(it.searchedShops)
-                }
-            }
+        searchedShop.registerObserver {
+            searchedShopAdapter.replaceAll(it)
         }
     }
 

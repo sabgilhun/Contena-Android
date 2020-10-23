@@ -30,13 +30,13 @@
 	
 	<style name="ButtonStyle" parent="TextStyle">
 		<item name="android:textColor">@color/colorWhite</item>
-		<item name="android:background">@drawable/ripple_shape_r6_background_lightblue700</item>
+		<item name="android:background">@drawable/ripple_subscribe_button_unselected</item>
 		<item name="android:focusable">true</item>
 		<item name="android:clickable">true</item>
 	</style>
 	
 	<style name="StateButtonStyle" parent="ButtonStyle">
-		<item name="android:background">@drawable/selector_state_button</item>
-		<item name="android:textColor">@drawable/selector_state_button_text_color</item>
+		<item name="android:background">@drawable/selector_subscribe_button</item>
+		<item name="android:textColor">@drawable/selector_subscribe_text_color</item>
 	</style>
 </resources>

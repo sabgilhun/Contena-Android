@@ -8,7 +8,7 @@
 		
 		<variable
 			name="item"
-			type="com.sabgil.contena.presenter.home.model.SearchedShop" />
+			type="com.sabgil.contena.domain.model.Shop" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -44,11 +44,14 @@
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="8dp"
 			android:text="@{item.shopName}"
-			android:textSize="14sp"
+			android:textColor="@color/colorBeigeWhite"
+			android:textSize="16dp"
+			android:textStyle="bold"
 			app:layout_constraintBottom_toTopOf="@id/shopDescriptionTextView"
 			app:layout_constraintStart_toEndOf="@id/imageHolder"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_chainStyle="packed"
+			tools:ignore="SpUsage"
 			tools:text="블루스맨" />
 		
 		<TextView
@@ -58,8 +61,11 @@
 			android:layout_marginStart="8dp"
 			android:layout_marginEnd="8dp"
 			android:layout_marginBottom="8dp"
-			android:textColor="@color/colorGray600"
-			android:textSize="14sp"
+			android:ellipsize="end"
+			android:maxLines="2"
+			android:text="@{item.shopDescription}"
+			android:textColor="@color/colorGray"
+			android:textSize="12sp"
 			app:layout_constrainedWidth="true"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@id/subscribeButton"
@@ -69,22 +75,25 @@
 			app:layout_constraintTop_toBottomOf="@id/shopNameTextView"
 			tools:text="아메리칸 캐쥬얼 편집샵" />
 		
+		<!--TODO selected, 글자, 글자색 작업필요-->
 		<Button
 			android:id="@+id/subscribeButton"
 			style="@style/StateButtonStyle"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="16dp"
-			android:minHeight="32dp"
-			android:minWidth="72dp"
 			android:gravity="center"
-			android:text="@{item.subscribed ? @string/shop_unsubscribe : @string/shop_subscribe}"
+			android:minWidth="72dp"
+			android:minHeight="32dp"
+			android:text="구독"
+			android:textColor="@color/colorBlack"
 			android:textSize="14sp"
+			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toEndOf="@id/shopDescriptionTextView"
 			app:layout_constraintTop_toTopOf="parent"
-			app:selected="@{!item.subscribed}" />
+			app:selected="@{false}" />
 		
 		<TextView
 			android:id="@+id/subscriberCountTextView"
@@ -92,8 +101,8 @@
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="4dp"
 			android:text="@{@string/shop_subscriber_count(item.subscriberCount)}"
-			android:textColor="@color/colorGray600"
-			android:textSize="12dp"
+			android:textColor="@color/colorBeigeWhite"
+			android:textSize="10dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="@id/subscribeButton"
 			app:layout_constraintStart_toStartOf="@id/subscribeButton"

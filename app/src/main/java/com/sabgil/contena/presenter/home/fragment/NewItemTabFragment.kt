@@ -53,6 +53,7 @@ class NewItemTabFragment :
     }
 
     override fun refreshTab() {
+        // TODO: scroll top
     }
 
     companion object {

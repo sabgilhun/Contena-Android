@@ -1,5 +1,6 @@
 package com.sabgil.contena.data.remote.contena.api
 
+import com.sabgil.contena.data.remote.contena.dto.GetAllShopListResponse
 import com.sabgil.contena.data.remote.contena.dto.GetAvailableShopListResponse
 import com.sabgil.contena.data.remote.contena.dto.GetRecommendShopListResponse
 import com.sabgil.contena.data.remote.contena.dto.GetSubscriptionShopListResponse
@@ -8,6 +9,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ShopApi {
+
+    @GET(value = "shop_list/all")
+    fun getAllShopList(): Single<GetAllShopListResponse>
 
     @GET(value = "shop_list/recommend")
     fun getRecommendShopList(): Single<GetRecommendShopListResponse>

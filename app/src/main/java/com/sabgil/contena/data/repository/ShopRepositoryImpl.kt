@@ -12,6 +12,9 @@ class ShopRepositoryImpl @Inject constructor(
     private val shopMapper: ShopMapper
 ) : ShopRepository {
 
+    override fun getAllShopList(): Single<List<Shop>> =
+        shopApi.getAllShopList().map<List<Shop>>(shopMapper::toShopList)
+
     override fun getRecommendShopList(): Single<List<Shop>> =
         shopApi.getRecommendShopList().map<List<Shop>>(shopMapper::toShopList)
 

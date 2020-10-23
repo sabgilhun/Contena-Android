@@ -2,16 +2,17 @@ package com.sabgil.contena.presenter.home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sabgil.contena.data.repository.ShopRepository
 import com.sabgil.contena.domain.model.Shop
 import com.sabgil.contena.presenter.base.BaseViewModel
 import com.sabgil.contena.presenter.home.enums.SearchingState
 import com.sabgil.contena.presenter.home.model.SearchedShop
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class SearchTabViewModel @Inject constructor(
-//    private val appRepository: AppRepository,
-//    private val contenaRepository: ContenaRepository
+    private val shopRepository: ShopRepository
 ) : BaseViewModel() {
 
     private var recommendedShopList: List<SearchedShop> = emptyList()
@@ -22,6 +23,9 @@ class SearchTabViewModel @Inject constructor(
     val searchingState: LiveData<SearchingState> = _searchingState
 
     private val searchStream = PublishSubject.create<String>()
+
+    private val _searchedShop = MutableLiveData<List<Shop>>()
+    val searchedShop: LiveData<List<Shop>> get() = _searchedShop
 
     init {
         initSearchStream()
@@ -60,35 +64,24 @@ class SearchTabViewModel @Inject constructor(
 
     // TODO : 실패 시 다른 API 진행이 안되므로 예외 처리 필요 (Ex : Refresh 기능)
     fun initialLoadShopData() {
-//        val userId = appRepository.getFcmToken()
-//
-//        if (userId == null) {
-//            _showApiErrorMessage.setValue("아직 User ID가 등록되지 않았습니다.")
-//            return
-//        }
-//
-//        contenaRepository.getSubscribedShopList(userId)
-//            .flatMap {
-//                subscribedShops = it
-//                contenaRepository.getAvailableShopList("")
-//            }
-//            .compose(apiLoadingSingleTransformer())
-//            .subscribeBy(
-//                onSuccess = {
-//                    recommendedShopList =
-//                        it.map { shop -> SearchedShop.from(shop, subscribedShops) }
-//                    _searchingState.value = SearchingState.NotStarted(recommendedShopList)
-//                },
-//                onError = { _showApiErrorMessage.setValue(it.message.orEmpty()) }
-//            ).add()
+        shopRepository.getAllShopList()
+            .compose(apiLoadingSingleTransformer())
+            .subscribeBy(
+                onSuccess = {
+                    _searchedShop.value = it
+                },
+                onError = {
+
+                }
+            ).add()
     }
 
     fun searchAvailableShopList(searchKeyword: String) {
-        if (searchKeyword.isEmpty()) {
-            _searchingState.value = SearchingState.NotStarted(recommendedShopList)
-        } else {
-            searchStream.onNext(searchKeyword)
-        }
+//        if (searchKeyword.isEmpty()) {
+//            _searchingState.value = SearchingState.NotStarted(recommendedShopList)
+//        } else {
+//            searchStream.onNext(searchKeyword)
+//        }
     }
 
     fun subscribeShop(shopName: String) {
