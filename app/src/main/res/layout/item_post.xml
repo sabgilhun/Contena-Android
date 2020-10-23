@@ -116,5 +116,43 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/logoHolder" />
+		
+		<!--TODO: Custom TabLayout 필요-->
+		<com.google.android.material.tabs.TabLayout
+			android:id="@+id/tabLayout"
+			android:layout_width="120dp"
+			android:layout_height="wrap_content"
+			app:layout_constraintEnd_toStartOf="@id/goToDetailImageButton"
+			app:layout_constraintStart_toEndOf="@id/markFavoriteImageButton"
+			app:layout_constraintTop_toBottomOf="@id/itemViewPager"
+			app:tabBackground="@drawable/selector_tab_indicator"
+			app:tabGravity="center"
+			app:tabIndicatorColor="@color/colorWhite2"
+			app:tabIndicatorHeight="0dp" />
+		
+		<ImageButton
+			android:id="@+id/markFavoriteImageButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:background="@null"
+			android:src="@drawable/vector_filled_favorite_white"
+			app:layout_constraintBottom_toBottomOf="@id/tabLayout"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="@id/tabLayout"
+			tools:ignore="ContentDescription" />
+		
+		<ImageButton
+			android:id="@+id/goToDetailImageButton"
+			android:layout_width="36dp"
+			android:layout_height="36dp"
+			android:layout_marginEnd="16dp"
+			android:background="@null"
+			android:src="@drawable/vector_right_direction_bracket_white"
+			app:layout_constraintBottom_toBottomOf="@id/tabLayout"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@id/tabLayout"
+			tools:ignore="ContentDescription" />
+	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
