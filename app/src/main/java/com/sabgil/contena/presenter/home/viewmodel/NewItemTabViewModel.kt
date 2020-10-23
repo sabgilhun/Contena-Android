@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.sabgil.contena.common.pagemanager.PageHolder
 import com.sabgil.contena.data.local.AppSharedPreference
 import com.sabgil.contena.data.repository.PostRepository
-import com.sabgil.contena.domain.model.Shop
 import com.sabgil.contena.presenter.base.BaseViewModel
 import com.sabgil.contena.presenter.home.model.PostListItem
 import io.reactivex.rxkotlin.subscribeBy
@@ -16,14 +15,8 @@ class NewItemTabViewModel @Inject constructor(
     private val appSharedPreference: AppSharedPreference
 ) : BaseViewModel() {
 
-    private val _subscribedShopList = MutableLiveData<List<Shop>>()
-    val subscribedShopList: LiveData<List<Shop>> = _subscribedShopList
-
     private val _postList = MutableLiveData<PageHolder<PostListItem>>()
     val postList: LiveData<PageHolder<PostListItem>> = _postList
-
-    fun loadSubscribedShopList() {
-    }
 
     fun loadPostList(cursor: Long) {
         val token = appSharedPreference.getToken() ?: return
@@ -38,6 +31,7 @@ class NewItemTabViewModel @Inject constructor(
                             post.uploadDate,
                             post.shopName,
                             post.shopLogoUrl,
+                            post.subscriberCount.toString(),
                             post.newItemList
                         )
                     }, it.first)

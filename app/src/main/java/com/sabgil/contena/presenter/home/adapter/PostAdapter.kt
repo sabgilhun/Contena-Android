@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.layoutInflater
-import com.sabgil.contena.common.ext.setImage
 import com.sabgil.contena.common.pagemanager.PageManageAdapter
 import com.sabgil.contena.common.pagemanager.PageManagerViewHolder
 import com.sabgil.contena.databinding.ItemPostBinding
@@ -26,9 +25,11 @@ class PostAdapter(
         viewHolder: PageManagerViewHolder.ItemViewHolder
     ) {
         if (viewHolder is PostItemViewHolder) {
-            viewHolder.apply {
-                binding.postListItem = item
-                binding.imageView.setImage(item.newItemList.first().imageUrl)
+            with(viewHolder.binding) {
+                shopLogoUrl = item.shopLogoUrl
+                shopName = item.shopName
+                subscriberCount = item.subscriberCount
+                (itemViewPager.adapter as NewItemsViewPagerAdapter).replaceAll(item.newItemList)
             }
         }
     }
@@ -40,6 +41,13 @@ class PostAdapter(
             parent,
             false
         )
+        // TODO: dp 변환 작업 필요
+        binding.itemViewPager.apply {
+            clipToPadding = false
+            pageMargin = 28
+            setPadding(28, 0, 28, 0)
+            adapter = NewItemsViewPagerAdapter()
+        }
         return PostItemViewHolder(binding)
     }
 

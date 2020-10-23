@@ -30,8 +30,6 @@ class NewItemTabFragment :
         setupPostRecyclerView()
 
         viewModel.setupObserver()
-
-        viewModel.loadSubscribedShopList()
         postAdapter.initialDataLoad()
     }
 

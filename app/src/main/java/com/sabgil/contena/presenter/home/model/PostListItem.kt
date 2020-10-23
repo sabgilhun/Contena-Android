@@ -8,6 +8,7 @@ data class PostListItem(
     val uploadDate: String,
     val shopName: String,
     val shopLogoUrl: String,
+    val subscriberCount: String,
     val newItemList: List<Post.NewItem>
 ) {
     companion object {
@@ -18,6 +19,7 @@ data class PostListItem(
                 uploadDate = post.uploadDate,  // TODO 변경할 예정
                 shopName = post.shopName,
                 shopLogoUrl = post.shopLogoUrl,
+                subscriberCount = post.subscriberCount.toString(),
                 newItemList = post.newItemList
             )
     }
