@@ -15,7 +15,8 @@ class ShopMapperImpl @Inject constructor() : ShopMapper {
                 shopName = it.shopName,
                 shopLogoUrl = it.shopLogoUrl,
                 subscriberCount = it.subscriberCount,
-                shopDescription = it.shopDescription
+                shopDescription = it.shopDescription,
+                isSubscribed = it.isSubscribed
             )
         }
 
@@ -25,7 +26,8 @@ class ShopMapperImpl @Inject constructor() : ShopMapper {
                 shopName = it.shopName,
                 shopLogoUrl = it.shopLogoUrl,
                 subscriberCount = it.subscriberCount,
-                shopDescription = it.shopDescription
+                shopDescription = it.shopDescription,
+                isSubscribed = it.isSubscribed
             )
         }
 
@@ -35,7 +37,8 @@ class ShopMapperImpl @Inject constructor() : ShopMapper {
                 shopName = it.shopName,
                 shopLogoUrl = it.shopLogoUrl,
                 subscriberCount = it.subscriberCount,
-                shopDescription = it.shopDescription
+                shopDescription = it.shopDescription,
+                isSubscribed = it.isSubscribed
             )
         }
 
@@ -45,7 +48,8 @@ class ShopMapperImpl @Inject constructor() : ShopMapper {
                 shopName = it.shopName,
                 shopLogoUrl = it.shopLogoUrl,
                 subscriberCount = it.subscriberCount,
-                shopDescription = it.shopDescription
+                shopDescription = it.shopDescription,
+                isSubscribed = it.isSubscribed
             )
         }
 }

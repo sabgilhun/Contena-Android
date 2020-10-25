@@ -2,6 +2,7 @@ package com.sabgil.contena.presenter.home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sabgil.contena.data.repository.AppRepository
 import com.sabgil.contena.data.repository.ShopRepository
 import com.sabgil.contena.domain.model.Shop
 import com.sabgil.contena.presenter.base.BaseViewModel
@@ -12,6 +13,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class SearchTabViewModel @Inject constructor(
+    private val appRepository: AppRepository,
     private val shopRepository: ShopRepository
 ) : BaseViewModel() {
 
@@ -64,7 +66,8 @@ class SearchTabViewModel @Inject constructor(
 
     // TODO : 실패 시 다른 API 진행이 안되므로 예외 처리 필요 (Ex : Refresh 기능)
     fun initialLoadShopData() {
-        shopRepository.getAllShopList()
+        val userId = appRepository.getFcmToken() ?: return
+        shopRepository.getAllShopList(userId)
             .compose(apiLoadingSingleTransformer())
             .subscribeBy(
                 onSuccess = {

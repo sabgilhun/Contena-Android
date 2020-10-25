@@ -4,5 +4,6 @@ data class Shop(
     val shopName: String,
     val shopLogoUrl: String,
     val subscriberCount: Long,
-    val shopDescription: String
+    val shopDescription: String,
+    val isSubscribed: Boolean
 )

@@ -12,14 +12,14 @@ class ShopRepositoryImpl @Inject constructor(
     private val shopMapper: ShopMapper
 ) : ShopRepository {
 
-    override fun getAllShopList(): Single<List<Shop>> =
-        shopApi.getAllShopList().map<List<Shop>>(shopMapper::toShopList)
+    override fun getAllShopList(userId: String): Single<List<Shop>> =
+        shopApi.getAllShopList(userId).map<List<Shop>>(shopMapper::toShopList)
 
-    override fun getRecommendShopList(): Single<List<Shop>> =
-        shopApi.getRecommendShopList().map<List<Shop>>(shopMapper::toShopList)
+    override fun getRecommendShopList(userId: String): Single<List<Shop>> =
+        shopApi.getRecommendShopList(userId).map<List<Shop>>(shopMapper::toShopList)
 
-    override fun getAvailableShopList(searchKeyword: String): Single<List<Shop>> =
-        shopApi.getAvailableShopList(searchKeyword).map<List<Shop>>(shopMapper::toShopList)
+    override fun getAvailableShopList(userId: String, searchKeyword: String): Single<List<Shop>> =
+        shopApi.getAvailableShopList(userId, searchKeyword).map<List<Shop>>(shopMapper::toShopList)
 
     override fun getSubscriptionShopList(userId: String): Single<List<Shop>> =
         shopApi.getSubscriptionShopList(userId).map<List<Shop>>(shopMapper::toShopList)

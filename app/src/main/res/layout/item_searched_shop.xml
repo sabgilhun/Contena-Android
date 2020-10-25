@@ -85,15 +85,14 @@
 			android:gravity="center"
 			android:minWidth="72dp"
 			android:minHeight="32dp"
-			android:text="구독"
-			android:textColor="@color/colorBlack"
+			android:text='@{item.isSubscribed ? "구독중": "구독"}'
 			android:textSize="14sp"
 			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toEndOf="@id/shopDescriptionTextView"
 			app:layout_constraintTop_toTopOf="parent"
-			app:selected="@{false}" />
+			app:selected="@{item.isSubscribed}" />
 		
 		<TextView
 			android:id="@+id/subscriberCountTextView"
