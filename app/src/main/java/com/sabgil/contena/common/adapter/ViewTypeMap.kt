@@ -35,8 +35,7 @@ class ViewTypeMap(typeSetups: List<TypeSetup<out BaseItem, out ViewDataBinding>>
 
         typeSetups.forEach {
             @Suppress("UNCHECKED_CAST")
-            onBindMap[it.itemClass] =
-                it.onBindViewHolder as (BaseItem, ViewDataBinding, Int) -> Unit
+            onBindMap[it.itemClass] = it.getOnBindViewHolder()
         }
 
         return onBindMap
@@ -49,8 +48,7 @@ class ViewTypeMap(typeSetups: List<TypeSetup<out BaseItem, out ViewDataBinding>>
 
         typeSetups.forEach {
             @Suppress("UNCHECKED_CAST")
-            onCreateMap[it.layoutId] =
-                it.onCreateViewHolder as (ViewDataBinding, RecyclerView.ViewHolder) -> Unit
+            onCreateMap[it.layoutId] = it.getOnCreateViewHolder()
         }
 
         return onCreateMap

@@ -4,8 +4,8 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-fun viewTypes(block: ViewTypesSetup.() -> Unit): ViewTypeMap =
-    ViewTypesSetup().apply(block).build()
+fun multiViewTypeAdapter(block: ViewTypesSetup.() -> Unit) =
+    MultiViewTypeAdapter(ViewTypesSetup().apply(block).build())
 
 class ViewTypesSetup {
     private val items = mutableListOf<TypeSetup<out BaseItem, out ViewDataBinding>>()
@@ -26,13 +26,14 @@ class ViewTypesSetup {
     }
 }
 
+
 class TypeSetup<I : BaseItem, B : ViewDataBinding>(
     @LayoutRes
     val layoutId: Int,
     val itemClass: Class<I>
 ) {
-    var onBindViewHolder: (I, B, Int) -> Unit = { _, _, _ -> }
-    var onCreateViewHolder: (B, RecyclerView.ViewHolder) -> Unit = { _, _ -> }
+    private var onBindViewHolder: (I, B, Int) -> Unit = { _, _, _ -> }
+    private var onCreateViewHolder: (B, RecyclerView.ViewHolder) -> Unit = { _, _ -> }
 
     fun onBindViewHolder(
         onBind: (I, B, Int) -> Unit
@@ -45,4 +46,12 @@ class TypeSetup<I : BaseItem, B : ViewDataBinding>(
     ) {
         this.onCreateViewHolder = onCreate
     }
+
+    @Suppress("UNCHECKED_CAST")
+    fun getOnBindViewHolder() =
+        onBindViewHolder as (BaseItem, ViewDataBinding, Int) -> Unit
+
+    @Suppress("UNCHECKED_CAST")
+    fun getOnCreateViewHolder() =
+        onCreateViewHolder as (ViewDataBinding, RecyclerView.ViewHolder) -> Unit
 }

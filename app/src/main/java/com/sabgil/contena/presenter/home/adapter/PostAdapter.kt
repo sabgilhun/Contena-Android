@@ -8,20 +8,20 @@ import com.sabgil.contena.common.ext.layoutInflater
 import com.sabgil.contena.common.pagemanager.PageManageAdapter
 import com.sabgil.contena.common.pagemanager.PageManagerViewHolder
 import com.sabgil.contena.databinding.ItemPostBinding
-import com.sabgil.contena.presenter.home.model.PostListItem
+import com.sabgil.contena.presenter.home.model.PostItem
 
 class PostAdapter(
     private val navigator: Navigator,
     handler: Handler,
     loadMoreData: (Long) -> Unit
-) : PageManageAdapter<PostListItem>(
+) : PageManageAdapter<PostItem>(
     handler,
     loadMoreData,
     PostViewHolderInitializerImpl()
 ) {
 
     override fun onBindItemViewHolder(
-        item: PostListItem,
+        item: PostItem,
         viewHolder: PageManagerViewHolder.ItemViewHolder
     ) {
         if (viewHolder is PostItemViewHolder) {
