@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-class MultiTypeAdapter(
+class MultiViewTypeAdapter(
     private val viewTypeMap: ViewTypeMap
 ) : RecyclerView.Adapter<BindingViewHolder>() {
 
@@ -18,26 +18,25 @@ class MultiTypeAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(
-            LayoutInflater.from(parent.context),
-            viewType,
-            parent,
-            false
-        )
-        viewTypeMap.getOnCreate(viewType).onCreate(binding)
+        val binding = DataBindingUtil
+            .inflate<ViewDataBinding>(
+                LayoutInflater.from(parent.context),
+                viewType,
+                parent,
+                false
+            )
+        viewTypeMap.getOnCreateViewHolder(viewType)(binding)
         return BindingViewHolder(binding)
     }
 
+
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         val item = items[position]
-        viewTypeMap.getOnBind(items[position]::class.java).onBind(item, holder.binding, position)
+        viewTypeMap.getOnBindViewHolder(item::class.java)(item, holder.binding, position)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount() = items.size
 
-    override fun getItemViewType(position: Int): Int {
-        return viewTypeMap.getLayoutId(items[position]::class.java)
-    }
+    override fun getItemViewType(position: Int) =
+        viewTypeMap.getLayoutId(items[position]::class.java)
 }
