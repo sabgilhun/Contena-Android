@@ -2,6 +2,7 @@ package com.sabgil.contena.common.adapter
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 
 fun viewTypes(block: ViewTypesSetup.() -> Unit): ViewTypeMap =
     ViewTypesSetup().apply(block).build()
@@ -31,7 +32,7 @@ class TypeSetup<I : BaseItem, B : ViewDataBinding>(
     val itemClass: Class<I>
 ) {
     var onBindViewHolder: (I, B, Int) -> Unit = { _, _, _ -> }
-    var onCreateViewHolder: (B) -> Unit = {}
+    var onCreateViewHolder: (B, RecyclerView.ViewHolder) -> Unit = { _, _ -> }
 
     fun onBindViewHolder(
         onBind: (I, B, Int) -> Unit
@@ -40,7 +41,7 @@ class TypeSetup<I : BaseItem, B : ViewDataBinding>(
     }
 
     fun onCreateViewHolder(
-        onCreate: (B) -> Unit
+        onCreate: (B, RecyclerView.ViewHolder) -> Unit
     ) {
         this.onCreateViewHolder = onCreate
     }
