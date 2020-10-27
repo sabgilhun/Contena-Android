@@ -18,41 +18,15 @@ class ViewTypeMap(typeSetups: List<TypeSetup<out BaseItem, out ViewDataBinding>>
 
     private fun initLayoutMap(
         typeSetups: List<TypeSetup<out BaseItem, out ViewDataBinding>>
-    ): Map<Class<out BaseItem>, Int> {
-        val layoutMap = hashMapOf<Class<out BaseItem>, Int>()
-
-        typeSetups.forEach {
-            layoutMap[it.itemClass] = it.layoutId
-        }
-
-        return layoutMap
-    }
+    ) = hashMapOf(*(typeSetups.map { it.itemClass to it.layoutId }.toTypedArray()))
 
     private fun initOnBindMap(
         typeSetups: List<TypeSetup<out BaseItem, out ViewDataBinding>>
-    ): Map<Class<out BaseItem>, (BaseItem, ViewDataBinding, Int) -> Unit> {
-        val onBindMap = hashMapOf<Class<out BaseItem>, (BaseItem, ViewDataBinding, Int) -> Unit>()
-
-        typeSetups.forEach {
-            @Suppress("UNCHECKED_CAST")
-            onBindMap[it.itemClass] = it.getOnBindViewHolder()
-        }
-
-        return onBindMap
-    }
+    ) = hashMapOf(*(typeSetups.map { it.itemClass to it.onBind }.toTypedArray()))
 
     private fun initOnCreateMap(
         typeSetups: List<TypeSetup<out BaseItem, out ViewDataBinding>>
-    ): Map<Int, (ViewDataBinding, RecyclerView.ViewHolder) -> Unit> {
-        val onCreateMap = hashMapOf<Int, (ViewDataBinding, RecyclerView.ViewHolder) -> Unit>()
-
-        typeSetups.forEach {
-            @Suppress("UNCHECKED_CAST")
-            onCreateMap[it.layoutId] = it.getOnCreateViewHolder()
-        }
-
-        return onCreateMap
-    }
+    ) = hashMapOf(*(typeSetups.map { it.layoutId to it.onCreate }.toTypedArray()))
 
     fun getLayoutId(itemTypeClass: Class<out BaseItem>) =
         requireNotNull(layoutMap[itemTypeClass])

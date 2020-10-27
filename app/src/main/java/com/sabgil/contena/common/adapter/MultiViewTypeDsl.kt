@@ -4,54 +4,54 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-fun multiViewTypeAdapter(block: ViewTypesSetup.() -> Unit) =
-    MultiViewTypeAdapter(ViewTypesSetup().apply(block).build())
+inline fun multiViewType(block: ViewTypesSetup.() -> Unit) =
+    ViewTypesSetup().apply(block).build()
+
+inline fun <reified I : BaseItem, reified B : ViewDataBinding> ViewTypesSetup.viewType(
+    @LayoutRes
+    layoutId: Int,
+    block: TypeSetup<I, B>.() -> Unit = {}
+) {
+    items.add(TypeSetup<I, B>(layoutId, I::class.java).apply(block))
+}
 
 class ViewTypesSetup {
-    private val items = mutableListOf<TypeSetup<out BaseItem, out ViewDataBinding>>()
-
-    fun <I : BaseItem, B : ViewDataBinding> viewType(
-        @LayoutRes
-        layoutId: Int,
-        @Suppress("UNUSED_PARAMETER")
-        bindingClass: Class<B>,
-        itemClass: Class<I>,
-        block: TypeSetup<I, B>.() -> Unit = {}
-    ) {
-        items.add(TypeSetup<I, B>(layoutId, itemClass).apply(block))
-    }
+    val items = mutableListOf<TypeSetup<out BaseItem, out ViewDataBinding>>()
 
     fun build(): ViewTypeMap {
         return ViewTypeMap(items)
     }
 }
 
+fun <I : BaseItem, B : ViewDataBinding> TypeSetup<I, B>.onBind(
+    onBind: (I, B, Int) -> Unit
+) = setOnBind(onBind)
+
+fun <I : BaseItem, B : ViewDataBinding> TypeSetup<I, B>.onCreate(
+    onCreate: (B, RecyclerView.ViewHolder) -> Unit
+) = setOnCreate(onCreate)
 
 class TypeSetup<I : BaseItem, B : ViewDataBinding>(
     @LayoutRes
     val layoutId: Int,
     val itemClass: Class<I>
 ) {
-    private var onBindViewHolder: (I, B, Int) -> Unit = { _, _, _ -> }
-    private var onCreateViewHolder: (B, RecyclerView.ViewHolder) -> Unit = { _, _ -> }
+    private var _onBind: (I, B, Int) -> Unit = { _, _, _ -> }
+    private var _onCreate: (B, RecyclerView.ViewHolder) -> Unit = { _, _ -> }
 
-    fun onBindViewHolder(
-        onBind: (I, B, Int) -> Unit
-    ) {
-        this.onBindViewHolder = onBind
+    val onBind
+        @Suppress("UNCHECKED_CAST")
+        get() = _onBind as (BaseItem, ViewDataBinding, Int) -> Unit
+
+    val onCreate
+        @Suppress("UNCHECKED_CAST")
+        get() = _onCreate as (ViewDataBinding, RecyclerView.ViewHolder) -> Unit
+
+    fun setOnBind(onBind: (I, B, Int) -> Unit) {
+        this._onBind = onBind
     }
 
-    fun onCreateViewHolder(
-        onCreate: (B, RecyclerView.ViewHolder) -> Unit
-    ) {
-        this.onCreateViewHolder = onCreate
+    fun setOnCreate(onCreate: (B, RecyclerView.ViewHolder) -> Unit) {
+        this._onCreate = onCreate
     }
-
-    @Suppress("UNCHECKED_CAST")
-    fun getOnBindViewHolder() =
-        onBindViewHolder as (BaseItem, ViewDataBinding, Int) -> Unit
-
-    @Suppress("UNCHECKED_CAST")
-    fun getOnCreateViewHolder() =
-        onCreateViewHolder as (ViewDataBinding, RecyclerView.ViewHolder) -> Unit
 }

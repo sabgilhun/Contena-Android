@@ -3,9 +3,7 @@ package com.sabgil.contena.presenter.home.fragment
 import android.os.Bundle
 import android.view.View
 import com.sabgil.contena.R
-import com.sabgil.contena.common.adapter.MultiViewTypeAdapter
-import com.sabgil.contena.common.adapter.ViewTypesSetup
-import com.sabgil.contena.common.adapter.multiViewTypeAdapter
+import com.sabgil.contena.common.adapter.*
 import com.sabgil.contena.databinding.*
 import com.sabgil.contena.presenter.home.adapter.NewItemsViewPagerAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
@@ -42,13 +40,13 @@ class NewItemTabFragment :
     }
 
     private fun setupPostRecyclerView() {
-        postAdapter = multiViewTypeAdapter {
+        val multiViewTypesSetup = multiViewType {
             definePostItem()
             defineLoadingItem()
             defineEmptyItem()
             defineNoMoreItem()
         }
-
+        postAdapter = MultiViewTypeAdapter(multiViewTypesSetup)
         binding.postRecyclerView.adapter = postAdapter
     }
 
@@ -61,12 +59,8 @@ class NewItemTabFragment :
     }
 
     private fun ViewTypesSetup.definePostItem() =
-        viewType(
-            layoutId = R.layout.item_post,
-            bindingClass = ItemPostBinding::class.java,
-            itemClass = PostItem::class.java
-        ) {
-            onCreateViewHolder { binding, _ ->
+        viewType<PostItem, ItemPostBinding>(R.layout.item_post) {
+            onCreate { binding, _ ->
                 // TODO: dp 변환 작업 필요
                 binding.itemViewPager.apply {
                     clipToPadding = false
@@ -77,7 +71,7 @@ class NewItemTabFragment :
                 binding.tabLayout.setupWithViewPager(binding.itemViewPager)
             }
 
-            onBindViewHolder { item, binding, _ ->
+            onBind { item, binding, _ ->
                 with(binding) {
                     shopLogoUrl = item.shopLogoUrl
                     shopName = item.shopName
@@ -88,12 +82,8 @@ class NewItemTabFragment :
         }
 
     private fun ViewTypesSetup.defineLoadingItem() =
-        viewType(
-            layoutId = R.layout.item_post_loading,
-            bindingClass = ItemPostLoadingBinding::class.java,
-            itemClass = LoadingItem::class.java
-        ) {
-            onBindViewHolder { loadingItem, _, _ ->
+        viewType<LoadingItem, ItemPostLoadingBinding>(R.layout.item_post_loading) {
+            onBind { loadingItem, _, _ ->
                 if (!loadingItem.statedLoading.getAndSet(true)) {
                     viewModel.loadPostList(loadingItem.nextCursor)
                 }
@@ -101,18 +91,10 @@ class NewItemTabFragment :
         }
 
     private fun ViewTypesSetup.defineEmptyItem() =
-        viewType(
-            layoutId = R.layout.item_post_empty,
-            bindingClass = ItemPostEmptyBinding::class.java,
-            itemClass = EmptyItem::class.java
-        )
+        viewType<EmptyItem, ItemPostEmptyBinding>(R.layout.item_post_empty)
 
     private fun ViewTypesSetup.defineNoMoreItem() =
-        viewType(
-            layoutId = R.layout.item_post_no_more,
-            bindingClass = ItemPostNoMoreBinding::class.java,
-            itemClass = NoMoreItem::class.java
-        )
+        viewType<NoMoreItem, ItemPostNoMoreBinding>(R.layout.item_post_no_more)
 
     companion object {
         fun newInstance() = NewItemTabFragment()
