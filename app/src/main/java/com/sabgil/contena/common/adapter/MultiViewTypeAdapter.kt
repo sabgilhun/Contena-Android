@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.properties.Delegates
 
-class MultiViewTypeAdapter(
-    private val viewTypeMap: ViewTypeMap
-) : RecyclerView.Adapter<BindingViewHolder>() {
+abstract class MultiViewTypeAdapter : RecyclerView.Adapter<BindingViewHolder>() {
+
+    protected abstract val viewTypeMap: ViewTypeMap
 
     private var items: List<BaseItem> by Delegates.observable(mutableListOf())
     { _, old, new -> autoNotify(old, new) { o, n -> o.id == n.id } }
@@ -28,7 +28,9 @@ class MultiViewTypeAdapter(
                 false
             )
         val viewHolder = BindingViewHolder(binding)
-        viewTypeMap.getOnCreateViewHolder(viewType)(binding, viewHolder)
+        viewTypeMap.getOnCreateViewHolder(viewType)(binding) {
+            viewHolder.adapterPosition.let { if (it != -1) items[it] else null }
+        }
 
         return viewHolder
     }
@@ -44,7 +46,11 @@ class MultiViewTypeAdapter(
         viewTypeMap.getLayoutId(items[position]::class.java)
 }
 
-private fun <T> RecyclerView.Adapter<*>.autoNotify(old: List<T>, new: List<T>, compare: (T, T) -> Boolean) {
+private fun <T> RecyclerView.Adapter<*>.autoNotify(
+    old: List<T>,
+    new: List<T>,
+    compare: (T, T) -> Boolean
+) {
     val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

@@ -2,7 +2,6 @@ package com.sabgil.contena.common.adapter
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.RecyclerView
 
 inline fun multiViewType(block: ViewTypesSetup.() -> Unit) =
     ViewTypesSetup().apply(block).build()
@@ -28,7 +27,7 @@ fun <I : BaseItem, B : ViewDataBinding> TypeSetup<I, B>.onBind(
 ) = setOnBind(onBind)
 
 fun <I : BaseItem, B : ViewDataBinding> TypeSetup<I, B>.onCreate(
-    onCreate: (B, RecyclerView.ViewHolder) -> Unit
+    onCreate: (B, () -> I?) -> Unit
 ) = setOnCreate(onCreate)
 
 class TypeSetup<I : BaseItem, B : ViewDataBinding>(
@@ -37,7 +36,7 @@ class TypeSetup<I : BaseItem, B : ViewDataBinding>(
     val itemClass: Class<I>
 ) {
     private var _onBind: (I, B, Int) -> Unit = { _, _, _ -> }
-    private var _onCreate: (B, RecyclerView.ViewHolder) -> Unit = { _, _ -> }
+    private var _onCreate: (B, () -> I?) -> Unit = { _, _ -> }
 
     val onBind
         @Suppress("UNCHECKED_CAST")
@@ -45,13 +44,13 @@ class TypeSetup<I : BaseItem, B : ViewDataBinding>(
 
     val onCreate
         @Suppress("UNCHECKED_CAST")
-        get() = _onCreate as (ViewDataBinding, RecyclerView.ViewHolder) -> Unit
+        get() = _onCreate as (ViewDataBinding, () -> BaseItem?) -> Unit
 
     fun setOnBind(onBind: (I, B, Int) -> Unit) {
         this._onBind = onBind
     }
 
-    fun setOnCreate(onCreate: (B, RecyclerView.ViewHolder) -> Unit) {
+    fun setOnCreate(onCreate: (B, () -> I?) -> Unit) {
         this._onCreate = onCreate
     }
 }

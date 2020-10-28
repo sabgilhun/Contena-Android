@@ -11,7 +11,8 @@ data class PostItem(
     val shopName: String,
     val shopLogoUrl: String,
     val subscriberCount: String,
-    val newItemList: List<Post.NewItem>
+    val newItemList: List<Post.NewItem>,
+    var displayingItemIndex: Int = 0
 ) : BaseItem(postId) {
     companion object {
         @JvmStatic
