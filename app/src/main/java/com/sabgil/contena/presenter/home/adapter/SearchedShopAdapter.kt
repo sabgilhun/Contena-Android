@@ -2,6 +2,7 @@ package com.sabgil.contena.presenter.home.adapter
 
 import com.sabgil.contena.R
 import com.sabgil.contena.common.adapter.*
+import com.sabgil.contena.common.ext.setBarColor
 import com.sabgil.contena.common.ext.visibleOrGone
 import com.sabgil.contena.databinding.ItemSearchedShopBinding
 import com.sabgil.contena.presenter.home.fragment.SearchTabFragment
@@ -34,6 +35,7 @@ class SearchedShopAdapter(
     ) {
         if (!item.isLoading) {
             item.isLoading = true
+            binding.subscribeLoadingBar.setBarColor(item.loadingBarColor)
             binding.subscribeLoadingBar.visibleOrGone = true
             handler.toggleSubscription(position, item)
         }

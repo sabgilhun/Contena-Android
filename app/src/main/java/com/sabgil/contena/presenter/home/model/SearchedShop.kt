@@ -1,5 +1,6 @@
 package com.sabgil.contena.presenter.home.model
 
+import com.sabgil.contena.R
 import com.sabgil.contena.common.adapter.BaseItem
 import com.sabgil.contena.domain.model.Shop
 import com.sabgil.contena.domain.model.SubscriptionResult
@@ -12,8 +13,10 @@ data class SearchedShop(
     val shopDescription: String,
     var isLoading: Boolean = false
 ) : BaseItem(shopName) {
-    companion object {
 
+    val loadingBarColor = if (isSubscribed) R.color.colorBeigeWhite else R.color.colorBlack
+
+    companion object {
         fun from(shop: Shop) =
             SearchedShop(
                 isSubscribed = shop.isSubscribed,

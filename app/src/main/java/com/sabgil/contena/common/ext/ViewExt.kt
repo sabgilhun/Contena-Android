@@ -1,7 +1,10 @@
 package com.sabgil.contena.common.ext
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.view.View
 import android.view.View.*
+import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
 
 @set:BindingAdapter("visibleOrGone")
@@ -24,3 +27,10 @@ var View.selected
     set(value) {
         isSelected = value
     }
+
+@BindingAdapter("barColor")
+fun ProgressBar.setBarColor(color: Int) {
+    indeterminateDrawable.colorFilter = PorterDuffColorFilter(
+        context.resources.getColor(color, context.theme), PorterDuff.Mode.SRC_IN
+    )
+}

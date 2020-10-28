@@ -27,7 +27,7 @@ class Legacy_PostAdapter(
     ) {
         if (viewHolder is PostItemViewHolder) {
             with(viewHolder.binding) {
-                (itemViewPager.adapter as NewItemsViewPagerAdapter).replaceAll(item.newItemList)
+//                (itemViewPager.adapter as NewItemsViewPagerAdapter).replaceAll(item.newItemList)
             }
         }
     }

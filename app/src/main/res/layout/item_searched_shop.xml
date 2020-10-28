@@ -97,6 +97,7 @@
 			android:id="@+id/subscribeLoadingBar"
 			android:layout_width="24dp"
 			android:layout_height="24dp"
+			app:barColor="@{item.loadingBarColor}"
 			app:layout_constraintBottom_toBottomOf="@id/subscribeButton"
 			app:layout_constraintEnd_toEndOf="@id/subscribeButton"
 			app:layout_constraintStart_toStartOf="@id/subscribeButton"
