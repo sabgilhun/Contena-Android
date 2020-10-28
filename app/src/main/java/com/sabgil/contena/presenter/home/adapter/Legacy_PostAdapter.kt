@@ -46,7 +46,7 @@ class Legacy_PostAdapter(
             setPadding(28, 0, 28, 0)
             adapter = NewItemsViewPagerAdapter()
         }
-        binding.tabLayout.setupWithViewPager(binding.itemViewPager)
+//        binding.tabLayout.setupWithViewPager(binding.itemViewPager)
         return PostItemViewHolder(binding)
     }
 

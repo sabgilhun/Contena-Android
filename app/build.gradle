@@ -87,4 +87,7 @@ dependencies {
     // FCM
     implementation "com.google.firebase:firebase-messaging:$fcmMessageVersion"
 //    implementation "com.google.firebase:firebase-core:$fcmCoreVersion"
+
+    // Custom View
+    implementation "com.github.rbro112:Android-Indefinite-Pager-Indicator:$indefinitePagerIndicator"
 }

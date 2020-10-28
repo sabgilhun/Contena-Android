@@ -28,7 +28,7 @@ class PostAdapter(
                         setPadding(28, 0, 28, 0)
                         adapter = NewItemsViewPagerAdapter()
                     }
-                    binding.tabLayout.setupWithViewPager(binding.itemViewPager)
+                    binding.tabLayout.attachToViewPager(binding.itemViewPager)
                     binding.itemViewPager.addOnPageSelected {
                         val postItem = boundItemSupplier()
                         postItem?.apply {

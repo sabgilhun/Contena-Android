@@ -122,18 +122,16 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/logoHolder" />
 		
-		<!--TODO: Custom TabLayout 필요-->
-		<com.google.android.material.tabs.TabLayout
+		<com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
 			android:id="@+id/tabLayout"
 			android:layout_width="120dp"
-			android:layout_height="wrap_content"
+			android:layout_height="50dp"
+			app:dotColor="@color/colorDarkGray"
+			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@id/goToDetailImageButton"
 			app:layout_constraintStart_toEndOf="@id/markFavoriteImageButton"
 			app:layout_constraintTop_toBottomOf="@id/itemViewPager"
-			app:tabBackground="@drawable/selector_post_tab_indicator"
-			app:tabGravity="center"
-			app:tabIndicatorColor="@color/colorBeigeWhite"
-			app:tabIndicatorHeight="0dp" />
+			app:selectedDotColor="@color/colorBeigeWhite" />
 		
 		<ImageButton
 			android:id="@+id/markFavoriteImageButton"
