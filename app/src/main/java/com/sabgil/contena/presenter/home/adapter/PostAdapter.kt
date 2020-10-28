@@ -20,7 +20,7 @@ class PostAdapter(
     override val viewTypeMap: ViewTypeMap =
         multiViewType {
             viewType<PostItem, ItemPostBinding>(R.layout.item_post) {
-                onCreate { binding, boundItemSupplier ->
+                onCreate { binding, viewHolder ->
                     // TODO: dp 변환 작업 필요
                     binding.itemViewPager.apply {
                         clipToPadding = false
@@ -30,9 +30,9 @@ class PostAdapter(
                     }
                     binding.tabLayout.attachToViewPager(binding.itemViewPager)
                     binding.itemViewPager.addOnPageSelected {
-                        val postItem = boundItemSupplier()
-                        postItem?.apply {
-                            displayingItemIndex = it
+                        val adapterPosition = viewHolder.adapterPosition
+                        if (adapterPosition != -1) {
+                            (items[adapterPosition] as PostItem).displayingItemIndex = it
                         }
                     }
                 }

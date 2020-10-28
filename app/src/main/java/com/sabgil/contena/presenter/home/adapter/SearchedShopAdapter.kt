@@ -1,47 +1,41 @@
 package com.sabgil.contena.presenter.home.adapter
 
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.sabgil.contena.R
-import com.sabgil.contena.common.ext.autoNotify
-import com.sabgil.contena.common.ext.layoutInflater
+import com.sabgil.contena.common.adapter.*
+import com.sabgil.contena.common.ext.visibleOrGone
 import com.sabgil.contena.databinding.ItemSearchedShopBinding
-import com.sabgil.contena.domain.model.Shop
-import kotlin.properties.Delegates
+import com.sabgil.contena.presenter.home.fragment.SearchTabFragment
+import com.sabgil.contena.presenter.home.model.SearchedShop
 
 class SearchedShopAdapter(
-    private val onToggleSubscription: (Boolean, String) -> Unit
-) : RecyclerView.Adapter<SearchedShopAdapter.SearchedShopViewHolder>() {
+    private val handler: SearchTabFragment.Handler
+) : MultiViewTypeAdapter() {
+    override val viewTypeMap: ViewTypeMap =
+        multiViewType {
+            viewType<SearchedShop, ItemSearchedShopBinding>(R.layout.item_searched_shop) {
+                onCreate { binding, viewHolder ->
+                    binding.subscribeButton.setOnClickListener {
+                        val position = viewHolder.adapterPosition
+                        if (position == -1) return@setOnClickListener
+                        toggleSubscribeButton(binding, (items[position] as SearchedShop), position)
+                    }
+                }
 
-    private var searchedShopItems: List<Shop> by Delegates.observable(mutableListOf())
-    { _, old, new ->
-        autoNotify(old, new) { o, n ->
-            o.shopName == n.shopName
+                onBind { searchedShop, binding, _ ->
+                    binding.item = searchedShop
+                }
+            }
+        }
+
+    private fun toggleSubscribeButton(
+        binding: ItemSearchedShopBinding,
+        item: SearchedShop,
+        position: Int
+    ) {
+        if (!item.isLoading) {
+            item.isLoading = true
+            binding.subscribeLoadingBar.visibleOrGone = true
+            handler.toggleSubscription(position, item)
         }
     }
-
-    fun replaceAll(searchedShops: List<Shop>) {
-        searchedShopItems = searchedShops
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchedShopViewHolder =
-        SearchedShopViewHolder(
-            DataBindingUtil.inflate(
-                parent.context.layoutInflater,
-                R.layout.item_searched_shop,
-                parent,
-                false
-            )
-        )
-
-    override fun getItemCount(): Int = searchedShopItems.size
-
-    override fun onBindViewHolder(holder: SearchedShopViewHolder, position: Int) {
-        holder.binding.item = searchedShopItems[position]
-    }
-
-    class SearchedShopViewHolder(
-        val binding: ItemSearchedShopBinding
-    ) : RecyclerView.ViewHolder(binding.root)
 }

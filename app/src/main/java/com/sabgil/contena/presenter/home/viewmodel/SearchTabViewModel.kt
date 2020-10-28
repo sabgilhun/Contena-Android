@@ -2,67 +2,25 @@ package com.sabgil.contena.presenter.home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sabgil.contena.common.ext.valueOrEmpty
+import com.sabgil.contena.data.remote.contena.dto.PostSubscriptionRequest
+import com.sabgil.contena.data.remote.contena.dto.PostUnsubscriptionRequest
 import com.sabgil.contena.data.repository.AppRepository
 import com.sabgil.contena.data.repository.ShopRepository
-import com.sabgil.contena.domain.model.Shop
+import com.sabgil.contena.data.repository.SubscriptionRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
-import com.sabgil.contena.presenter.home.enums.SearchingState
 import com.sabgil.contena.presenter.home.model.SearchedShop
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class SearchTabViewModel @Inject constructor(
     private val appRepository: AppRepository,
-    private val shopRepository: ShopRepository
+    private val shopRepository: ShopRepository,
+    private val subscriptionRepository: SubscriptionRepository
 ) : BaseViewModel() {
 
-    private var recommendedShopList: List<SearchedShop> = emptyList()
-
-    private var subscribedShops: List<Shop> = emptyList()
-
-    private val _searchingState = MutableLiveData<SearchingState>()
-    val searchingState: LiveData<SearchingState> = _searchingState
-
-    private val searchStream = PublishSubject.create<String>()
-
-    private val _searchedShop = MutableLiveData<List<Shop>>()
-    val searchedShop: LiveData<List<Shop>> get() = _searchedShop
-
-    init {
-        initSearchStream()
-    }
-
-    // TODO : 에러 발생시에도 Stream 끊키지 않도록 수정 or Refresh 기능 필요
-    private fun initSearchStream() {
-//        searchStream
-//            .doOnNext { _searchingState.value = SearchingState.Searching(it) }
-//            .debounce(DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
-//            .flatMap {
-//                Observable.zip(
-//                    Observable.just(it),
-//                    contenaRepository.getAvailableShopList(it).toObservable().observeOn(Schedulers.io()),
-//                    BiFunction<String, List<Shop>, SearchResult>(::SearchResult)
-//                )
-//            }
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribeBy(
-//                onNext = {
-//                    _searchingState.value =
-//                        if (it.resultShops.isEmpty()) {
-//                            SearchingState.Empty(it.keyword)
-//                        } else {
-//                            SearchingState.Complete(
-//                                searchedShops = it.resultShops.map { shop ->
-//                                    SearchedShop.from(shop, subscribedShops)
-//                                })
-//                        }
-//                },
-//                onError = {
-//                    it.printStackTrace()
-//                }
-//            ).add()
-    }
+    private val _searchedShop = MutableLiveData<List<SearchedShop>>()
+    val searchedShop: LiveData<List<SearchedShop>> get() = _searchedShop
 
     // TODO : 실패 시 다른 API 진행이 안되므로 예외 처리 필요 (Ex : Refresh 기능)
     fun initialLoadShopData() {
@@ -70,8 +28,8 @@ class SearchTabViewModel @Inject constructor(
         shopRepository.getAllShopList(userId)
             .compose(apiLoadingSingleTransformer())
             .subscribeBy(
-                onSuccess = {
-                    _searchedShop.value = it
+                onSuccess = { response ->
+                    _searchedShop.value = response.map { SearchedShop.from(it) }
                 },
                 onError = {
 
@@ -79,72 +37,36 @@ class SearchTabViewModel @Inject constructor(
             ).add()
     }
 
-    fun searchAvailableShopList(searchKeyword: String) {
-//        if (searchKeyword.isEmpty()) {
-//            _searchingState.value = SearchingState.NotStarted(recommendedShopList)
-//        } else {
-//            searchStream.onNext(searchKeyword)
-//        }
-    }
+    fun toggleSubscription(position: Int, searchedShop: SearchedShop) {
+        val userId = appRepository.getFcmToken() ?: return
+        val toggleSubscribe = if (searchedShop.isSubscribed) {
+            subscriptionRepository.postUnsubscription(
+                PostUnsubscriptionRequest(userId, searchedShop.shopName)
+            )
+        } else {
+            subscriptionRepository.postSubscription(
+                PostSubscriptionRequest(userId, searchedShop.shopName)
+            )
+        }
 
-    fun subscribeShop(shopName: String) {
-//        val userId = appRepository.getFcmToken()
-//        val searchingState = _searchingState.value
-//
-//        if (userId == null) {
-//            _showApiErrorMessage.setValue("아직 User ID가 등록되지 않았습니다.")
-//            return
-//        }
-//
-//        if (searchingState !is SearchingState.Complete) return
-//
-//        contenaRepository.postSubscription(userId, shopName)
-//            .compose(apiLoadingSingleTransformer())
-//            .subscribeBy(
-//                onSuccess = {
-//                    searchingState.searchedShops.map {
-//                        if (it.shopName == shopName) it.apply {
-//                            subscribed = true
-//                        } else it
-//                    }
-//                },
-//                onError = {
-//                    _showApiErrorMessage.setValue(it.message.orEmpty())
-//                }).add()
-    }
+        toggleSubscribe
+            .compose(apiLoadingSingleTransformer())
+            .subscribeBy(
+                onSuccess = { response ->
+                    val list = _searchedShop.valueOrEmpty.mapIndexed { index, shop ->
+                        if (index == position) {
+                            SearchedShop.from(response)
+                        } else {
+                            shop
+                        }
+                    }
 
-    fun unsubscribeShop(shopName: String) {
-//        val userId = appRepository.getFcmToken()
-//        val searchingState = _searchingState.value
-//
-//        if (userId == null) {
-//            _showApiErrorMessage.setValue("아직 User ID가 등록되지 않았습니다.")
-//            return
-//        }
-//
-//        if (searchingState !is SearchingState.Complete) return
-//
-//        contenaRepository.postUnsubscription(userId, shopName)
-//            .compose(apiLoadingSingleTransformer())
-//            .subscribeBy(
-//                onSuccess = {
-//                    searchingState.searchedShops.map {
-//                        if (it.shopName == shopName) it.apply {
-//                            subscribed = false
-//                        } else it
-//                    }
-//                },
-//                onError = {
-//                    _showApiErrorMessage.setValue(it.message.orEmpty())
-//                }).add()
-    }
-
-    private data class SearchResult(
-        val keyword: String,
-        val resultShops: List<Shop>
-    )
-
-    companion object {
-        private const val DEBOUNCE_TIMEOUT = 1000L
+                    _searchedShop.value = list
+                },
+                onError = {
+                    it.printStackTrace()
+                }
+            )
+            .add()
     }
 }

@@ -1,10 +1,7 @@
 package com.sabgil.contena.di.module
 
 import com.sabgil.contena.CONTENA_BASE_URL
-import com.sabgil.contena.data.remote.contena.api.NewItemApi
-import com.sabgil.contena.data.remote.contena.api.PostApi
-import com.sabgil.contena.data.remote.contena.api.ReportApi
-import com.sabgil.contena.data.remote.contena.api.ShopApi
+import com.sabgil.contena.data.remote.contena.api.*
 import com.sabgil.contena.di.annotation.ApplicationScope
 import dagger.Module
 import dagger.Provides
@@ -73,6 +70,20 @@ class ApiModule {
         .addConverterFactory(converterFactory)
         .build()
         .create(ShopApi::class.java)
+
+    @Provides
+    @ApplicationScope
+    fun provideSubscriptionApi(
+        okHttpClient: OkHttpClient,
+        callAdapterFactory: CallAdapter.Factory,
+        converterFactory: Converter.Factory
+    ): SubscriptionApi = Retrofit.Builder()
+        .baseUrl(CONTENA_BASE_URL)
+        .client(okHttpClient)
+        .addCallAdapterFactory(callAdapterFactory)
+        .addConverterFactory(converterFactory)
+        .build()
+        .create(SubscriptionApi::class.java)
 
     @Provides
     @ApplicationScope

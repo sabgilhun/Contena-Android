@@ -2,12 +2,13 @@ package com.sabgil.contena.common.adapter
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 
 
 class ViewTypeMap(typeSetups: List<TypeSetup<out BaseItem, out ViewDataBinding>>) {
     private val layoutMap: Map<Class<out BaseItem>, Int>
     private val onBindMap: Map<Class<out BaseItem>, (BaseItem, ViewDataBinding, Int) -> Unit>
-    private val onCreateMap: Map<Int, (ViewDataBinding, () -> BaseItem?) -> Unit>
+    private val onCreateMap: Map<Int, (ViewDataBinding, RecyclerView.ViewHolder) -> Unit>
 
     init {
         layoutMap = initLayoutMap(typeSetups)
@@ -21,11 +22,11 @@ class ViewTypeMap(typeSetups: List<TypeSetup<out BaseItem, out ViewDataBinding>>
 
     private fun initOnBindMap(
         typeSetups: List<TypeSetup<out BaseItem, out ViewDataBinding>>
-    ) = hashMapOf(*(typeSetups.map { it.itemClass to it.onBind }.toTypedArray()))
+    ) = hashMapOf(*(typeSetups.map { it.itemClass to it.forceCastedOnBind }.toTypedArray()))
 
     private fun initOnCreateMap(
         typeSetups: List<TypeSetup<out BaseItem, out ViewDataBinding>>
-    ) = hashMapOf(*(typeSetups.map { it.layoutId to it.onCreate }.toTypedArray()))
+    ) = hashMapOf(*(typeSetups.map { it.layoutId to it.forceCastedOnCreate }.toTypedArray()))
 
     fun getLayoutId(itemTypeClass: Class<out BaseItem>) =
         requireNotNull(layoutMap[itemTypeClass])

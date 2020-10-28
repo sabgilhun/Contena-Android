@@ -2,6 +2,13 @@ package com.sabgil.contena.domain.model
 
 data class SubscriptionResult(
     val userId: String,
-    val shopName: String,
-    val subscriberCount: Long
-)
+    val updatedShop: Shop
+) {
+    data class Shop(
+        val shopName: String,
+        val shopLogoUrl: String,
+        val subscriberCount: Long,
+        val shopDescription: String,
+        val isSubscribed: Boolean
+    )
+}

@@ -8,7 +8,7 @@
 		
 		<variable
 			name="item"
-			type="com.sabgil.contena.domain.model.Shop" />
+			type="com.sabgil.contena.presenter.home.model.SearchedShop" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -75,7 +75,6 @@
 			app:layout_constraintTop_toBottomOf="@id/shopNameTextView"
 			tools:text="아메리칸 캐쥬얼 편집샵" />
 		
-		<!--TODO selected, 글자, 글자색 작업필요-->
 		<Button
 			android:id="@+id/subscribeButton"
 			style="@style/StateButtonStyle"
@@ -93,6 +92,16 @@
 			app:layout_constraintStart_toEndOf="@id/shopDescriptionTextView"
 			app:layout_constraintTop_toTopOf="parent"
 			app:selected="@{item.isSubscribed}" />
+		
+		<ProgressBar
+			android:id="@+id/subscribeLoadingBar"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			app:layout_constraintBottom_toBottomOf="@id/subscribeButton"
+			app:layout_constraintEnd_toEndOf="@id/subscribeButton"
+			app:layout_constraintStart_toStartOf="@id/subscribeButton"
+			app:layout_constraintTop_toTopOf="@id/subscribeButton"
+			app:visibleOrGone="@{item.isLoading}" />
 		
 		<TextView
 			android:id="@+id/subscriberCountTextView"

@@ -6,6 +6,7 @@ import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentSearchTabBinding
 import com.sabgil.contena.presenter.home.adapter.SearchedShopAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
+import com.sabgil.contena.presenter.home.model.SearchedShop
 import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
 
 class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fragment_search_tab) {
@@ -23,36 +24,28 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupSearchEditText()
         setupSearchedShopRecyclerView()
-
-        viewModel.setupObserver()
         viewModel.initialLoadShopData()
+        viewModel.setupObserver()
     }
 
     private fun setupSearchedShopRecyclerView() {
-        searchedShopAdapter = SearchedShopAdapter { doSubscribe, shopName ->
-            if (doSubscribe) {
-                viewModel.subscribeShop(shopName)
-            } else {
-                viewModel.unsubscribeShop(shopName)
-            }
-        }
-
+        searchedShopAdapter = SearchedShopAdapter(Handler())
         binding.searchedShopRecyclerView.adapter = searchedShopAdapter
     }
 
-    private fun setupSearchEditText() {
-        binding.searchEditText.textChangeListener = { viewModel.searchAvailableShopList(it) }
-    }
-
     private fun SearchTabViewModel.setupObserver() {
-        searchedShop.registerObserver {
-            searchedShopAdapter.replaceAll(it)
-        }
+        searchedShop.registerObserver(searchedShopAdapter::replaceAll)
     }
 
     companion object {
         fun newInstance() = SearchTabFragment()
+    }
+
+    inner class Handler {
+
+        fun toggleSubscription(position: Int, searchedShop: SearchedShop) {
+            viewModel.toggleSubscription(position, searchedShop)
+        }
     }
 }

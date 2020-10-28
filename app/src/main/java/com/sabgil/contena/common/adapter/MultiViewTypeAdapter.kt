@@ -12,7 +12,7 @@ abstract class MultiViewTypeAdapter : RecyclerView.Adapter<BindingViewHolder>() 
 
     protected abstract val viewTypeMap: ViewTypeMap
 
-    private var items: List<BaseItem> by Delegates.observable(mutableListOf())
+    protected var items: List<BaseItem> by Delegates.observable(mutableListOf())
     { _, old, new -> autoNotify(old, new) { o, n -> o.id == n.id } }
 
     fun replaceAll(items: List<BaseItem>) {
@@ -28,9 +28,7 @@ abstract class MultiViewTypeAdapter : RecyclerView.Adapter<BindingViewHolder>() 
                 false
             )
         val viewHolder = BindingViewHolder(binding)
-        viewTypeMap.getOnCreateViewHolder(viewType)(binding) {
-            viewHolder.adapterPosition.let { if (it != -1) items[it] else null }
-        }
+        viewTypeMap.getOnCreateViewHolder(viewType)(binding, viewHolder)
 
         return viewHolder
     }

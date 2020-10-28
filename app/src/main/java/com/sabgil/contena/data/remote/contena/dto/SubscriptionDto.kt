@@ -9,9 +9,16 @@ data class PostSubscriptionRequest(
 
 data class PostSubscribeResponse(
     @SerializedName("user_id") val userId: String,
-    @SerializedName("shop_name") val shopName: String,
-    @SerializedName("subscriber_count") val subscriberCount: Long
-)
+    @SerializedName("updated_shop") val updatedShop: Shop
+) {
+    data class Shop(
+        @SerializedName("shop_name") val shopName: String,
+        @SerializedName("shop_logo_url") val shopLogoUrl: String,
+        @SerializedName("subscriber_count") val subscriberCount: Long,
+        @SerializedName("shop_description") val shopDescription: String,
+        @SerializedName("subscribed") val isSubscribed: Boolean
+    )
+}
 
 data class PostUnsubscriptionRequest(
     @SerializedName("user_id") val userId: String,
@@ -20,6 +27,13 @@ data class PostUnsubscriptionRequest(
 
 data class PostUnsubscribeResponse(
     @SerializedName("user_id") val userId: String,
-    @SerializedName("shop_name") val shopName: String,
-    @SerializedName("subscriber_count") val subscriberCount: Long
-)
+    @SerializedName("updated_shop") val updatedShop: Shop
+) {
+    data class Shop(
+        @SerializedName("shop_name") val shopName: String,
+        @SerializedName("shop_logo_url") val shopLogoUrl: String,
+        @SerializedName("subscriber_count") val subscriberCount: Long,
+        @SerializedName("shop_description") val shopDescription: String,
+        @SerializedName("subscribed") val isSubscribed: Boolean
+    )
+}

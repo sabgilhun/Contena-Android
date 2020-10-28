@@ -10,14 +10,30 @@ class SubscriptionMapperImpl @Inject constructor() : SubscriptionMapper {
     override fun toSubscriptionResult(from: PostSubscribeResponse): SubscriptionResult =
         SubscriptionResult(
             userId = from.userId,
-            shopName = from.shopName,
-            subscriberCount = from.subscriberCount
+            updatedShop = toShop(from.updatedShop)
         )
 
     override fun toSubscriptionResult(from: PostUnsubscribeResponse): SubscriptionResult =
         SubscriptionResult(
             userId = from.userId,
-            shopName = from.shopName,
-            subscriberCount = from.subscriberCount
+            updatedShop = toShop(from.updatedShop)
+        )
+
+    private fun toShop(from: PostSubscribeResponse.Shop) =
+        SubscriptionResult.Shop(
+            from.shopName,
+            from.shopLogoUrl,
+            from.subscriberCount,
+            from.shopDescription,
+            from.isSubscribed
+        )
+
+    private fun toShop(from: PostUnsubscribeResponse.Shop) =
+        SubscriptionResult.Shop(
+            from.shopName,
+            from.shopLogoUrl,
+            from.subscriberCount,
+            from.shopDescription,
+            from.isSubscribed
         )
 }
