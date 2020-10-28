@@ -6,7 +6,7 @@ import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentSearchTabBinding
 import com.sabgil.contena.presenter.home.adapter.SearchedShopAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
-import com.sabgil.contena.presenter.home.model.SearchedShop
+import com.sabgil.contena.presenter.home.model.SearchedShopItem
 import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
 
 class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fragment_search_tab) {
@@ -42,7 +42,6 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
     }
 
     private fun SearchTabViewModel.setupObserver() {
-//        searchedShop.registerObserver(searchedShopAdapter::replaceAll)
         searchedShop.registerObserver(searchedShopAdapter::replaceAll)
     }
 
@@ -52,7 +51,7 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
 
     inner class Handler {
 
-        fun toggleSubscription(searchedShop: SearchedShop) {
+        fun toggleSubscription(searchedShop: SearchedShopItem.Shop) {
             viewModel.toggleSubscription(searchedShop)
         }
     }

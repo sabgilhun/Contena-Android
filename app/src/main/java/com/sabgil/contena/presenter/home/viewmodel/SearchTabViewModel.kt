@@ -10,7 +10,9 @@ import com.sabgil.contena.data.repository.AppRepository
 import com.sabgil.contena.data.repository.ShopRepository
 import com.sabgil.contena.data.repository.SubscriptionRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
-import com.sabgil.contena.presenter.home.model.SearchedShop
+import com.sabgil.contena.presenter.home.model.SearchedShopItem
+import com.sabgil.contena.presenter.home.model.SearchedShopItem.Empty
+import com.sabgil.contena.presenter.home.model.SearchedShopItem.Shop
 import io.reactivex.rxkotlin.subscribeBy
 import java.util.*
 import javax.inject.Inject
@@ -21,10 +23,10 @@ class SearchTabViewModel @Inject constructor(
     private val subscriptionRepository: SubscriptionRepository
 ) : BaseViewModel() {
 
-    private val allShopList = MutableLiveData<List<SearchedShop>>()
+    private val allShopList = MutableLiveData<List<Shop>>()
     val searchKeyword = MutableLiveData("")
-    private val _searchedShop = MediatorLiveData<List<SearchedShop>>()
-    val searchedShop: LiveData<List<SearchedShop>> get() = _searchedShop
+    private val _searchedShop = MediatorLiveData<List<SearchedShopItem>>()
+    val searchedShop: LiveData<List<SearchedShopItem>> get() = _searchedShop
 
     init {
         _searchedShop.apply {
@@ -44,7 +46,7 @@ class SearchTabViewModel @Inject constructor(
             .compose(apiLoadingSingleTransformer())
             .subscribeBy(
                 onSuccess = { response ->
-                    allShopList.value = response.map { SearchedShop.from(it) }
+                    allShopList.value = response.map { Shop.from(it) }
                 },
                 onError = {
 
@@ -52,7 +54,7 @@ class SearchTabViewModel @Inject constructor(
             ).add()
     }
 
-    fun toggleSubscription(searchedShop: SearchedShop) {
+    fun toggleSubscription(searchedShop: Shop) {
         val userId = appRepository.getFcmToken() ?: return
         val toggleSubscribe = if (searchedShop.isSubscribed) {
             subscriptionRepository.postUnsubscription(
@@ -68,15 +70,14 @@ class SearchTabViewModel @Inject constructor(
             .compose(apiLoadingSingleTransformer())
             .subscribeBy(
                 onSuccess = { response ->
-                    val list = allShopList.valueOrEmpty.mapIndexed { _, shop ->
-                        if (shop.shopName == response.updatedShop.shopName) {
-                            SearchedShop.from(response)
-                        } else {
-                            shop
+                    allShopList.value = allShopList.valueOrEmpty
+                        .mapIndexed { _, shop ->
+                            if (shop.shopName == response.updatedShop.shopName) {
+                                Shop.from(response)
+                            } else {
+                                shop
+                            }
                         }
-                    }
-
-                    allShopList.value = list
                 },
                 onError = {
                     it.printStackTrace()
@@ -86,11 +87,18 @@ class SearchTabViewModel @Inject constructor(
     }
 
     private fun filterWithSearchKeyword(
-        shopList: List<SearchedShop>,
+        shopList: List<Shop>,
         searchKeyword: String
-    ) = shopList.filter {
-        val upperCaseName = it.shopName.toUpperCase(Locale.ROOT)
-        val upperCaseKeyword = searchKeyword.toUpperCase(Locale.ROOT)
-        upperCaseName.contains(upperCaseKeyword)
+    ): List<SearchedShopItem> {
+        val filteredList = shopList.filter {
+            val upperCaseName = it.shopName.toUpperCase(Locale.ROOT)
+            val upperCaseKeyword = searchKeyword.toUpperCase(Locale.ROOT)
+            upperCaseName.contains(upperCaseKeyword)
+        }
+
+        return if (filteredList.isEmpty())
+            listOf<SearchedShopItem>(Empty)
+        else
+            filteredList
     }
 }

@@ -43,32 +43,5 @@
 			tools:itemCount="3"
 			tools:listitem="@layout/item_searched_shop" />
 		
-		<LinearLayout
-			android:id="@+id/searchingStateLayout"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:visibility="gone"
-			app:layout_constraintBottom_toBottomOf="@id/bottomGuideline"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@id/searchedShopRecyclerView">
-			
-			<TextView
-				android:id="@+id/searchingStateTextView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:padding="12dp"
-				android:textSize="14sp"
-				tools:text="검색 결과가 없습니다." />
-		</LinearLayout>
-		
-		<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/bottomGuideline"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			app:layout_constraintGuide_percent="0.7" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
