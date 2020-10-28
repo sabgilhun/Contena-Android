@@ -24,9 +24,16 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupSearchEditTextView()
         setupSearchedShopRecyclerView()
         viewModel.initialLoadShopData()
         viewModel.setupObserver()
+    }
+
+    private fun setupSearchEditTextView() {
+        binding.searchEditText.textChangeListener = {
+            viewModel.searchKeyword.value = it
+        }
     }
 
     private fun setupSearchedShopRecyclerView() {
@@ -35,6 +42,7 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
     }
 
     private fun SearchTabViewModel.setupObserver() {
+//        searchedShop.registerObserver(searchedShopAdapter::replaceAll)
         searchedShop.registerObserver(searchedShopAdapter::replaceAll)
     }
 
@@ -44,8 +52,8 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
 
     inner class Handler {
 
-        fun toggleSubscription(position: Int, searchedShop: SearchedShop) {
-            viewModel.toggleSubscription(position, searchedShop)
+        fun toggleSubscription(searchedShop: SearchedShop) {
+            viewModel.toggleSubscription(searchedShop)
         }
     }
 }

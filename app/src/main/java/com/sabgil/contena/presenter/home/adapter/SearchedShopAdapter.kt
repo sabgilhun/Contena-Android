@@ -18,7 +18,7 @@ class SearchedShopAdapter(
                     binding.subscribeButton.setOnClickListener {
                         val position = viewHolder.adapterPosition
                         if (position == -1) return@setOnClickListener
-                        toggleSubscribeButton(binding, (items[position] as SearchedShop), position)
+                        toggleSubscribeButton(binding, (items[position] as SearchedShop))
                     }
                 }
 
@@ -30,14 +30,13 @@ class SearchedShopAdapter(
 
     private fun toggleSubscribeButton(
         binding: ItemSearchedShopBinding,
-        item: SearchedShop,
-        position: Int
+        item: SearchedShop
     ) {
         if (!item.isLoading) {
             item.isLoading = true
             binding.subscribeLoadingBar.setBarColor(item.loadingBarColor)
             binding.subscribeLoadingBar.visibleOrGone = true
-            handler.toggleSubscription(position, item)
+            handler.toggleSubscription(item)
         }
     }
 }

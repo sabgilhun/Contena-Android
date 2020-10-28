@@ -57,6 +57,8 @@ class SearchEditText : FrameLayout {
             true
         )
 
+        if (isInEditMode) return
+
         binding.shopSearchEditText.addTextChangedListener(textWatcher)
 
         binding.shopSearchEditText.setOnFocusChangeListener { _, hasFocus ->
