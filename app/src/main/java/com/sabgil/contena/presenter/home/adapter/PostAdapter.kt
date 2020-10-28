@@ -8,10 +8,7 @@ import com.sabgil.contena.databinding.ItemPostEmptyBinding
 import com.sabgil.contena.databinding.ItemPostLoadingBinding
 import com.sabgil.contena.databinding.ItemPostNoMoreBinding
 import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
-import com.sabgil.contena.presenter.home.model.EmptyItem
-import com.sabgil.contena.presenter.home.model.LoadingItem
-import com.sabgil.contena.presenter.home.model.NoMoreItem
-import com.sabgil.contena.presenter.home.model.PostItem
+import com.sabgil.contena.presenter.home.model.PostItem.*
 
 class PostAdapter(
     private val handler: NewItemTabFragment.Handler
@@ -19,7 +16,7 @@ class PostAdapter(
 
     override val viewTypeMap: ViewTypeMap =
         multiViewType {
-            viewType<PostItem, ItemPostBinding>(R.layout.item_post) {
+            viewType<Post, ItemPostBinding>(R.layout.item_post) {
                 onCreate { binding, viewHolder ->
                     // TODO: dp 변환 작업 필요
                     binding.itemViewPager.apply {
@@ -32,7 +29,7 @@ class PostAdapter(
                     binding.itemViewPager.addOnPageSelected {
                         val adapterPosition = viewHolder.adapterPosition
                         if (adapterPosition != -1) {
-                            (items[adapterPosition] as PostItem).displayingItemIndex = it
+                            (items[adapterPosition] as Post).displayingItemIndex = it
                         }
                     }
                 }
@@ -46,7 +43,7 @@ class PostAdapter(
                 }
             }
 
-            viewType<LoadingItem, ItemPostLoadingBinding>(R.layout.item_post_loading) {
+            viewType<Loading, ItemPostLoadingBinding>(R.layout.item_post_loading) {
                 onBind { loadingItem, _, _ ->
                     if (!loadingItem.statedLoading.getAndSet(true)) {
                         handler.loadMorePost(loadingItem.nextCursor)
@@ -54,7 +51,7 @@ class PostAdapter(
                 }
             }
 
-            viewType<EmptyItem, ItemPostEmptyBinding>(R.layout.item_post_empty)
-            viewType<NoMoreItem, ItemPostNoMoreBinding>(R.layout.item_post_no_more)
+            viewType<Empty, ItemPostEmptyBinding>(R.layout.item_post_empty)
+            viewType<NoMore, ItemPostNoMoreBinding>(R.layout.item_post_no_more)
         }
 }

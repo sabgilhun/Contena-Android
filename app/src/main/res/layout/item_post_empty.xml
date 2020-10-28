@@ -5,10 +5,7 @@
 	tools:context=".presenter.home.adapter.PostAdapter">
 	
 	<data>
-		
-		<variable
-			name="post"
-			type="com.sabgil.contena.domain.model.Post" />
+	
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout

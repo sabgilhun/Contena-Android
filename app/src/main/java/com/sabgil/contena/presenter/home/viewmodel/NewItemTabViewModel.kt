@@ -2,14 +2,11 @@ package com.sabgil.contena.presenter.home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sabgil.contena.common.adapter.BaseItem
 import com.sabgil.contena.data.local.AppSharedPreference
 import com.sabgil.contena.data.repository.PostRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
-import com.sabgil.contena.presenter.home.model.EmptyItem
-import com.sabgil.contena.presenter.home.model.LoadingItem
-import com.sabgil.contena.presenter.home.model.NoMoreItem
 import com.sabgil.contena.presenter.home.model.PostItem
+import com.sabgil.contena.presenter.home.model.PostItem.*
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
@@ -18,8 +15,8 @@ class NewItemTabViewModel @Inject constructor(
     private val appSharedPreference: AppSharedPreference
 ) : BaseViewModel() {
 
-    private val _postList = MutableLiveData<List<BaseItem>>(emptyList())
-    val postList: LiveData<List<BaseItem>> = _postList
+    private val _postList = MutableLiveData<List<PostItem>>(emptyList())
+    val postList: LiveData<List<PostItem>> = _postList
 
     fun loadPostList(cursor: Long = 0) {
         val token = appSharedPreference.getToken() ?: return
@@ -27,16 +24,16 @@ class NewItemTabViewModel @Inject constructor(
             .compose(apiLoadingSingleTransformer())
             .subscribeBy(
                 onSuccess = { response ->
-                    val presentPostList = response.second.map(PostItem.Companion::from)
-                    val previousPostList = getPreviousPostList().filter { it !is LoadingItem }
+                    val presentPostList = response.second.map(Post.Companion::from)
+                    val previousPostList = getPreviousPostList().filter { it !is Loading }
 
                     if (previousPostList.isEmpty() && presentPostList.isEmpty()) {
-                        _postList.value = listOf(EmptyItem)
+                        _postList.value = listOf(Empty)
                     } else if (presentPostList.isEmpty()) {
-                        _postList.value = previousPostList + NoMoreItem
+                        _postList.value = previousPostList + NoMore
                     } else {
                         _postList.value =
-                            previousPostList + presentPostList + LoadingItem(response.first)
+                            previousPostList + presentPostList + Loading(response.first)
                     }
                 },
                 onError = { _showApiErrorMessage.setValue(it.message ?: "") }
