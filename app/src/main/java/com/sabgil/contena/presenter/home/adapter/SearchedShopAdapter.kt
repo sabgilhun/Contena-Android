@@ -7,20 +7,20 @@ import com.sabgil.contena.common.ext.visibleOrGone
 import com.sabgil.contena.databinding.ItemSearchedShopBinding
 import com.sabgil.contena.databinding.ItemSearchedShopEmptyBinding
 import com.sabgil.contena.presenter.home.fragment.SearchTabFragment
-import com.sabgil.contena.presenter.home.model.SearchedShopItem.Empty
-import com.sabgil.contena.presenter.home.model.SearchedShopItem.Shop
+import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem.EmptyItem
+import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem.ShopItem
 
 class SearchedShopAdapter(
     private val handler: SearchTabFragment.Handler
 ) : MultiViewTypeAdapter() {
     override val viewTypeMap: ViewTypeMap =
         multiViewType {
-            viewType<Shop, ItemSearchedShopBinding>(R.layout.item_searched_shop) {
+            viewType<ShopItem, ItemSearchedShopBinding>(R.layout.item_searched_shop) {
                 onCreate { binding, viewHolder ->
                     binding.subscribeButton.setOnClickListener {
                         val position = viewHolder.adapterPosition
                         if (position == -1) return@setOnClickListener
-                        toggleSubscribeButton(binding, (items[position] as Shop))
+                        toggleSubscribeButton(binding, (items[position] as ShopItem))
                     }
                 }
 
@@ -29,12 +29,12 @@ class SearchedShopAdapter(
                 }
             }
 
-            viewType<Empty, ItemSearchedShopEmptyBinding>(R.layout.item_searched_shop_empty)
+            viewType<EmptyItem, ItemSearchedShopEmptyBinding>(R.layout.item_searched_shop_empty)
         }
 
     private fun toggleSubscribeButton(
         binding: ItemSearchedShopBinding,
-        item: Shop
+        item: ShopItem
     ) {
         if (!item.isLoading) {
             item.isLoading = true

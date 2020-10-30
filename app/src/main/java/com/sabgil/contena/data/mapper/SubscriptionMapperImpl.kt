@@ -2,6 +2,7 @@ package com.sabgil.contena.data.mapper
 
 import com.sabgil.contena.data.remote.contena.dto.PostSubscribeResponse
 import com.sabgil.contena.data.remote.contena.dto.PostUnsubscribeResponse
+import com.sabgil.contena.domain.model.Shop
 import com.sabgil.contena.domain.model.SubscriptionResult
 import javax.inject.Inject
 
@@ -20,7 +21,7 @@ class SubscriptionMapperImpl @Inject constructor() : SubscriptionMapper {
         )
 
     private fun toShop(from: PostSubscribeResponse.Shop) =
-        SubscriptionResult.Shop(
+        Shop(
             from.shopName,
             from.shopLogoUrl,
             from.subscriberCount,
@@ -29,7 +30,7 @@ class SubscriptionMapperImpl @Inject constructor() : SubscriptionMapper {
         )
 
     private fun toShop(from: PostUnsubscribeResponse.Shop) =
-        SubscriptionResult.Shop(
+        Shop(
             from.shopName,
             from.shopLogoUrl,
             from.subscriberCount,

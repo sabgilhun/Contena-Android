@@ -1,6 +1,7 @@
 package com.sabgil.contena.data.mapper
 
 import com.sabgil.contena.data.remote.contena.dto.GetPostListResponse
+import com.sabgil.contena.domain.model.NewProduct
 import com.sabgil.contena.domain.model.Post
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class PostMapperImpl @Inject constructor() : PostMapper {
                 shopLogoUrl = post.shopLogoUrl,
                 subscriberCount = post.subscriberCount,
                 newProductList = post.newItemList.map { item ->
-                    Post.NewProduct(
+                    NewProduct(
                         productName = item.productName,
                         brand = item.brand,
                         imageUrl = item.imageUrl,

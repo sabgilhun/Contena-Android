@@ -8,7 +8,7 @@
 		
 		<variable
 			name="item"
-			type="com.sabgil.contena.presenter.home.model.PostItem.Post" />
+			type="com.sabgil.contena.presenter.home.model.BasePostItem.PostItem" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout

@@ -1,6 +1,6 @@
 package com.sabgil.contena.domain.model
 
-data class NewItem(
+data class NewProduct(
     val productName: String,
     val brand: String,
     val imageUrl: String,

@@ -8,14 +8,14 @@ import androidx.viewpager.widget.PagerAdapter
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.layoutInflater
 import com.sabgil.contena.databinding.PageNewItemBinding
-import com.sabgil.contena.presenter.home.model.PostItem.Post.NewProduct
+import com.sabgil.contena.presenter.home.model.BasePostItem.PostItem.NewProductItem
 
 
 class NewItemsViewPagerAdapter : PagerAdapter() {
 
-    private val items: MutableList<NewProduct> = mutableListOf()
+    private val items: MutableList<NewProductItem> = mutableListOf()
 
-    fun replaceAll(items: List<NewProduct>) {
+    fun replaceAll(items: List<NewProductItem>) {
         this.items.apply {
             clear()
             addAll(items)

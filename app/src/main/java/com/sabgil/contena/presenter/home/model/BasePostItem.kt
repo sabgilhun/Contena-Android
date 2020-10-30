@@ -1,24 +1,24 @@
 package com.sabgil.contena.presenter.home.model
 
 import com.sabgil.contena.common.adapter.BaseItem
+import com.sabgil.contena.domain.model.NewProduct
+import com.sabgil.contena.domain.model.Post
 import java.util.concurrent.atomic.AtomicBoolean
-import com.sabgil.contena.domain.model.Post as DomainPost
-import com.sabgil.contena.domain.model.Post.NewProduct as DomainNewProduct
 
-sealed class PostItem(key: Any) : BaseItem(key) {
+sealed class BasePostItem(key: Any) : BaseItem(key) {
 
-    data class Post(
+    data class PostItem(
         val postId: Long,
         val diffDate: String,
         val uploadDate: String,
         val shopName: String,
         val shopLogoUrl: String,
         val subscriberCount: String,
-        val newItemList: List<NewProduct>,
+        val newProductItems: List<NewProductItem>,
         var displayingItemIndex: Int = 0
-    ) : PostItem(postId) {
+    ) : BasePostItem(postId) {
 
-        data class NewProduct(
+        data class NewProductItem(
             val productName: String,
             val brand: String,
             val imageUrl: String,
@@ -27,8 +27,8 @@ sealed class PostItem(key: Any) : BaseItem(key) {
             val originPrice: String?
         ) {
             companion object {
-                fun from(from: DomainNewProduct) =
-                    NewProduct(
+                fun from(from: NewProduct) =
+                    NewProductItem(
                         productName = from.productName,
                         brand = from.brand,
                         imageUrl = from.imageUrl,
@@ -40,25 +40,25 @@ sealed class PostItem(key: Any) : BaseItem(key) {
         }
 
         companion object {
-            fun from(from: DomainPost): Post =
-                Post(
+            fun from(from: Post): PostItem =
+                PostItem(
                     postId = from.postId,
                     diffDate = from.uploadDate,  // TODO 변경할 예정
                     uploadDate = from.uploadDate,  // TODO 변경할 예정
                     shopName = from.shopName,
                     shopLogoUrl = from.shopLogoUrl,
                     subscriberCount = from.subscriberCount.toString(),
-                    newItemList = from.newProductList.map { NewProduct.from(it) }
+                    newProductItems = from.newProductList.map { NewProductItem.from(it) }
                 )
         }
     }
 
-    class Loading(
+    class LoadingItem(
         val nextCursor: Long,
         var statedLoading: AtomicBoolean = AtomicBoolean(false)
-    ) : PostItem(Loading::class.java.simpleName)
+    ) : BasePostItem(LoadingItem::class.java.simpleName)
 
-    object Empty : PostItem(Empty::class.java.simpleName)
+    object EmptyItem : BasePostItem(EmptyItem::class.java.simpleName)
 
-    object NoMore : PostItem(NoMore::class.java.simpleName)
+    object NoMoreItem : BasePostItem(NoMoreItem::class.java.simpleName)
 }

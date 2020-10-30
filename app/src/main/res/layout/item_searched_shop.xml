@@ -8,7 +8,7 @@
 		
 		<variable
 			name="item"
-			type="com.sabgil.contena.presenter.home.model.SearchedShopItem.Shop" />
+			type="com.sabgil.contena.presenter.home.model.BaseSearchedShopItem.ShopItem" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout

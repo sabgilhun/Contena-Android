@@ -10,9 +10,9 @@ import com.sabgil.contena.data.repository.AppRepository
 import com.sabgil.contena.data.repository.ShopRepository
 import com.sabgil.contena.data.repository.SubscriptionRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
-import com.sabgil.contena.presenter.home.model.SearchedShopItem
-import com.sabgil.contena.presenter.home.model.SearchedShopItem.Empty
-import com.sabgil.contena.presenter.home.model.SearchedShopItem.Shop
+import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem
+import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem.EmptyItem
+import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem.ShopItem
 import com.sabgil.contena.presenter.home.model.TabState.*
 import java.util.*
 import javax.inject.Inject
@@ -23,10 +23,10 @@ class SearchTabViewModel @Inject constructor(
     private val subscriptionRepository: SubscriptionRepository
 ) : BaseViewModel() {
 
-    private val allShopList = MutableLiveData<List<Shop>>()
+    private val allShopList = MutableLiveData<List<ShopItem>>()
     val searchKeyword = MutableLiveData("")
-    private val _searchedShop = MediatorLiveData<List<SearchedShopItem>>()
-    val searchedShop: LiveData<List<SearchedShopItem>> get() = _searchedShop
+    private val _searchedShop = MediatorLiveData<List<BaseSearchedShopItem>>()
+    val searchedShop: LiveData<List<BaseSearchedShopItem>> get() = _searchedShop
     private val _tabState = MutableLiveData(LOADING_FIRST_PAGE)
     val tabState get() = _tabState
 
@@ -54,7 +54,7 @@ class SearchTabViewModel @Inject constructor(
             }
             .autoDispose {
                 success { response ->
-                    allShopList.value = response.map { Shop.from(it) }
+                    allShopList.value = response.map { ShopItem.from(it) }
                     _tabState.value = SUCCESS_FIRST_PAGE
                 }
                 error {
@@ -63,7 +63,7 @@ class SearchTabViewModel @Inject constructor(
             }
     }
 
-    fun toggleSubscription(searchedShop: Shop) {
+    fun toggleSubscription(searchedShop: ShopItem) {
         val userId = appRepository.getFcmToken() ?: return
         val toggleSubscribe = if (searchedShop.isSubscribed) {
             subscriptionRepository.postUnsubscription(
@@ -83,7 +83,7 @@ class SearchTabViewModel @Inject constructor(
 
                     allShopList.value = previousList.map { shop ->
                         if (shop.shopName == response.updatedShop.shopName)
-                            Shop.from(response)
+                            ShopItem.from(response)
                         else
                             shop
                     }
@@ -95,9 +95,9 @@ class SearchTabViewModel @Inject constructor(
     }
 
     private fun filterWithSearchKeyword(
-        shopList: List<Shop>,
+        shopList: List<ShopItem>,
         searchKeyword: String
-    ): List<SearchedShopItem> {
+    ): List<BaseSearchedShopItem> {
         val filteredList = shopList.filter {
             val upperCaseName = it.shopName.toUpperCase(Locale.ROOT)
             val upperCaseKeyword = searchKeyword.toUpperCase(Locale.ROOT)
@@ -105,7 +105,7 @@ class SearchTabViewModel @Inject constructor(
         }
 
         return if (filteredList.isEmpty())
-            listOf<SearchedShopItem>(Empty)
+            listOf<BaseSearchedShopItem>(EmptyItem)
         else
             filteredList
     }

@@ -10,7 +10,7 @@
 		
 		<variable
 			name="newItem"
-			type="com.sabgil.contena.presenter.home.model.PostItem.Post.NewProduct" />
+			type="com.sabgil.contena.presenter.home.model.BasePostItem.PostItem.NewProductItem" />
 	</data>
 	
 	<androidx.cardview.widget.CardView

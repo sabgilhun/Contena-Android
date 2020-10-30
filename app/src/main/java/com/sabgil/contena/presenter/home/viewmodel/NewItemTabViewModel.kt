@@ -6,8 +6,8 @@ import com.sabgil.contena.common.ext.valueOrEmpty
 import com.sabgil.contena.data.local.AppSharedPreference
 import com.sabgil.contena.data.repository.PostRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
-import com.sabgil.contena.presenter.home.model.PostItem
-import com.sabgil.contena.presenter.home.model.PostItem.*
+import com.sabgil.contena.presenter.home.model.BasePostItem
+import com.sabgil.contena.presenter.home.model.BasePostItem.*
 import com.sabgil.contena.presenter.home.model.TabState
 import javax.inject.Inject
 import com.sabgil.contena.domain.model.Post as DomainPost
@@ -17,8 +17,8 @@ class NewItemTabViewModel @Inject constructor(
     private val appSharedPreference: AppSharedPreference
 ) : BaseViewModel() {
 
-    private val _postList = MutableLiveData<List<PostItem>>(emptyList())
-    val postList: LiveData<List<PostItem>> = _postList
+    private val _postList = MutableLiveData<List<BasePostItem>>(emptyList())
+    val postList: LiveData<List<BasePostItem>> = _postList
 
     private val _tabState = MutableLiveData(TabState.LOADING_FIRST_PAGE)
     val tabState get() = _tabState
@@ -69,16 +69,16 @@ class NewItemTabViewModel @Inject constructor(
             }
     }
 
-    private fun arrangePostList(cursor: Long, postList: List<DomainPost>): List<PostItem> {
-        val presentPostList = postList.map { Post.from(it) }
-        val previousPostList = _postList.valueOrEmpty.filter { it !is Loading }
+    private fun arrangePostList(cursor: Long, postList: List<DomainPost>): List<BasePostItem> {
+        val presentPostList = postList.map { PostItem.from(it) }
+        val previousPostList = _postList.valueOrEmpty.filter { it !is LoadingItem }
 
         return if (previousPostList.isEmpty() && presentPostList.isEmpty()) {
-            listOf(Empty)
+            listOf(EmptyItem)
         } else if (presentPostList.isEmpty()) {
-            previousPostList + NoMore
+            previousPostList + NoMoreItem
         } else {
-            previousPostList + presentPostList + Loading(cursor)
+            previousPostList + presentPostList + LoadingItem(cursor)
         }
     }
 
