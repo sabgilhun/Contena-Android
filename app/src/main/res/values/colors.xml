@@ -12,8 +12,9 @@
 	
 	<!--palette-->
 	<color name="colorBeigeWhite">#F6F3ED</color>
-	<color name="colorDarkGray">#393939</color>
 	<color name="colorGray">#585858</color>
+	<color name="colorDarkGray">#393939</color>
+	<color name="colorDarkGray2">#2C2C2F</color>
 	<color name="colorDarkBlue">#366DC9</color>
 	
 	<color name="colorWhite">#FFFFFF</color>

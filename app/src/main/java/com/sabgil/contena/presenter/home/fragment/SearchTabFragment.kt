@@ -40,8 +40,6 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
 
             searchedShopAdapter = SearchedShopAdapter(Handler())
             searchedShopRecyclerView.adapter = searchedShopAdapter
-
-            refreshButton.setOnClickListener { viewModel.loadShopData(false) }
         }
     }
 

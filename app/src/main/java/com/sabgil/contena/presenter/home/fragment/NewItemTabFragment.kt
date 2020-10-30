@@ -40,8 +40,6 @@ class NewItemTabFragment :
 
             postAdapter = PostAdapter(Handler())
             postRecyclerView.adapter = postAdapter
-
-            refreshButton.setOnClickListener { viewModel.reloadFirstPage() }
         }
     }
 
