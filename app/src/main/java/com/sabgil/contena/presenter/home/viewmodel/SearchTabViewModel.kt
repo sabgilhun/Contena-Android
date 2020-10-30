@@ -13,7 +13,6 @@ import com.sabgil.contena.presenter.base.BaseViewModel
 import com.sabgil.contena.presenter.home.model.SearchedShopItem
 import com.sabgil.contena.presenter.home.model.SearchedShopItem.Empty
 import com.sabgil.contena.presenter.home.model.SearchedShopItem.Shop
-import io.reactivex.rxkotlin.subscribeBy
 import java.util.*
 import javax.inject.Inject
 
@@ -44,19 +43,19 @@ class SearchTabViewModel @Inject constructor(
         val userId = appRepository.getFcmToken() ?: return
         shopRepository.getAllShopList(userId)
             .compose(apiLoadingSingleTransformer())
-            .subscribeBy(
-                onSuccess = { response ->
+            .autoDispose {
+                success { response ->
                     allShopList.value = response.map { Shop.from(it) }
-                },
-                onError = {
-
                 }
-            ).add()
+                error {
+                    handleApiErrorMessage(it)
+                }
+            }
     }
 
     fun toggleSubscription(searchedShop: Shop) {
         val userId = appRepository.getFcmToken() ?: return
-        val toggleSubscribe = if (searchedShop.isSubscribed) {
+        val toggleSubscribe = if (!searchedShop.isSubscribed) {
             subscriptionRepository.postUnsubscription(
                 PostUnsubscriptionRequest(userId, searchedShop.shopName)
             )
@@ -68,22 +67,20 @@ class SearchTabViewModel @Inject constructor(
 
         toggleSubscribe
             .compose(apiLoadingSingleTransformer())
-            .subscribeBy(
-                onSuccess = { response ->
-                    allShopList.value = allShopList.valueOrEmpty
-                        .mapIndexed { _, shop ->
-                            if (shop.shopName == response.updatedShop.shopName) {
-                                Shop.from(response)
-                            } else {
-                                shop
-                            }
+            .autoDispose {
+                success { response ->
+                    val updatedList = allShopList.valueOrEmpty
+                        .map { shop ->
+                            if (shop.shopName == response.updatedShop.shopName) Shop.from(response)
+                            else shop
                         }
-                },
-                onError = {
-                    it.printStackTrace()
+
+                    allShopList.value = updatedList
                 }
-            )
-            .add()
+                error {
+                    handleApiErrorMessage(it)
+                }
+            }
     }
 
     private fun filterWithSearchKeyword(

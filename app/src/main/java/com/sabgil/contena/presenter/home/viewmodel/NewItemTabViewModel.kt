@@ -7,7 +7,6 @@ import com.sabgil.contena.data.repository.PostRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
 import com.sabgil.contena.presenter.home.model.PostItem
 import com.sabgil.contena.presenter.home.model.PostItem.*
-import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class NewItemTabViewModel @Inject constructor(
@@ -22,8 +21,8 @@ class NewItemTabViewModel @Inject constructor(
         val token = appSharedPreference.getToken() ?: return
         postRepository.getPostList(token, if (cursor == 0L) -1 else cursor)
             .compose(apiLoadingSingleTransformer())
-            .subscribeBy(
-                onSuccess = { response ->
+            .autoDispose {
+                success { response ->
                     val presentPostList = response.second.map(Post.Companion::from)
                     val previousPostList = getPreviousPostList().filter { it !is Loading }
 
@@ -35,9 +34,11 @@ class NewItemTabViewModel @Inject constructor(
                         _postList.value =
                             previousPostList + presentPostList + Loading(response.first)
                     }
-                },
-                onError = { _showApiErrorMessage.setValue(it.message ?: "") }
-            ).add()
+                }
+                error {
+                    handleApiErrorMessage(it)
+                }
+            }
     }
 
     private fun getPreviousPostList() = _postList.value?.toMutableList() ?: mutableListOf()
