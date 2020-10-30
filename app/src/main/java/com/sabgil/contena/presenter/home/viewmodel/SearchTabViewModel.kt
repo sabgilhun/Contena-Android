@@ -13,6 +13,7 @@ import com.sabgil.contena.presenter.base.BaseViewModel
 import com.sabgil.contena.presenter.home.model.SearchedShopItem
 import com.sabgil.contena.presenter.home.model.SearchedShopItem.Empty
 import com.sabgil.contena.presenter.home.model.SearchedShopItem.Shop
+import com.sabgil.contena.presenter.home.model.TabState.*
 import java.util.*
 import javax.inject.Inject
 
@@ -26,6 +27,8 @@ class SearchTabViewModel @Inject constructor(
     val searchKeyword = MutableLiveData("")
     private val _searchedShop = MediatorLiveData<List<SearchedShopItem>>()
     val searchedShop: LiveData<List<SearchedShopItem>> get() = _searchedShop
+    private val _tabState = MutableLiveData(LOADING_FIRST_PAGE)
+    val tabState get() = _tabState
 
     init {
         _searchedShop.apply {
@@ -38,24 +41,31 @@ class SearchTabViewModel @Inject constructor(
         }
     }
 
-    // TODO : 실패 시 다른 API 진행이 안되므로 예외 처리 필요 (Ex : Refresh 기능)
-    fun initialLoadShopData() {
+    fun loadShopData(isFirstLoad: Boolean) {
         val userId = appRepository.getFcmToken() ?: return
         shopRepository.getAllShopList(userId)
-            .compose(apiLoadingSingleTransformer())
+            .compose(apiSingleTransformer())
+            .doOnSubscribe {
+                if (isFirstLoad) {
+                    _tabState.value = LOADING_FIRST_PAGE
+                } else {
+                    _tabState.value = RELOAD_FIRST_PAGE
+                }
+            }
             .autoDispose {
                 success { response ->
                     allShopList.value = response.map { Shop.from(it) }
+                    _tabState.value = SUCCESS_FIRST_PAGE
                 }
                 error {
-                    handleApiErrorMessage(it)
+                    _tabState.value = FAILED_FIRST_PAGE
                 }
             }
     }
 
     fun toggleSubscription(searchedShop: Shop) {
         val userId = appRepository.getFcmToken() ?: return
-        val toggleSubscribe = if (!searchedShop.isSubscribed) {
+        val toggleSubscribe = if (searchedShop.isSubscribed) {
             subscriptionRepository.postUnsubscription(
                 PostUnsubscriptionRequest(userId, searchedShop.shopName)
             )
@@ -69,13 +79,14 @@ class SearchTabViewModel @Inject constructor(
             .compose(apiLoadingSingleTransformer())
             .autoDispose {
                 success { response ->
-                    val updatedList = allShopList.valueOrEmpty
-                        .map { shop ->
-                            if (shop.shopName == response.updatedShop.shopName) Shop.from(response)
-                            else shop
-                        }
+                    val previousList = allShopList.valueOrEmpty
 
-                    allShopList.value = updatedList
+                    allShopList.value = previousList.map { shop ->
+                        if (shop.shopName == response.updatedShop.shopName)
+                            Shop.from(response)
+                        else
+                            shop
+                    }
                 }
                 error {
                     handleApiErrorMessage(it)

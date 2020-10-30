@@ -15,38 +15,38 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
         getViewModel(SearchTabViewModel::class)
     }
 
-    override fun refreshTab() {
-        // TODO: scroll top
-    }
-
     private lateinit var searchedShopAdapter: SearchedShopAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.vm = viewModel
 
-        setupSearchEditTextView()
-        setupSearchedShopRecyclerView()
-        viewModel.initialLoadShopData()
-        viewModel.setupObserver()
+        setViews()
+        setupObserver()
+
+        viewModel.loadShopData(true)
     }
 
-    private fun setupSearchEditTextView() {
-        binding.searchEditText.textChangeListener = {
-            viewModel.searchKeyword.value = it
+    override fun refreshTab() {
+        // TODO: scroll top
+    }
+
+
+    private fun setViews() {
+        with(binding) {
+            searchEditText.textChangeListener = {
+                viewModel.searchKeyword.value = it
+            }
+
+            searchedShopAdapter = SearchedShopAdapter(Handler())
+            searchedShopRecyclerView.adapter = searchedShopAdapter
+
+            refreshButton.setOnClickListener { viewModel.loadShopData(false) }
         }
     }
 
-    private fun setupSearchedShopRecyclerView() {
-        searchedShopAdapter = SearchedShopAdapter(Handler())
-        binding.searchedShopRecyclerView.adapter = searchedShopAdapter
-    }
-
-    private fun SearchTabViewModel.setupObserver() {
-        searchedShop.registerObserver(searchedShopAdapter::replaceAll)
-    }
-
-    companion object {
-        fun newInstance() = SearchTabFragment()
+    private fun setupObserver() {
+        viewModel.searchedShop.registerObserver(searchedShopAdapter::replaceAll)
     }
 
     inner class Handler {

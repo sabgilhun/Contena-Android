@@ -17,8 +17,8 @@ class PostMapperImpl @Inject constructor() : PostMapper {
                 shopName = post.shopName,
                 shopLogoUrl = post.shopLogoUrl,
                 subscriberCount = post.subscriberCount,
-                newItemList = post.newItemList.map { item ->
-                    Post.NewItem(
+                newProductList = post.newItemList.map { item ->
+                    Post.NewProduct(
                         productName = item.productName,
                         brand = item.brand,
                         imageUrl = item.imageUrl,

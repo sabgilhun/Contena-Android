@@ -6,9 +6,9 @@ data class Post(
     val shopName: String,
     val shopLogoUrl: String,
     val subscriberCount: Long,
-    val newItemList: List<NewItem>
+    val newProductList: List<NewProduct>
 ) {
-    data class NewItem(
+    data class NewProduct(
         val productName: String,
         val brand: String,
         val imageUrl: String,

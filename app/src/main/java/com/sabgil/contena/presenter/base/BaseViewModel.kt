@@ -29,13 +29,16 @@ abstract class BaseViewModel : ViewModel() {
         _showApiErrorMessage.setValue(throwable.message ?: "")
     }
 
-    protected fun <T> apiLoadingSingleTransformer(): SingleTransformer<T, T> {
-        return SingleTransformer {
-            it.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { _isLoading.value = true }
-                .doFinally { _isLoading.value = false }
-        }
+    protected fun <T> apiSingleTransformer() = SingleTransformer<T, T> {
+        it.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    protected fun <T> apiLoadingSingleTransformer() = SingleTransformer<T, T> {
+        it.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { _isLoading.value = true }
+            .doFinally { _isLoading.value = false }
     }
 
     protected fun <T : Any> Single<T>.autoDispose(block: SubscribeScope<T>.() -> Unit) {

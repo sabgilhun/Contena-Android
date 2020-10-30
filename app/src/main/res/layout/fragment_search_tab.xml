@@ -15,23 +15,17 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
-		<com.google.android.material.appbar.AppBarLayout
-			android:id="@+id/appBar"
+		<com.sabgil.contena.presenter.widget.SearchEditText
+			android:id="@+id/searchEditText"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@color/colorBlack"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent">
-			
-			<com.sabgil.contena.presenter.widget.SearchEditText
-				android:id="@+id/searchEditText"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content" />
-		</com.google.android.material.appbar.AppBarLayout>
+			app:layout_constraintTop_toTopOf="parent" />
 		
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/searchedShopRecyclerView"
+			visibleOrGone="@{vm.tabState.listVisibility}"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
 			android:overScrollMode="never"
@@ -39,9 +33,55 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/appBar"
+			app:layout_constraintTop_toBottomOf="@id/searchEditText"
 			tools:itemCount="3"
 			tools:listitem="@layout/item_searched_shop" />
 		
+		
+		<TextView
+			android:id="@+id/refreshGuideTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="80dp"
+			android:gravity="center_horizontal"
+			android:text="일시적인 문제로 데이터를 로드하지 못했습니다.\n다시 시도해주세요."
+			android:textColor="@color/colorBeigeWhite"
+			android:textSize="18dp"
+			app:layout_constraintBottom_toTopOf="@id/refreshButton"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_chainStyle="packed"
+			tools:ignore="SpUsage" />
+		
+		<Button
+			android:id="@+id/refreshButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="다시 시도"
+			android:textColor="@color/colorDarkBlue"
+			android:textSize="20dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/refreshGuideTextView"
+			tools:ignore="SpUsage" />
+		
+		<androidx.constraintlayout.widget.Group
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:constraint_referenced_ids="refreshGuideTextView,refreshButton"
+			app:visibleOrGone="@{vm.tabState.refreshPageVisibility}" />
+		
+		<ProgressBar
+			android:id="@+id/loadingProgressBar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:visibleOrGone="@{vm.tabState.loadingVisibility}" />
+	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

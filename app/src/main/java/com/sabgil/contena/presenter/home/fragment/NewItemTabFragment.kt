@@ -20,37 +20,39 @@ class NewItemTabFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.vm = viewModel
 
-        setupAppbar()
-        setupPostRecyclerView()
+        setViews()
+        setupObserver()
 
-        viewModel.setupObserver()
-        viewModel.loadPostList()
-    }
-
-    private fun setupAppbar() {
-        binding.settingImageButton.setOnClickListener {
-            SettingsActivity.start(requireActivity())
-        }
-    }
-
-    private fun setupPostRecyclerView() {
-        postAdapter = PostAdapter(Handler())
-        binding.postRecyclerView.adapter = postAdapter
-    }
-
-    private fun NewItemTabViewModel.setupObserver() {
-        postList.registerObserver(postAdapter::replaceAll)
+        viewModel.loadFirstPage()
     }
 
     override fun refreshTab() {
         // TODO: scroll top
     }
 
+    private fun setViews() {
+        with(binding) {
+            settingImageButton.setOnClickListener {
+                SettingsActivity.start(requireActivity())
+            }
+
+            postAdapter = PostAdapter(Handler())
+            postRecyclerView.adapter = postAdapter
+
+            refreshButton.setOnClickListener { viewModel.reloadFirstPage() }
+        }
+    }
+
+    private fun setupObserver() {
+        viewModel.postList.registerObserver(postAdapter::replaceAll)
+    }
+
     inner class Handler {
 
         fun loadMorePost(cursor: Long) {
-            viewModel.loadPostList(cursor)
+            viewModel.loadMorePage(cursor)
         }
     }
 }

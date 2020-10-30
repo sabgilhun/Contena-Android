@@ -4,60 +4,113 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	tools:context=".presenter.home.fragment.NewItemTabFragment">
 	
-	<androidx.coordinatorlayout.widget.CoordinatorLayout
+	<data>
+		
+		<variable
+			name="vm"
+			type="com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel" />
+	</data>
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
-		<com.google.android.material.appbar.AppBarLayout
-			android:layout_width="match_parent"
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/appBarLayout"
+			android:layout_width="0dp"
 			android:layout_height="?attr/actionBarSize"
-			android:background="@color/transparent">
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
 			
-			<androidx.constraintlayout.widget.ConstraintLayout
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
-				
-				<TextView
-					android:id="@+id/title"
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="16dp"
-					android:gravity="center_vertical"
-					android:text="신상 모아보기"
-					android:textColor="@color/colorBeigeWhite"
-					android:textSize="20dp"
-					android:textStyle="bold"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					tools:ignore="SpUsage" />
-				
-				<ImageView
-					android:id="@+id/settingImageButton"
-					android:layout_width="28dp"
-					android:layout_height="28dp"
-					android:layout_marginEnd="16dp"
-					android:background="?android:selectableItemBackgroundBorderless"
-					android:clickable="true"
-					android:focusable="true"
-					android:padding="4dp"
-					android:src="@drawable/vector_settings_begie_white"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					tools:ignore="ContentDescription" />
-			</androidx.constraintlayout.widget.ConstraintLayout>
-		</com.google.android.material.appbar.AppBarLayout>
+			<TextView
+				android:id="@+id/title"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:text="신상 모아보기"
+				android:textColor="@color/colorBeigeWhite"
+				android:textSize="20dp"
+				android:textStyle="bold"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:ignore="SpUsage" />
+			
+			<ImageView
+				android:id="@+id/settingImageButton"
+				android:layout_width="28dp"
+				android:layout_height="28dp"
+				android:layout_marginEnd="16dp"
+				android:background="?android:selectableItemBackgroundBorderless"
+				android:clickable="true"
+				android:focusable="true"
+				android:padding="4dp"
+				android:src="@drawable/vector_settings_begie_white"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:ignore="ContentDescription" />
+		</androidx.constraintlayout.widget.ConstraintLayout>
 		
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/postRecyclerView"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
 			android:overScrollMode="never"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+			app:visibleOrGone="@{vm.tabState.listVisibility}"
 			tools:itemCount="3"
 			tools:listitem="@layout/item_post" />
-	
-	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+		
+		<TextView
+			android:id="@+id/refreshGuideTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="80dp"
+			android:gravity="center_horizontal"
+			android:text="일시적인 문제로 데이터를 로드하지 못했습니다.\n다시 시도해주세요."
+			android:textColor="@color/colorBeigeWhite"
+			android:textSize="18dp"
+			app:layout_constraintBottom_toTopOf="@id/refreshButton"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_chainStyle="packed"
+			tools:ignore="SpUsage" />
+		
+		<Button
+			android:id="@+id/refreshButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="다시 시도"
+			android:textColor="@color/colorDarkBlue"
+			android:textSize="20dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/refreshGuideTextView"
+			tools:ignore="SpUsage" />
+		
+		<androidx.constraintlayout.widget.Group
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:constraint_referenced_ids="refreshGuideTextView,refreshButton"
+			app:visibleOrGone="@{vm.tabState.refreshPageVisibility}" />
+		
+		<ProgressBar
+			android:id="@+id/loadingProgressBar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:visibleOrGone="@{vm.tabState.loadingVisibility}" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
