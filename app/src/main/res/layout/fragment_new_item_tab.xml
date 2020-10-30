@@ -10,75 +10,54 @@
 		
 		<com.google.android.material.appbar.AppBarLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="?attr/actionBarSize"
 			android:background="@color/transparent">
 			
-			<com.google.android.material.appbar.CollapsingToolbarLayout
+			<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
+				android:layout_height="match_parent">
 				
-				<androidx.appcompat.widget.Toolbar
-					android:layout_width="match_parent"
-					android:layout_height="?attr/actionBarSize"
-					app:layout_collapseMode="pin">
-					
-					<androidx.constraintlayout.widget.ConstraintLayout
-						android:layout_width="match_parent"
-						android:layout_height="match_parent">
-						
-						<TextView
-							android:id="@+id/title"
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:gravity="center_vertical"
-							android:text="신상 모아보기"
-							android:textColor="@color/colorBeigeWhite"
-							android:textSize="20dp"
-							android:textStyle="bold"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							tools:ignore="SpUsage" />
-						
-						<ImageView
-							android:id="@+id/settingImageButton"
-							android:layout_width="28dp"
-							android:layout_height="28dp"
-							android:layout_marginEnd="16dp"
-							android:background="?android:selectableItemBackgroundBorderless"
-							android:clickable="true"
-							android:focusable="true"
-							android:padding="4dp"
-							android:src="@drawable/vector_settings_begie_white"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							tools:ignore="ContentDescription" />
-						
-					</androidx.constraintlayout.widget.ConstraintLayout>
-				</androidx.appcompat.widget.Toolbar>
-			</com.google.android.material.appbar.CollapsingToolbarLayout>
+				<TextView
+					android:id="@+id/title"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:gravity="center_vertical"
+					android:text="신상 모아보기"
+					android:textColor="@color/colorBeigeWhite"
+					android:textSize="20dp"
+					android:textStyle="bold"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					tools:ignore="SpUsage" />
+				
+				<ImageView
+					android:id="@+id/settingImageButton"
+					android:layout_width="28dp"
+					android:layout_height="28dp"
+					android:layout_marginEnd="16dp"
+					android:background="?android:selectableItemBackgroundBorderless"
+					android:clickable="true"
+					android:focusable="true"
+					android:padding="4dp"
+					android:src="@drawable/vector_settings_begie_white"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					tools:ignore="ContentDescription" />
+			</androidx.constraintlayout.widget.ConstraintLayout>
 		</com.google.android.material.appbar.AppBarLayout>
 		
-		<androidx.constraintlayout.widget.ConstraintLayout
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/postRecyclerView"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			app:layout_behavior="@string/appbar_scrolling_view_behavior">
-			
-			<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/postRecyclerView"
-				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:overScrollMode="never"
-				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				tools:itemCount="3"
-				tools:listitem="@layout/item_post" />
-		
-		</androidx.constraintlayout.widget.ConstraintLayout>
+			android:overScrollMode="never"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior"
+			tools:itemCount="3"
+			tools:listitem="@layout/item_post" />
+	
 	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
