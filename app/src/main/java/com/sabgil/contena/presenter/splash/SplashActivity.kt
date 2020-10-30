@@ -1,6 +1,7 @@
 package com.sabgil.contena.presenter.splash
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.lifecycle.Lifecycle
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
@@ -44,6 +45,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     private fun checkLifeCycleAndGoHome() {
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
             HomeActivity.start(this)
+        } else {
+            Handler().postDelayed({ checkLifeCycleAndGoHome() }, SPLASH_ANIMATION_DURATION)
         }
     }
 
