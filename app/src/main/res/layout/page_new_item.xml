@@ -42,12 +42,25 @@
 				tools:ignore="ContentDescription" />
 			
 			<TextView
+				android:id="@+id/brandNameTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="12dp"
+				android:includeFontPadding="false"
+				android:text="@{newItem.brand}"
+				android:textSize="12dp"
+				app:layout_constraintBottom_toTopOf="@id/productNameTextView"
+				app:layout_constraintStart_toStartOf="parent"
+				tools:ignore="SpUsage"
+				tools:text="bluesman" />
+			
+			<TextView
 				android:id="@+id/productNameTextView"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="bottom"
 				android:layout_marginStart="12dp"
-				android:layout_marginBottom="4dp"
+				android:includeFontPadding="false"
 				android:text="@{newItem.productName}"
 				android:textColor="@color/colorBlack"
 				android:textSize="12dp"
@@ -63,6 +76,7 @@
 				android:layout_gravity="bottom"
 				android:layout_marginStart="12dp"
 				android:layout_marginBottom="4dp"
+				android:includeFontPadding="false"
 				android:text="@{newItem.originPrice}"
 				android:textColor="@color/colorBlack"
 				android:textSize="12dp"

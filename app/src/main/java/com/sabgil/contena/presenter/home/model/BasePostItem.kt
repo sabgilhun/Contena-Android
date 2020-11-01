@@ -3,6 +3,7 @@ package com.sabgil.contena.presenter.home.model
 import com.sabgil.contena.common.adapter.BaseItem
 import com.sabgil.contena.domain.model.NewProduct
 import com.sabgil.contena.domain.model.Post
+import com.sabgil.contena.utils.DateUtils
 import java.util.concurrent.atomic.AtomicBoolean
 
 sealed class BasePostItem(key: Any) : BaseItem(key) {
@@ -44,7 +45,7 @@ sealed class BasePostItem(key: Any) : BaseItem(key) {
                 PostItem(
                     postId = from.postId,
                     diffDate = from.uploadDate,  // TODO 변경할 예정
-                    uploadDate = from.uploadDate,  // TODO 변경할 예정
+                    uploadDate = DateUtils.parseContenaToHangul(from.uploadDate),  // TODO 변경할 예정
                     shopName = from.shopName,
                     shopLogoUrl = from.shopLogoUrl,
                     subscriberCount = from.subscriberCount.toString(),

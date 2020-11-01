@@ -49,11 +49,28 @@
 			android:text="@{item.shopName}"
 			android:textColor="@color/colorBeigeWhite"
 			android:textSize="16dp"
-			app:layout_constraintBottom_toBottomOf="@id/logoHolder"
+			app:layout_constraintBottom_toTopOf="@id/uploadDateTextView"
 			app:layout_constraintStart_toEndOf="@id/logoHolder"
 			app:layout_constraintTop_toTopOf="@id/logoHolder"
 			tools:ignore="SpUsage"
 			tools:text="bluesman" />
+		
+		<TextView
+			android:id="@+id/uploadDateTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_marginStart="12dp"
+			android:includeFontPadding="false"
+			android:text="@{item.uploadDate}"
+			android:textColor="@color/colorGray"
+			android:textSize="10dp"
+			app:layout_constraintBottom_toBottomOf="@id/logoHolder"
+			app:layout_constraintStart_toEndOf="@id/logoHolder"
+			app:layout_constraintTop_toBottomOf="@id/shopNameTextView"
+			app:layout_constraintVertical_chainStyle="packed"
+			tools:ignore="SpUsage"
+			tools:text="2017.02.02" />
 		
 		<TextView
 			android:id="@+id/dot"
@@ -65,7 +82,7 @@
 			android:textColor="@color/colorBeigeWhite"
 			android:textSize="16dp"
 			android:textStyle="bold"
-			app:layout_constraintBottom_toBottomOf="@id/shopNameTextView"
+			app:layout_constraintBottom_toBottomOf="@id/uploadDateTextView"
 			app:layout_constraintStart_toEndOf="@id/shopNameTextView"
 			app:layout_constraintTop_toTopOf="@id/shopNameTextView"
 			tools:ignore="SpUsage" />
@@ -78,26 +95,11 @@
 			android:text="@{item.subscriberCount}"
 			android:textColor="@color/colorBeigeWhite"
 			android:textSize="16dp"
-			app:layout_constraintBottom_toBottomOf="@id/shopNameTextView"
+			app:layout_constraintBottom_toBottomOf="@id/uploadDateTextView"
 			app:layout_constraintStart_toEndOf="@id/dot"
 			app:layout_constraintTop_toTopOf="@id/shopNameTextView"
 			tools:ignore="SpUsage"
 			tools:text="10K" />
-		
-		<ImageButton
-			android:id="@+id/subscribeImageButton"
-			android:layout_width="20dp"
-			android:layout_height="20dp"
-			android:layout_marginStart="4dp"
-			android:layout_marginEnd="4dp"
-			android:background="@null"
-			android:padding="4dp"
-			android:scaleType="centerInside"
-			android:src="@drawable/register_notification"
-			app:layout_constraintBottom_toBottomOf="@id/shopNameTextView"
-			app:layout_constraintStart_toEndOf="@id/subscribeCntTextView"
-			app:layout_constraintTop_toTopOf="@id/shopNameTextView"
-			tools:ignore="ContentDescription" />
 		
 		<ImageButton
 			android:id="@+id/moreActionButton"
