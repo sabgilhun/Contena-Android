@@ -48,6 +48,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             setOnEmpty { finish() }
             setOnChangeTab {
                 if (it is NewItemTabFragment && viewModel.needsPostReload.value == true) {
+                    viewModel.needsPostReload.value = false
                     it.loadFirstPage()
                 }
             }
