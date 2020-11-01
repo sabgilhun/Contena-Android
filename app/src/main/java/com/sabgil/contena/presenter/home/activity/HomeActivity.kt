@@ -19,6 +19,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         super.onCreate(savedInstanceState)
 
         setupViews()
+        setupObservers()
     }
 
     override fun onBackPressed() = binding.bottomNavigation.goToBackTab()
@@ -51,6 +52,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
                 }
             }
         }
+    }
+
+    private fun setupObservers() {
+        viewModel.changeTab.registerNonNullObserver { binding.bottomNavigation.select(it) }
     }
 
     companion object {

@@ -51,7 +51,12 @@ class PostAdapter(
                 }
             }
 
-            viewType<EmptyItem, ItemPostEmptyBinding>(R.layout.item_post_empty)
+            viewType<EmptyItem, ItemPostEmptyBinding>(R.layout.item_post_empty) {
+                onCreate { binding, _ ->
+                    binding.goToSubscribeTabButton.setOnClickListener { handler.goToSearchTab() }
+                }
+            }
+
             viewType<NoMoreItem, ItemPostNoMoreBinding>(R.layout.item_post_no_more)
         }
 }

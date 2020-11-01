@@ -6,6 +6,7 @@ import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentNewItemTabBinding
 import com.sabgil.contena.presenter.home.adapter.PostAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
+import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.settings.activity.SettingsActivity
 
@@ -14,6 +15,10 @@ class NewItemTabFragment :
 
     private val viewModel: NewItemTabViewModel by lazy {
         getViewModel(NewItemTabViewModel::class)
+    }
+
+    private val homeViewModel: HomeViewModel by lazy {
+        getSharedViewModel(HomeViewModel::class)
     }
 
     private lateinit var postAdapter: PostAdapter
@@ -55,6 +60,10 @@ class NewItemTabFragment :
 
         fun loadMorePost(cursor: Long) {
             viewModel.loadMorePage(cursor)
+        }
+
+        fun goToSearchTab() {
+            homeViewModel.changeTab.setValue(1)
         }
     }
 }
