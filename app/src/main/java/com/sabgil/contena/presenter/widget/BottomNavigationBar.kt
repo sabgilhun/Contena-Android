@@ -34,16 +34,25 @@ class BottomNavigationBar @JvmOverloads constructor(
             true
         )
 
+    @IdRes
+    private var tabContainerId: Int? = null
+    private var fragmentManager: FragmentManager? = null
+
     private var buttons: List<Pair<Tab, ButtonBinding>>? = emptyList()
     private var indexManager: IndexManager? = null
 
-    fun setup(
-        @IdRes
-        fragmentContainerId: Int,
-        fragmentManager: FragmentManager,
-        onEmpty: () -> Unit,
-        vararg tabData: Tab
-    ) {
+    private var onEmpty: (() -> Unit)? = null
+    private var onChangeTab: ((BaseTabFragment<*>) -> Unit)? = null
+
+    fun init(@IdRes tabContainerId: Int, fragmentManager: FragmentManager) {
+        this.tabContainerId = tabContainerId
+        this.fragmentManager = fragmentManager
+    }
+
+    fun tabSetup(vararg tabData: Tab) {
+        val containerId = requireNotNull(tabContainerId)
+        val fm = requireNotNull(fragmentManager)
+
         if (buttons?.isNotEmpty() == true) {
             binding.bottomNavButtonContainer.removeAllViews()
         }
@@ -56,14 +65,10 @@ class BottomNavigationBar @JvmOverloads constructor(
             }
 
         this.buttons = buttons
+
+        val tabManager = TabManager(containerId, fm, tabData.map { it.tab })
         indexManager = IndexManager(
-            buttons.size,
-            TabManager(
-                fragmentContainerId,
-                fragmentManager,
-                tabData.map { it.tab },
-                onEmpty
-            ), this::tintTab
+            stackSize = buttons.size, tabManager = tabManager, onChangeTab = this::tintTab
         )
     }
 
@@ -73,6 +78,14 @@ class BottomNavigationBar @JvmOverloads constructor(
 
     fun select(index: Int) {
         indexManager?.selectTab(index)
+    }
+
+    fun setOnEmpty(onEmpty: () -> Unit) {
+        this.onEmpty = onEmpty
+    }
+
+    fun setOnChangeTab(onChangeTab: (BaseTabFragment<*>) -> Unit) {
+        this.onChangeTab = onChangeTab
     }
 
     private fun inflateButtonBinding(index: Int, button: Tab) =
@@ -180,18 +193,17 @@ class BottomNavigationBar @JvmOverloads constructor(
             if (backStack.isNotEmpty()) backStack.last() else null
     }
 
-    private class TabManager(
+    private inner class TabManager(
         @IdRes
-        private val fragmentContainerId: Int,
+        private val containerId: Int,
         private val fragmentManager: FragmentManager,
-        private val tabs: List<Class<out BaseTabFragment<*>>>,
-        private val onEmpty: () -> Unit
+        private val tabs: List<Class<out BaseTabFragment<*>>>
     ) {
 
         fun initTab(index: Int) {
             fragmentManager.commit {
                 add(
-                    fragmentContainerId,
+                    containerId,
                     tabs[index].newInstance() as Fragment,
                     tabs[index].canonicalName
                 )
@@ -203,15 +215,19 @@ class BottomNavigationBar @JvmOverloads constructor(
             val newTab = fragmentManager.findFragmentByTag(tabs[new].canonicalName)
             fragmentManager.commit {
                 curTab?.let { hide(it) }
-                if (newTab == null) {
+                val addedTab = if (newTab == null) {
+                    val newInstanceTab = tabs[new].newInstance()
                     add(
-                        fragmentContainerId,
-                        tabs[new].newInstance() as Fragment,
+                        containerId,
+                        newInstanceTab,
                         tabs[new].canonicalName
                     )
+                    newInstanceTab
                 } else {
                     show(newTab)
+                    newTab as BaseTabFragment<*>
                 }
+                this@BottomNavigationBar.onChangeTab?.invoke(addedTab)
             }
         }
 
@@ -222,9 +238,8 @@ class BottomNavigationBar @JvmOverloads constructor(
         }
 
         fun onTabEmpty() {
-            onEmpty()
+            this@BottomNavigationBar.onEmpty?.invoke()
         }
-
     }
 
     data class Tab(

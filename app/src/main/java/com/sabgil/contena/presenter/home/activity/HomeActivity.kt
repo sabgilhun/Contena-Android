@@ -15,34 +15,37 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.bottomNavigation.setup()
+        setupViews()
     }
 
     override fun onBackPressed() = binding.bottomNavigation.goToBackTab()
 
-    private fun BottomNavigationBar.setup() {
-        setup(
-            R.id.tabContainer,
-            supportFragmentManager,
-            this@HomeActivity::finish,
+    private fun setupViews() {
+        with(binding.bottomNavigation) {
+            init(R.id.tabContainer, supportFragmentManager)
+            tabSetup(
+                BottomNavigationBar.Tab(
+                    icon = R.drawable.vector_list_gray900,
+                    text = "신상품",
+                    colorWhenSelected = R.color.colorBeigeWhite,
+                    colorWhenUnselected = R.color.colorDarkGray,
+                    tab = NewItemTabFragment::class.java
+                ),
 
-            BottomNavigationBar.Tab(
-                icon = R.drawable.vector_list_gray900,
-                text = "신상품",
-                colorWhenSelected = R.color.colorBeigeWhite,
-                colorWhenUnselected = R.color.colorDarkGray,
-                tab = NewItemTabFragment::class.java
-            ),
-
-            BottomNavigationBar.Tab(
-                icon = R.drawable.vector_search_begie_white,
-                text = "쇼핑몰 검색",
-                colorWhenSelected = R.color.colorBeigeWhite,
-                colorWhenUnselected = R.color.colorDarkGray,
-                tab = SearchTabFragment::class.java
+                BottomNavigationBar.Tab(
+                    icon = R.drawable.vector_search_begie_white,
+                    text = "쇼핑몰 검색",
+                    colorWhenSelected = R.color.colorBeigeWhite,
+                    colorWhenUnselected = R.color.colorDarkGray,
+                    tab = SearchTabFragment::class.java
+                )
             )
-        )
-        requestLayout()
+
+            setOnEmpty { finish() }
+            setOnChangeTab {
+                // TODO
+            }
+        }
     }
 
     companion object {
