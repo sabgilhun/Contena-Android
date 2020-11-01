@@ -8,9 +8,12 @@ import com.sabgil.contena.databinding.ActivityHomeBinding
 import com.sabgil.contena.presenter.base.BaseActivity
 import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
 import com.sabgil.contena.presenter.home.fragment.SearchTabFragment
+import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.widget.BottomNavigationBar
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
+
+    private val viewModel: HomeViewModel by lazy { getViewModel(HomeViewModel::class) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +46,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
             setOnEmpty { finish() }
             setOnChangeTab {
-                // TODO
+                if (it is NewItemTabFragment && viewModel.needsPostReload.value == true) {
+                    it.loadFirstPage()
+                }
             }
         }
     }

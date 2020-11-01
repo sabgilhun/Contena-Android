@@ -7,12 +7,17 @@ import com.sabgil.contena.databinding.FragmentSearchTabBinding
 import com.sabgil.contena.presenter.home.adapter.SearchedShopAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
 import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem
+import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
 
 class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fragment_search_tab) {
 
     private val viewModel: SearchTabViewModel by lazy {
         getViewModel(SearchTabViewModel::class)
+    }
+
+    private val homeViewModel: HomeViewModel by lazy {
+        getSharedViewModel(HomeViewModel::class)
     }
 
     private lateinit var searchedShopAdapter: SearchedShopAdapter
@@ -44,7 +49,11 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
     }
 
     private fun setupObserver() {
-        viewModel.searchedShop.registerObserver(searchedShopAdapter::replaceAll)
+        with(viewModel) {
+            searchedShop.registerObserver(searchedShopAdapter::replaceAll)
+            subscribeSuccess.registerObserver { homeViewModel.needsPostReload.value = true }
+        }
+
     }
 
     inner class Handler {

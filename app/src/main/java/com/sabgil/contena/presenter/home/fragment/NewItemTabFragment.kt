@@ -25,11 +25,15 @@ class NewItemTabFragment :
         setViews()
         setupObserver()
 
-        viewModel.loadFirstPage()
+        loadFirstPage()
     }
 
     override fun refreshTab() {
         // TODO: scroll top
+    }
+
+    fun loadFirstPage() {
+        viewModel.loadFirstPage()
     }
 
     private fun setViews() {

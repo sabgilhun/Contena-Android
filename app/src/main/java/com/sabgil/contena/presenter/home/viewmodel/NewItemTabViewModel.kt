@@ -30,7 +30,7 @@ class NewItemTabViewModel @Inject constructor(
             .doOnSubscribe { _tabState.value = TabState.LOADING_FIRST_PAGE }
             .autoDispose {
                 success {
-                    _postList.value = arrangePostList(it.first, it.second)
+                    _postList.value = arrangeFirstPosts(it.first, it.second)
                     _tabState.value = TabState.SUCCESS_FIRST_PAGE
                 }
                 error {
@@ -45,7 +45,7 @@ class NewItemTabViewModel @Inject constructor(
             .compose(apiSingleTransformer())
             .autoDispose {
                 success {
-                    _postList.value = arrangePostList(it.first, it.second)
+                    _postList.value = appendMorePosts(it.first, it.second)
                 }
                 error {
                     // TODO: reload button
@@ -60,7 +60,7 @@ class NewItemTabViewModel @Inject constructor(
             .doOnSubscribe { _tabState.value = TabState.RELOAD_FIRST_PAGE }
             .autoDispose {
                 success {
-                    _postList.value = arrangePostList(it.first, it.second)
+                    _postList.value = arrangeFirstPosts(it.first, it.second)
                     _tabState.value = TabState.SUCCESS_FIRST_PAGE
                 }
                 error {
@@ -69,7 +69,17 @@ class NewItemTabViewModel @Inject constructor(
             }
     }
 
-    private fun arrangePostList(cursor: Long, postList: List<DomainPost>): List<BasePostItem> {
+    private fun arrangeFirstPosts(cursor: Long, postList: List<DomainPost>): List<BasePostItem> {
+        val presentPostList = postList.map { PostItem.from(it) }
+
+        return if (presentPostList.isEmpty()) {
+            listOf(EmptyItem)
+        } else {
+            presentPostList + LoadingItem(cursor)
+        }
+    }
+
+    private fun appendMorePosts(cursor: Long, postList: List<DomainPost>): List<BasePostItem> {
         val presentPostList = postList.map { PostItem.from(it) }
         val previousPostList = _postList.valueOrEmpty.filter { it !is LoadingItem }
 

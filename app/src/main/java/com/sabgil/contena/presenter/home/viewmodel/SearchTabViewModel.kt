@@ -3,6 +3,7 @@ package com.sabgil.contena.presenter.home.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.sabgil.contena.common.SingleLiveEvent
 import com.sabgil.contena.common.ext.valueOrEmpty
 import com.sabgil.contena.data.remote.contena.dto.PostSubscriptionRequest
 import com.sabgil.contena.data.remote.contena.dto.PostUnsubscriptionRequest
@@ -29,6 +30,8 @@ class SearchTabViewModel @Inject constructor(
     val searchedShop: LiveData<List<BaseSearchedShopItem>> get() = _searchedShop
     private val _tabState = MutableLiveData(LOADING_FIRST_PAGE)
     val tabState get() = _tabState
+    private val _subscribeSuccess = SingleLiveEvent<Nothing>()
+    val subscribeSuccess get() = _subscribeSuccess
 
     init {
         _searchedShop.apply {
@@ -87,6 +90,7 @@ class SearchTabViewModel @Inject constructor(
                         else
                             shop
                     }
+                    subscribeSuccess.call()
                 }
                 error {
                     handleApiErrorMessage(it)
