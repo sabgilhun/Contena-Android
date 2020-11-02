@@ -48,7 +48,7 @@ class NewItemTabViewModel @Inject constructor(
                     _postList.value = appendMorePosts(it.first, it.second)
                 }
                 error {
-                    // TODO: reload button
+                    _postList.value = filterNotPostItem() + LoadFailItem(cursor)
                 }
             }
     }
@@ -81,7 +81,7 @@ class NewItemTabViewModel @Inject constructor(
 
     private fun appendMorePosts(cursor: Long, postList: List<DomainPost>): List<BasePostItem> {
         val presentPostList = postList.map { PostItem.from(it) }
-        val previousPostList = _postList.valueOrEmpty.filter { it !is LoadingItem }
+        val previousPostList = filterNotPostItem()
 
         return if (previousPostList.isEmpty() && presentPostList.isEmpty()) {
             listOf(EmptyItem)
@@ -91,6 +91,9 @@ class NewItemTabViewModel @Inject constructor(
             previousPostList + presentPostList + LoadingItem(cursor)
         }
     }
+
+    private fun filterNotPostItem() =
+        _postList.valueOrEmpty.filter { it !is LoadingItem && it !is LoadFailItem }
 
     companion object {
         private const val FIRST_POST_CURSOR = -1L

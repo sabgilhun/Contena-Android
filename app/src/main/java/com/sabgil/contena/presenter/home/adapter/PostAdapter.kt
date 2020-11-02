@@ -1,12 +1,10 @@
 package com.sabgil.contena.presenter.home.adapter
 
+import androidx.core.view.isInvisible
 import com.sabgil.contena.R
 import com.sabgil.contena.common.adapter.*
 import com.sabgil.contena.common.ext.addOnPageSelected
-import com.sabgil.contena.databinding.ItemPostBinding
-import com.sabgil.contena.databinding.ItemPostEmptyBinding
-import com.sabgil.contena.databinding.ItemPostLoadingBinding
-import com.sabgil.contena.databinding.ItemPostNoMoreBinding
+import com.sabgil.contena.databinding.*
 import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
 import com.sabgil.contena.presenter.home.model.BasePostItem.*
 
@@ -58,5 +56,18 @@ class PostAdapter(
             }
 
             viewType<NoMoreItem, ItemPostNoMoreBinding>(R.layout.item_post_no_more)
+
+            viewType<LoadFailItem, ItemLoadFailBinding>(R.layout.item_load_fail) {
+                onCreate { binding, viewHolder ->
+                    binding.reloadMorePostButton.setOnClickListener {
+                        val adapterPosition = viewHolder.adapterPosition
+                        if (adapterPosition != -1) {
+                            handler.loadMorePost((items[adapterPosition] as LoadFailItem).cursor)
+                            binding.reloadMorePostButton.isInvisible = true
+                            binding.reloadLoadingProgressBar.isInvisible = false
+                        }
+                    }
+                }
+            }
         }
 }
