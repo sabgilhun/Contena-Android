@@ -4,6 +4,7 @@ import androidx.core.view.isInvisible
 import com.sabgil.contena.R
 import com.sabgil.contena.common.adapter.*
 import com.sabgil.contena.common.ext.addOnPageSelected
+import com.sabgil.contena.common.ext.dpToPx
 import com.sabgil.contena.databinding.*
 import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
 import com.sabgil.contena.presenter.home.model.BasePostItem.*
@@ -16,11 +17,11 @@ class PostAdapter(
         multiViewType {
             viewType<PostItem, ItemPostBinding>(R.layout.item_post) {
                 onCreate { binding, viewHolder ->
-                    // TODO: dp 변환 작업 필요
                     binding.itemViewPager.apply {
+                        val dp14 = context.dpToPx(14f).toInt()
                         clipToPadding = false
-                        pageMargin = 28
-                        setPadding(28, 0, 28, 0)
+                        pageMargin = dp14
+                        setPadding(dp14, 0, dp14, 0)
                         adapter = NewItemsViewPagerAdapter()
                     }
                     binding.tabLayout.attachToViewPager(binding.itemViewPager)
