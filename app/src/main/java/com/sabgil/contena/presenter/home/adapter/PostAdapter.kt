@@ -23,14 +23,16 @@ class PostAdapter(
                         pageMargin = dp14
                         setPadding(dp14, 0, dp14, 0)
                         adapter = NewItemsViewPagerAdapter()
-                    }
-                    binding.tabLayout.attachToViewPager(binding.itemViewPager)
-                    binding.itemViewPager.addOnPageSelected {
-                        val adapterPosition = viewHolder.adapterPosition
-                        if (adapterPosition != -1) {
-                            (items[adapterPosition] as PostItem).displayingItemIndex = it
+                        addOnPageSelected {
+                            val adapterPosition = viewHolder.adapterPosition
+                            if (adapterPosition != -1) {
+                                val postItem = (items[adapterPosition] as PostItem)
+                                postItem.displayingItemIndex = it
+                                updatePageNoView(binding, it, postItem)
+                            }
                         }
                     }
+                    binding.tabLayout.attachToViewPager(binding.itemViewPager)
                 }
 
                 onBind { postItem, binding, _ ->
@@ -38,6 +40,7 @@ class PostAdapter(
                         item = postItem
                         (itemViewPager.adapter as NewItemsViewPagerAdapter).replaceAll(postItem.newProductItems)
                         itemViewPager.currentItem = postItem.displayingItemIndex
+                        updatePageNoView(binding, postItem.displayingItemIndex, postItem)
                     }
                 }
             }
@@ -71,4 +74,18 @@ class PostAdapter(
                 }
             }
         }
+
+    private fun updatePageNoView(
+        itemPostBinding: ItemPostBinding,
+        currentPageNo: Int,
+        postItem: PostItem
+    ) {
+        with(itemPostBinding.pageNoTextView) {
+            text = context.getString(
+                R.string.page_no_format,
+                currentPageNo,
+                postItem.newProductItems.size
+            )
+        }
+    }
 }
