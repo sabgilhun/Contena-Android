@@ -19,6 +19,8 @@ sealed class BasePostItem(key: Any) : BaseItem(key) {
         var displayingItemIndex: Int = 0
     ) : BasePostItem(postId) {
 
+        val pageNumber = "${displayingItemIndex + 1}/${newProductItems.size}"
+
         data class NewProductItem(
             val productName: String,
             val brand: String,

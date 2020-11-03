@@ -1,6 +1,7 @@
 package com.sabgil.contena.presenter.home.adapter
 
 import androidx.core.view.isInvisible
+import androidx.viewpager.widget.ViewPager
 import com.sabgil.contena.R
 import com.sabgil.contena.common.adapter.*
 import com.sabgil.contena.common.ext.addOnPageSelected
@@ -18,17 +19,14 @@ class PostAdapter(
             viewType<PostItem, ItemPostBinding>(R.layout.item_post) {
                 onCreate { binding, viewHolder ->
                     binding.itemViewPager.apply {
-                        val dp14 = context.dpToPx(14f).toInt()
-                        clipToPadding = false
-                        pageMargin = dp14
-                        setPadding(dp14, 0, dp14, 0)
                         adapter = NewItemsViewPagerAdapter()
+                        pageMarginSetup()
                         addOnPageSelected {
                             val adapterPosition = viewHolder.adapterPosition
                             if (adapterPosition != -1) {
                                 val postItem = (items[adapterPosition] as PostItem)
                                 postItem.displayingItemIndex = it
-                                updatePageNoView(binding, it, postItem)
+                                binding.pageNoTextView.text = postItem.pageNumber
                             }
                         }
                     }
@@ -40,7 +38,7 @@ class PostAdapter(
                         item = postItem
                         (itemViewPager.adapter as NewItemsViewPagerAdapter).replaceAll(postItem.newProductItems)
                         itemViewPager.currentItem = postItem.displayingItemIndex
-                        updatePageNoView(binding, postItem.displayingItemIndex, postItem)
+                        pageNoTextView.text = postItem.pageNumber
                     }
                 }
             }
@@ -75,17 +73,10 @@ class PostAdapter(
             }
         }
 
-    private fun updatePageNoView(
-        itemPostBinding: ItemPostBinding,
-        currentPageNo: Int,
-        postItem: PostItem
-    ) {
-        with(itemPostBinding.pageNoTextView) {
-            text = context.getString(
-                R.string.page_no_format,
-                currentPageNo,
-                postItem.newProductItems.size
-            )
-        }
+    private fun ViewPager.pageMarginSetup() {
+        val dp14 = context.dpToPx(14f).toInt()
+        clipToPadding = false
+        pageMargin = dp14
+        setPadding(dp14, 0, dp14, 0)
     }
 }
