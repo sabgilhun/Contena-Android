@@ -46,6 +46,7 @@ class PostAdapter(
             }
         }
 
+
         viewType<EmptyItem, ItemPostEmptyBinding> {
             onCreate { binding, _ ->
                 binding.goToSubscribeTabButton.setOnClickListener { handler.goToSearchTab() }
@@ -70,7 +71,6 @@ class PostAdapter(
     private fun setupViewPager(binding: ItemPostBinding, viewHolder: RecyclerView.ViewHolder) {
         with(binding.itemViewPager) {
             adapter = NewItemsViewPagerAdapter()
-            pageMarginSetup(this)
             addOnPageSelected {
                 viewHolder.runWithItem<PostItem>(items) { item ->
                     item.displayingItemIndex = it
@@ -80,14 +80,5 @@ class PostAdapter(
         }
 
         binding.tabLayout.attachToViewPager(binding.itemViewPager)
-    }
-
-    private fun pageMarginSetup(viewPager: ViewPager) {
-        with(viewPager) {
-            val dp14 = context.dpToPx(14f).toInt()
-            clipToPadding = false
-            pageMargin = dp14
-            setPadding(dp14, 0, dp14, 0)
-        }
     }
 }

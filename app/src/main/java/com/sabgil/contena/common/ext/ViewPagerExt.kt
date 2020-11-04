@@ -1,5 +1,6 @@
 package com.sabgil.contena.common.ext
 
+import androidx.databinding.BindingAdapter
 import androidx.viewpager.widget.ViewPager
 
 fun ViewPager.addOnPageSelected(block: (Int) -> Unit) {
@@ -18,4 +19,9 @@ fun ViewPager.addOnPageSelected(block: (Int) -> Unit) {
 
         }
     })
+}
+
+@BindingAdapter("pageMarginWithDp")
+fun ViewPager.setPageMarginWithDp(dp: Float) {
+    pageMargin = context.dpToPx(dp).toInt()
 }
