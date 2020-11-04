@@ -20,6 +20,8 @@ class PostMapperImpl @Inject constructor() : PostMapper {
                 subscriberCount = post.subscriberCount,
                 newProductList = post.newItemList.map { item ->
                     NewProduct(
+                        // TODO : delete mock data
+                        productId = 0,
                         productName = item.productName,
                         brand = item.brand,
                         imageUrl = item.imageUrl,

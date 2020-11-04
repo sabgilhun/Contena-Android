@@ -26,7 +26,7 @@
 	<string name="shop_subscriber_count">구독자: %d명</string>
 	
 	<!--activity_post_detail-->
-	<string name="activity_post_detail_title">%s 신상품</string>
+	<string name="activity_post_detail_title">%d개의 신상품</string>
 	
 	<!--activity_settings-->
 	<string name="activity_settings_title">설정</string>

@@ -9,6 +9,7 @@ class NewItemMapperImpl @Inject constructor() : NewItemMapper {
     override fun toNewItemList(from: GetNewItemListResponse): List<NewProduct> =
         from.newItemList.map {
             NewProduct(
+                productId = it.itemId,
                 productName = it.productName,
                 brand = it.brand,
                 imageUrl = it.imageUrl,

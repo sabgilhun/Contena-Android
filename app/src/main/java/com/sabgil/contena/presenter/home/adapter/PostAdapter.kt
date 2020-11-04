@@ -30,6 +30,18 @@ class PostAdapter(
                             }
                         }
                     }
+
+                    binding.goToDetailImageButton.setOnClickListener {
+                        val adapterPosition = viewHolder.adapterPosition
+                        if (adapterPosition != -1) {
+                            val postItem = (items[adapterPosition] as PostItem)
+                            this@PostAdapter.handler.goToPostDetailActivity(
+                                postItem.postId,
+                                postItem.uploadDate
+                            )
+                        }
+                    }
+
                     binding.tabLayout.attachToViewPager(binding.itemViewPager)
                 }
 

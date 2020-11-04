@@ -8,6 +8,7 @@ import com.sabgil.contena.presenter.home.adapter.PostAdapter
 import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
+import com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity
 import com.sabgil.contena.presenter.settings.activity.SettingsActivity
 
 class NewItemTabFragment :
@@ -64,6 +65,10 @@ class NewItemTabFragment :
 
         fun goToSearchTab() {
             homeViewModel.changeTab.setValue(1)
+        }
+
+        fun goToPostDetailActivity(postId: Long, updateDate: String) {
+            PostDetailActivity.start(requireActivity(), postId, updateDate)
         }
     }
 }

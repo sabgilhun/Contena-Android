@@ -7,80 +7,83 @@
 	<data>
 		
 		<variable
-			name="shopName"
-			type="String" />
+			name="vm"
+			type="com.sabgil.contena.presenter.postdetail.viewmodel.PostDetailViewModel" />
 		
 		<variable
 			name="uploadDate"
 			type="String" />
+	
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
-		<com.google.android.material.appbar.AppBarLayout
-			android:id="@+id/appBar"
+		
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/appBarLayout"
 			android:layout_width="0dp"
 			android:layout_height="?android:actionBarSize"
-			android:background="@color/colorWhite"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent">
 			
-			<androidx.constraintlayout.widget.ConstraintLayout
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
-				
-				<ImageView
-					android:id="@+id/backButton"
-					android:layout_width="24dp"
-					android:layout_height="24dp"
-					android:layout_marginStart="12dp"
-					android:background="?android:selectableItemBackgroundBorderless"
-					android:src="@drawable/vector_arrow_back_gray900"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					tools:ignore="ContentDescription" />
-				
-				<TextView
-					android:id="@+id/titleTextView"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="16dp"
-					android:text="@{@string/activity_post_detail_title(shopName)}"
-					android:textSize="16dp"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintStart_toEndOf="@id/backButton"
-					app:layout_constraintTop_toTopOf="parent"
-					tools:ignore="SpUsage"
-					tools:text="bluesman 신상품" />
-				
-				<TextView
-					android:id="@+id/uploadDateTextView"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="6dp"
-					android:text="@{uploadDate}"
-					android:textColor="@color/colorGray600"
-					android:textSize="12dp"
-					app:layout_constraintBaseline_toBaselineOf="@id/titleTextView"
-					app:layout_constraintStart_toEndOf="@id/titleTextView"
-					tools:ignore="SpUsage"
-					tools:text="20년 1월 2일" />
+			<ImageView
+				android:id="@+id/backButton"
+				android:layout_width="24dp"
+				android:layout_height="24dp"
+				android:layout_marginStart="12dp"
+				android:background="?android:selectableItemBackgroundBorderless"
+				android:src="@drawable/vector_arrow_back_white"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:ignore="ContentDescription" />
 			
-			</androidx.constraintlayout.widget.ConstraintLayout>
-		</com.google.android.material.appbar.AppBarLayout>
+			<TextView
+				android:id="@+id/titleTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:includeFontPadding="false"
+				android:text="@{@string/activity_post_detail_title(vm.newItemList.size)}"
+				android:textColor="@color/colorWhite"
+				android:textSize="16dp"
+				android:textStyle="bold"
+				app:layout_constraintBottom_toTopOf="@id/uploadDateTextView"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_chainStyle="packed"
+				tools:ignore="SpUsage"
+				tools:text="6개의 신상품" />
+			
+			<TextView
+				android:id="@+id/uploadDateTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:includeFontPadding="false"
+				android:text="@{uploadDate}"
+				android:textColor="@color/colorGray"
+				android:textSize="12dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="@id/titleTextView"
+				app:layout_constraintStart_toStartOf="@id/titleTextView"
+				app:layout_constraintTop_toBottomOf="@id/titleTextView"
+				tools:ignore="SpUsage" />
+		
+		</androidx.constraintlayout.widget.ConstraintLayout>
 		
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/newItemRecyclerView"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
+			android:paddingStart="8dp"
+			android:paddingEnd="8dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/appBar"
+			app:layout_constraintTop_toBottomOf="@id/appBarLayout"
 			tools:itemCount="3"
 			tools:listitem="@layout/item_new_product" />
 	

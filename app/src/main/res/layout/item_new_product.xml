@@ -6,73 +6,111 @@
 	
 	<data>
 		
+		<variable
+			name="newProduct"
+			type="com.sabgil.contena.presenter.postdetail.DetailNewProduct" />
 	
 	</data>
 	
-	<androidx.constraintlayout.widget.ConstraintLayout
+	<androidx.cardview.widget.CardView
 		android:layout_width="match_parent"
-		android:layout_height="240dp"
+		android:layout_height="220dp"
 		android:layout_marginStart="8dp"
 		android:layout_marginTop="4dp"
 		android:layout_marginEnd="8dp"
-		android:layout_marginBottom="4dp">
+		android:layout_marginBottom="4dp"
+		app:cardCornerRadius="8dp">
 		
 		<ImageView
-			android:id="@+id/newItemImageView"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			app:layout_constraintBottom_toTopOf="@id/brandTextView"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
+			android:id="@+id/postImageView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:scaleType="center"
+			app:image="@{newProduct.imageUrl}"
 			tools:ignore="ContentDescription" />
 		
-		<TextView
-			android:id="@+id/brandTextView"
-			android:layout_width="0dp"
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:ellipsize="end"
-			android:includeFontPadding="false"
-			android:maxLines="1"
-			android:paddingStart="4dp"
-			android:paddingEnd="4dp"
-			android:textSize="12sp"
-			app:layout_constraintBottom_toTopOf="@id/productNameTextView"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/newItemImageView"
-			tools:text="브랜드" />
-		
-		<TextView
-			android:id="@+id/productNameTextView"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:ellipsize="end"
-			android:includeFontPadding="false"
-			android:maxLines="2"
-			android:minHeight="26sp"
-			android:paddingStart="4dp"
-			android:paddingEnd="4dp"
-			android:textSize="12sp"
-			app:layout_constraintBottom_toTopOf="@id/priceTextView"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/brandTextView"
-			tools:text="상품 이름" />
-		
-		<TextView
-			android:id="@+id/priceTextView"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:paddingStart="4dp"
-			android:paddingEnd="4dp"
-			android:textSize="14sp"
-			android:textStyle="bold"
+			android:layout_gravity="bottom"
+			android:background="#33FFFFFF"
+			android:orientation="vertical"
+			android:paddingTop="12dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/productNameTextView"
-			tools:text="100,000" />
-	
-	</androidx.constraintlayout.widget.ConstraintLayout>
+			app:layout_constraintStart_toStartOf="parent">
+			
+			<TextView
+				android:id="@+id/brandNameTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="4dp"
+				android:includeFontPadding="false"
+				android:text="@{newProduct.brand}"
+				android:textColor="@color/colorBlack"
+				android:textSize="10dp"
+				app:layout_constraintBottom_toTopOf="@id/productNameTextView"
+				app:layout_constraintStart_toStartOf="parent"
+				tools:ignore="SpUsage"
+				tools:text="bluesman" />
+			
+			<TextView
+				android:id="@+id/productNameTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+				android:layout_marginStart="4dp"
+				android:includeFontPadding="false"
+				android:text="@{newProduct.productName}"
+				android:textColor="@color/colorBlack"
+				android:textSize="8dp"
+				app:layout_constraintBottom_toTopOf="@id/productOriginPriceTextView"
+				app:layout_constraintStart_toStartOf="parent"
+				tools:ignore="SpUsage"
+				tools:text="wool crop cardigan-soft cream" />
+			
+			<TextView
+				android:id="@+id/productOriginPriceTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+				android:layout_marginStart="4dp"
+				android:includeFontPadding="false"
+				android:text="@{newProduct.originPrice}"
+				android:textColor="@color/colorBlack"
+				android:textSize="8dp"
+				app:layout_constraintBottom_toTopOf="@id/productPriceTextView"
+				app:layout_constraintStart_toStartOf="parent"
+				app:visibleOrGone="@{newProduct.originPrice != null}"
+				tools:ignore="SpUsage"
+				tools:text="65,000" />
+			
+			<TextView
+				android:id="@+id/productPriceTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+				android:layout_marginStart="4dp"
+				android:layout_marginBottom="8dp"
+				android:text="@{newProduct.price}"
+				android:textColor="@color/colorBlack"
+				android:textSize="10dp"
+				android:textStyle="bold"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				tools:ignore="SpUsage"
+				tools:text="59,000" />
+			
+			<ImageView
+				android:layout_width="16dp"
+				android:layout_height="16dp"
+				android:layout_marginEnd="8dp"
+				android:layout_marginBottom="8dp"
+				android:src="@drawable/vector_filled_favorite_black"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				tools:ignore="ContentDescription" />
+		
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.cardview.widget.CardView>
 </layout>
