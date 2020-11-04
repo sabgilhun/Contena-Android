@@ -2,10 +2,12 @@ package com.sabgil.contena.presenter.home.adapter
 
 import android.content.Context
 import androidx.core.view.isInvisible
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.sabgil.contena.common.adapter.*
 import com.sabgil.contena.common.ext.addOnPageSelected
 import com.sabgil.contena.common.ext.dpToPx
+import com.sabgil.contena.common.ext.runWithItem
 import com.sabgil.contena.databinding.*
 import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
 import com.sabgil.contena.presenter.home.model.BasePostItem.*
@@ -18,39 +20,20 @@ class PostAdapter(
     override val viewTypeMap: ViewTypeMap = multiViewType(context) {
         viewType<PostItem, ItemPostBinding> {
             onCreate { binding, viewHolder ->
-                binding.itemViewPager.apply {
-                    adapter = NewItemsViewPagerAdapter()
-                    pageMarginSetup()
-                    addOnPageSelected {
-                        val adapterPosition = viewHolder.adapterPosition
-                        if (adapterPosition != -1) {
-                            val postItem = (items[adapterPosition] as PostItem)
-                            postItem.displayingItemIndex = it
-                            binding.pageNoTextView.text = postItem.pageNumber
-                        }
-                    }
-                }
+                setupViewPager(binding, viewHolder)
 
                 binding.goToDetailImageButton.setOnClickListener {
-                    val adapterPosition = viewHolder.adapterPosition
-                    if (adapterPosition != -1) {
-                        val postItem = (items[adapterPosition] as PostItem)
-                        this@PostAdapter.handler.goToPostDetailActivity(
-                            postItem.postId,
-                            postItem.uploadDate
-                        )
+                    viewHolder.runWithItem<PostItem>(items) { item ->
+                        handler.goToPostDetailActivity(item.postId, item.uploadDate)
                     }
                 }
-
-                binding.tabLayout.attachToViewPager(binding.itemViewPager)
             }
 
             onBind { postItem, binding, _ ->
                 with(binding) {
+                    val adapter = (itemViewPager.adapter as NewItemsViewPagerAdapter)
+                    adapter.replaceAll(postItem.newProductItems)
                     item = postItem
-                    (itemViewPager.adapter as NewItemsViewPagerAdapter).replaceAll(postItem.newProductItems)
-                    itemViewPager.currentItem = postItem.displayingItemIndex
-                    pageNoTextView.text = postItem.pageNumber
                 }
             }
         }
@@ -74,9 +57,8 @@ class PostAdapter(
         viewType<LoadFailItem, ItemLoadFailBinding> {
             onCreate { binding, viewHolder ->
                 binding.reloadMorePostButton.setOnClickListener {
-                    val adapterPosition = viewHolder.adapterPosition
-                    if (adapterPosition != -1) {
-                        handler.loadMorePost((items[adapterPosition] as LoadFailItem).cursor)
+                    viewHolder.runWithItem<LoadFailItem>(items) { item ->
+                        handler.loadMorePost(item.cursor)
                         binding.reloadMorePostButton.isInvisible = true
                         binding.reloadLoadingProgressBar.isInvisible = false
                     }
@@ -85,10 +67,27 @@ class PostAdapter(
         }
     }
 
-    private fun ViewPager.pageMarginSetup() {
-        val dp14 = context.dpToPx(14f).toInt()
-        clipToPadding = false
-        pageMargin = dp14
-        setPadding(dp14, 0, dp14, 0)
+    private fun setupViewPager(binding: ItemPostBinding, viewHolder: RecyclerView.ViewHolder) {
+        with(binding.itemViewPager) {
+            adapter = NewItemsViewPagerAdapter()
+            pageMarginSetup(this)
+            addOnPageSelected {
+                viewHolder.runWithItem<PostItem>(items) { item ->
+                    item.displayingItemIndex = it
+                    binding.pageNoTextView.text = item.pageNumber
+                }
+            }
+        }
+
+        binding.tabLayout.attachToViewPager(binding.itemViewPager)
+    }
+
+    private fun pageMarginSetup(viewPager: ViewPager) {
+        with(viewPager) {
+            val dp14 = context.dpToPx(14f).toInt()
+            clipToPadding = false
+            pageMargin = dp14
+            setPadding(dp14, 0, dp14, 0)
+        }
     }
 }

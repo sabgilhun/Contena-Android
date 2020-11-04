@@ -54,5 +54,3 @@ class TypeSetup<I : BaseItem, B : ViewDataBinding>(
         this._onCreate = onCreate
     }
 }
-
-// resources.getIdentifier("activity_home2", "layout", this.packageName)

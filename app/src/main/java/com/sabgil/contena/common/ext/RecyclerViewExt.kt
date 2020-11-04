@@ -3,6 +3,8 @@ package com.sabgil.contena.common.ext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.NO_POSITION
+import com.sabgil.contena.common.adapter.BaseItem
 
 fun RecyclerView.addOnFirstVisibleChangedListener(onChanged: (Int) -> Unit) {
     addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -39,4 +41,21 @@ fun <T> RecyclerView.Adapter<*>.autoNotify(old: List<T>, new: List<T>, compare: 
     })
 
     diff.dispatchUpdatesTo(this)
+}
+
+fun RecyclerView.ViewHolder.runWithPosition(block: (Int) -> Unit) {
+    adapterPosition.let {
+        if (it != NO_POSITION) {
+            block(it)
+        }
+    }
+}
+
+fun <T : BaseItem> RecyclerView.ViewHolder.runWithItem(items: List<BaseItem>, block: (T) -> Unit) {
+    adapterPosition.let {
+        if (it != NO_POSITION) {
+            @Suppress("UNCHECKED_CAST")
+            block(items[it] as T)
+        }
+    }
 }
