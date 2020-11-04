@@ -43,7 +43,8 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
                 viewModel.searchKeyword.value = it
             }
 
-            searchedShopAdapter = SearchedShopAdapter(Handler())
+            searchedShopAdapter =
+                SearchedShopAdapter(this@SearchTabFragment.requireContext(), Handler())
             searchedShopRecyclerView.adapter = searchedShopAdapter
         }
     }

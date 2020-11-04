@@ -1,25 +1,25 @@
 package com.sabgil.contena.common.adapter
 
-import androidx.annotation.LayoutRes
+import android.content.Context
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-inline fun multiViewType(block: ViewTypesSetup.() -> Unit) =
-    ViewTypesSetup().apply(block).build()
+inline fun multiViewType(context: Context, block: ViewTypesSetup.() -> Unit) =
+    ViewTypesSetup(context).apply(block).build()
 
 inline fun <reified I : BaseItem, reified B : ViewDataBinding> ViewTypesSetup.viewType(
-    @LayoutRes
-    layoutId: Int,
     block: TypeSetup<I, B>.() -> Unit = {}
 ) {
-    types.add(TypeSetup<I, B>(layoutId, I::class.java).apply(block))
+    types.add(TypeSetup(I::class.java, B::class.java).apply(block))
 }
 
-class ViewTypesSetup {
+class ViewTypesSetup(
+    private val context: Context
+) {
     val types = mutableListOf<TypeSetup<out BaseItem, out ViewDataBinding>>()
 
     fun build(): ViewTypeMap {
-        return ViewTypeMap(types)
+        return ViewTypeMap(context, types)
     }
 }
 
@@ -32,9 +32,8 @@ fun <I : BaseItem, B : ViewDataBinding> TypeSetup<I, B>.onCreate(
 ) = setOnCreate(onCreate)
 
 class TypeSetup<I : BaseItem, B : ViewDataBinding>(
-    @LayoutRes
-    val layoutId: Int,
-    val itemClass: Class<I>
+    val itemClass: Class<I>,
+    val bindingClass: Class<B>
 ) {
     private var _onBind: (I, B, Int) -> Unit = { _, _, _ -> }
     private var _onCreate: (B, RecyclerView.ViewHolder) -> Unit = { _, _ -> }
@@ -55,3 +54,5 @@ class TypeSetup<I : BaseItem, B : ViewDataBinding>(
         this._onCreate = onCreate
     }
 }
+
+// resources.getIdentifier("activity_home2", "layout", this.packageName)

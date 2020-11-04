@@ -48,7 +48,7 @@ class NewItemTabFragment :
                 SettingsActivity.start(requireActivity())
             }
 
-            postAdapter = PostAdapter(Handler())
+            postAdapter = PostAdapter(this@NewItemTabFragment.requireContext(), Handler())
             postRecyclerView.adapter = postAdapter
         }
     }

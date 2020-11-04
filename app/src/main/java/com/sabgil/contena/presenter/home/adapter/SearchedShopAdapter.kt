@@ -1,5 +1,6 @@
 package com.sabgil.contena.presenter.home.adapter
 
+import android.content.Context
 import com.sabgil.contena.R
 import com.sabgil.contena.common.adapter.*
 import com.sabgil.contena.common.ext.setBarColor
@@ -11,26 +12,26 @@ import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem.EmptyItem
 import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem.ShopItem
 
 class SearchedShopAdapter(
+    context: Context,
     private val handler: SearchTabFragment.Handler
 ) : MultiViewTypeAdapter() {
-    override val viewTypeMap: ViewTypeMap =
-        multiViewType {
-            viewType<ShopItem, ItemSearchedShopBinding>(R.layout.item_searched_shop) {
-                onCreate { binding, viewHolder ->
-                    binding.subscribeButton.setOnClickListener {
-                        val position = viewHolder.adapterPosition
-                        if (position == -1) return@setOnClickListener
-                        toggleSubscribeButton(binding, (items[position] as ShopItem))
-                    }
-                }
-
-                onBind { searchedShop, binding, _ ->
-                    binding.item = searchedShop
+    override val viewTypeMap: ViewTypeMap = multiViewType(context) {
+        viewType<ShopItem, ItemSearchedShopBinding> {
+            onCreate { binding, viewHolder ->
+                binding.subscribeButton.setOnClickListener {
+                    val position = viewHolder.adapterPosition
+                    if (position == -1) return@setOnClickListener
+                    toggleSubscribeButton(binding, (items[position] as ShopItem))
                 }
             }
 
-            viewType<EmptyItem, ItemSearchedShopEmptyBinding>(R.layout.item_searched_shop_empty)
+            onBind { searchedShop, binding, _ ->
+                binding.item = searchedShop
+            }
         }
+
+        viewType<EmptyItem, ItemSearchedShopEmptyBinding>()
+    }
 
     private fun toggleSubscribeButton(
         binding: ItemSearchedShopBinding,

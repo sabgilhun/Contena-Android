@@ -35,7 +35,7 @@ class PostDetailActivity : BaseActivity<ActivityPostDetailBinding>(R.layout.acti
     }
 
     private fun setupNewItemRecyclerView() {
-        adapter = NewProductAdapter()
+        adapter = NewProductAdapter(this)
         binding.newItemRecyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.newItemRecyclerView.adapter = adapter
     }
