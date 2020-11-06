@@ -11,6 +11,10 @@
 			type="com.sabgil.contena.presenter.home.model.BasePostItem.PostItem" />
 		
 		<variable
+			name="pageNo"
+			type="Integer" />
+		
+		<variable
 			name="handler"
 			type="com.sabgil.contena.presenter.home.fragment.NewItemTabFragment.Handler" />
 	</data>
@@ -126,7 +130,6 @@
 			android:clipToPadding="false"
 			android:paddingStart="14dp"
 			android:paddingEnd="14dp"
-			app:currentItem="@{item.displayingItemIndex}"
 			app:layout_constraintDimensionRatio="H,1:1"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +144,7 @@
 			android:layout_marginEnd="24dp"
 			android:background="@drawable/shape_r14_background_black_transperent"
 			android:padding="6dp"
-			android:text="@{item.pageNumber}"
+			android:text="@{@string/page_no_format((pageNo + 1), item.productSize)}"
 			android:textColor="@color/colorWhite"
 			app:layout_constraintEnd_toEndOf="@id/itemViewPager"
 			app:layout_constraintTop_toTopOf="@id/itemViewPager"

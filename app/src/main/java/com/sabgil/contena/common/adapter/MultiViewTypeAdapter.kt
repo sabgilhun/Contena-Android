@@ -15,7 +15,7 @@ abstract class MultiViewTypeAdapter : RecyclerView.Adapter<BindingViewHolder>() 
     protected var items: List<BaseItem> by Delegates.observable(mutableListOf())
     { _, old, new -> autoNotify(old, new) { o, n -> o.id == n.id } }
 
-    fun replaceAll(items: List<BaseItem>) {
+    open fun replaceAll(items: List<BaseItem>) {
         this.items = items.toList()
     }
 

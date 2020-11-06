@@ -15,12 +15,11 @@ sealed class BasePostItem(key: Any) : BaseItem(key) {
         val shopName: String,
         val shopLogoUrl: String,
         val subscriberCount: String,
-        val newProductItems: List<NewProductItem>,
-        var displayingItemIndex: Int = 0
+        val newProductItems: List<NewProductItem>
     ) : BasePostItem(postId) {
 
-        val pageNumber
-            get() = "${displayingItemIndex + 1}/${newProductItems.size}"
+        val productSize
+            get() = newProductItems.size
 
         data class NewProductItem(
             val productName: String,

@@ -2,12 +2,8 @@ package com.sabgil.contena.presenter.home.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
-import com.sabgil.contena.common.adapter.MultiViewTypeAdapter
-import com.sabgil.contena.common.adapter.ViewTypeMap
-import com.sabgil.contena.common.adapter.multiViewType
-import com.sabgil.contena.common.adapter.viewType
+import com.sabgil.contena.common.adapter.*
 import com.sabgil.contena.common.ext.addOnPageSelected
-import com.sabgil.contena.common.ext.runWithItem
 import com.sabgil.contena.databinding.*
 import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
 import com.sabgil.contena.presenter.home.model.BasePostItem.*
@@ -16,11 +12,19 @@ class PostAdapter(
     context: Context,
     private val handler: NewItemTabFragment.Handler
 ) : MultiViewTypeAdapter() {
+    private val pageNoMap = mutableMapOf<Long, Int>()
 
     override val viewTypeMap: ViewTypeMap = multiViewType(context) {
         viewType<PostItem, ItemPostBinding> {
-            onCreate { binding, viewHolder ->
-                setupViewPager(binding, viewHolder)
+            onCreate { binding, _ ->
+                with(binding.itemViewPager) {
+                    adapter = NewItemsViewPagerAdapter()
+                    addOnPageSelected {
+                        binding.pageNo = it
+                    }
+                }
+
+                binding.tabLayout.attachToViewPager(binding.itemViewPager)
             }
 
             onBind { postItem, binding, _ ->
@@ -28,7 +32,11 @@ class PostAdapter(
                     val adapter = (itemViewPager.adapter as NewItemsViewPagerAdapter)
                     adapter.replaceAll(postItem.newProductItems)
 
+                    val savedPageNo = pageNoMap[postItem.postId]
+                    itemViewPager.currentItem = savedPageNo ?: 0
+
                     item = postItem
+                    pageNo = savedPageNo
                     handler = this@PostAdapter.handler
                 }
             }
@@ -60,17 +68,30 @@ class PostAdapter(
         }
     }
 
-    private fun setupViewPager(binding: ItemPostBinding, viewHolder: RecyclerView.ViewHolder) {
-        with(binding.itemViewPager) {
-            adapter = NewItemsViewPagerAdapter()
-            addOnPageSelected {
-                viewHolder.runWithItem<PostItem>(items) { item ->
-                    item.displayingItemIndex = it
-                    binding.pageNoTextView.text = item.pageNumber
-                }
+    override fun onViewDetachedFromWindow(holder: BindingViewHolder) {
+        val adapterPosition = holder.adapterPosition
+        if (adapterPosition != RecyclerView.NO_POSITION) {
+            val item = items[adapterPosition]
+            if (item is PostItem) {
+                val binding = holder.binding as ItemPostBinding
+                pageNoMap[item.postId] = binding.itemViewPager.currentItem
             }
         }
 
-        binding.tabLayout.attachToViewPager(binding.itemViewPager)
+        super.onViewDetachedFromWindow(holder)
+    }
+
+    override fun replaceAll(items: List<BaseItem>) {
+        val newItemIds = items.filterIsInstance(PostItem::class.java).map {
+            it.postId
+        }
+
+        newItemIds.forEach {
+            if (pageNoMap[it] == null) {
+                pageNoMap[it] = 0
+            }
+        }
+
+        super.replaceAll(items)
     }
 }
