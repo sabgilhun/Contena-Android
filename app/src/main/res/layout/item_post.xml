@@ -9,6 +9,10 @@
 		<variable
 			name="item"
 			type="com.sabgil.contena.presenter.home.model.BasePostItem.PostItem" />
+		
+		<variable
+			name="handler"
+			type="com.sabgil.contena.presenter.home.fragment.NewItemTabFragment.Handler" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -176,6 +180,7 @@
 			app:layout_constraintBottom_toBottomOf="@id/tabLayout"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="@id/tabLayout"
+			android:onClick="@{() -> handler.goToPostDetailActivity(item.postId, item.uploadDate)}"
 			tools:ignore="ContentDescription" />
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>

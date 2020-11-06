@@ -62,7 +62,7 @@ sealed class BasePostItem(key: Any) : BaseItem(key) {
         var statedLoading: AtomicBoolean = AtomicBoolean(false)
     ) : BasePostItem(LoadingItem::class.java.simpleName)
 
-    class LoadFailItem(
+    class MoreLoadFailItem(
         val cursor: Long
     ) : BasePostItem(LoadingItem::class.java.simpleName)
 

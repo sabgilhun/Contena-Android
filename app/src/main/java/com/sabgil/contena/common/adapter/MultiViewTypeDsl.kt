@@ -23,20 +23,20 @@ class ViewTypesSetup(
     }
 }
 
-fun <I : BaseItem, B : ViewDataBinding> TypeSetup<I, B>.onBind(
-    onBind: (I, B, Int) -> Unit
-) = setOnBind(onBind)
-
-fun <I : BaseItem, B : ViewDataBinding> TypeSetup<I, B>.onCreate(
-    onCreate: (B, RecyclerView.ViewHolder) -> Unit
-) = setOnCreate(onCreate)
-
 class TypeSetup<I : BaseItem, B : ViewDataBinding>(
     val itemClass: Class<I>,
     val bindingClass: Class<B>
 ) {
     private var _onBind: (I, B, Int) -> Unit = { _, _, _ -> }
     private var _onCreate: (B, RecyclerView.ViewHolder) -> Unit = { _, _ -> }
+
+    fun onBind(onBind: (I, B, Int) -> Unit) {
+        _onBind = onBind
+    }
+
+    fun onCreate(onCreate: (B, RecyclerView.ViewHolder) -> Unit) {
+        _onCreate = onCreate
+    }
 
     val forceCastedOnBind
         @Suppress("UNCHECKED_CAST")
@@ -45,12 +45,4 @@ class TypeSetup<I : BaseItem, B : ViewDataBinding>(
     val forceCastedOnCreate
         @Suppress("UNCHECKED_CAST")
         get() = _onCreate as (ViewDataBinding, RecyclerView.ViewHolder) -> Unit
-
-    fun setOnBind(onBind: (I, B, Int) -> Unit) {
-        this._onBind = onBind
-    }
-
-    fun setOnCreate(onCreate: (B, RecyclerView.ViewHolder) -> Unit) {
-        this._onCreate = onCreate
-    }
 }

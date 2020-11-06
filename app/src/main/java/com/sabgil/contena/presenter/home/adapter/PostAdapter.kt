@@ -1,12 +1,12 @@
 package com.sabgil.contena.presenter.home.adapter
 
 import android.content.Context
-import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
-import com.sabgil.contena.common.adapter.*
+import com.sabgil.contena.common.adapter.MultiViewTypeAdapter
+import com.sabgil.contena.common.adapter.ViewTypeMap
+import com.sabgil.contena.common.adapter.multiViewType
+import com.sabgil.contena.common.adapter.viewType
 import com.sabgil.contena.common.ext.addOnPageSelected
-import com.sabgil.contena.common.ext.dpToPx
 import com.sabgil.contena.common.ext.runWithItem
 import com.sabgil.contena.databinding.*
 import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
@@ -21,19 +21,15 @@ class PostAdapter(
         viewType<PostItem, ItemPostBinding> {
             onCreate { binding, viewHolder ->
                 setupViewPager(binding, viewHolder)
-
-                binding.goToDetailImageButton.setOnClickListener {
-                    viewHolder.runWithItem<PostItem>(items) { item ->
-                        handler.goToPostDetailActivity(item.postId, item.uploadDate)
-                    }
-                }
             }
 
             onBind { postItem, binding, _ ->
                 with(binding) {
                     val adapter = (itemViewPager.adapter as NewItemsViewPagerAdapter)
                     adapter.replaceAll(postItem.newProductItems)
+
                     item = postItem
+                    handler = this@PostAdapter.handler
                 }
             }
         }
@@ -46,23 +42,19 @@ class PostAdapter(
             }
         }
 
-
         viewType<EmptyItem, ItemPostEmptyBinding> {
-            onCreate { binding, _ ->
-                binding.goToSubscribeTabButton.setOnClickListener { handler.goToSearchTab() }
+            onBind { _, binding, _ ->
+                binding.handler = handler
             }
         }
 
         viewType<NoMoreItem, ItemPostNoMoreBinding>()
 
-        viewType<LoadFailItem, ItemLoadFailBinding> {
-            onCreate { binding, viewHolder ->
-                binding.reloadMorePostButton.setOnClickListener {
-                    viewHolder.runWithItem<LoadFailItem>(items) { item ->
-                        handler.loadMorePost(item.cursor)
-                        binding.reloadMorePostButton.isInvisible = true
-                        binding.reloadLoadingProgressBar.isInvisible = false
-                    }
+        viewType<MoreLoadFailItem, ItemMoreLoadFailBinding> {
+            onBind { moreLoadFailItem, binding, _ ->
+                with(binding) {
+                    item = moreLoadFailItem
+                    handler = this@PostAdapter.handler
                 }
             }
         }

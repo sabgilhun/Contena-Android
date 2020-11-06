@@ -40,15 +40,23 @@ class NewItemTabViewModel @Inject constructor(
     }
 
     fun loadMorePage(cursor: Long) {
+        loadMorePage(cursor, false)
+    }
+
+    fun reloadFailedPage(cursor: Long) {
+        loadMorePage(cursor, true)
+    }
+
+    private fun loadMorePage(cursor: Long, useLoadingBar: Boolean) {
         val token = appSharedPreference.getToken() ?: return
         postRepository.getPostList(token, cursor)
-            .compose(apiSingleTransformer())
+            .compose(if (useLoadingBar) apiLoadingSingleTransformer() else apiSingleTransformer())
             .autoDispose {
                 success {
                     _postList.value = appendMorePosts(it.first, it.second)
                 }
                 error {
-                    _postList.value = filterNotPostItem() + LoadFailItem(cursor)
+                    _postList.value = filterNotPostItem() + MoreLoadFailItem(cursor)
                 }
             }
     }
@@ -93,7 +101,7 @@ class NewItemTabViewModel @Inject constructor(
     }
 
     private fun filterNotPostItem() =
-        _postList.valueOrEmpty.filter { it !is LoadingItem && it !is LoadFailItem }
+        _postList.valueOrEmpty.filter { it !is LoadingItem && it !is MoreLoadFailItem }
 
     companion object {
         private const val FIRST_POST_CURSOR = -1L

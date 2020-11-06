@@ -63,6 +63,10 @@ class NewItemTabFragment :
             viewModel.loadMorePage(cursor)
         }
 
+        fun reloadFailedPage(cursor: Long) {
+            viewModel.reloadFailedPage(cursor)
+        }
+
         fun goToSearchTab() {
             homeViewModel.changeTab.setValue(1)
         }

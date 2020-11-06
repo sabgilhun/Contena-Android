@@ -5,7 +5,9 @@
 	tools:context=".presenter.home.adapter.PostAdapter">
 	
 	<data>
-	
+		<variable
+			name="handler"
+			type="com.sabgil.contena.presenter.home.fragment.NewItemTabFragment.Handler" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -63,6 +65,7 @@
 			android:textColor="@color/colorDarkBlue"
 			android:textSize="20dp"
 			android:textStyle="bold"
+			android:onClick="@{() -> handler.goToSearchTab()}"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
