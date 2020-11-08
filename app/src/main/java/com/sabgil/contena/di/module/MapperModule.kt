@@ -1,6 +1,6 @@
 package com.sabgil.contena.di.module
 
-import com.sabgil.contena.data.remote.mapper.*
+import com.sabgil.contena.data.mapper.*
 import com.sabgil.contena.di.annotation.ApplicationScope
 import dagger.Binds
 import dagger.Module
@@ -10,7 +10,7 @@ abstract class MapperModule {
 
     @Binds
     @ApplicationScope
-    abstract fun bindNewItemMapper(newItemMapperImpl: NewItemMapperImpl): NewItemMapper
+    abstract fun bindNewProductMapper(newProductMapperImpl: NewProductMapperImpl): NewProductMapper
 
     @Binds
     @ApplicationScope

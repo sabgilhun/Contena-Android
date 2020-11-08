@@ -5,6 +5,6 @@ data class Post(
     val uploadDate: String,
     val shopName: String,
     val shopLogoUrl: String,
-    val subscriberCount: Long,
+    val subscriberCount: Long?,
     val newProductList: List<NewProduct>
 )

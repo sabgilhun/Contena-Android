@@ -3,6 +3,7 @@ package com.sabgil.contena.data.local.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.sabgil.contena.domain.model.NewProduct
 
 @Entity(tableName = "NEW_PRODUCT")
 data class NewProductEntity constructor(
@@ -28,4 +29,19 @@ data class NewProductEntity constructor(
 
     @ColumnInfo(name = "origin_price")
     val originPrice: String?
-)
+) {
+
+    companion object {
+
+        fun from(from: NewProduct) =
+            NewProductEntity(
+                productId = from.productId,
+                productName = from.productName,
+                brand = from.brand,
+                imageUrl = from.imageUrl,
+                pageUrl = from.pageUrl,
+                price = from.price,
+                originPrice = from.originPrice
+            )
+    }
+}

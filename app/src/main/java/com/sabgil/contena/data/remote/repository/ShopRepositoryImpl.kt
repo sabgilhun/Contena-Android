@@ -1,6 +1,6 @@
 package com.sabgil.contena.data.remote.repository
 
-import com.sabgil.contena.data.remote.mapper.ShopMapper
+import com.sabgil.contena.data.mapper.ShopMapper
 import com.sabgil.contena.data.remote.api.ShopApi
 import com.sabgil.contena.domain.model.Shop
 import io.reactivex.Single

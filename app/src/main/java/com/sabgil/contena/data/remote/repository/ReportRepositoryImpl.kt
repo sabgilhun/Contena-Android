@@ -1,6 +1,6 @@
 package com.sabgil.contena.data.remote.repository
 
-import com.sabgil.contena.data.remote.mapper.ReportMapper
+import com.sabgil.contena.data.mapper.ReportMapper
 import com.sabgil.contena.data.remote.api.ReportApi
 import com.sabgil.contena.data.remote.dto.PostReportRequest
 import com.sabgil.contena.domain.model.ReportResult

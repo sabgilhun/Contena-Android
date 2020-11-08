@@ -1,6 +1,6 @@
 package com.sabgil.contena.data.remote.repository
 
-import com.sabgil.contena.data.remote.mapper.SubscriptionMapper
+import com.sabgil.contena.data.mapper.SubscriptionMapper
 import com.sabgil.contena.data.remote.api.SubscriptionApi
 import com.sabgil.contena.data.remote.dto.PostSubscriptionRequest
 import com.sabgil.contena.data.remote.dto.PostUnsubscriptionRequest

@@ -2,6 +2,8 @@ package com.sabgil.contena.di.module
 
 import com.sabgil.contena.data.local.repository.AppRepository
 import com.sabgil.contena.data.local.repository.AppRepositoryImpl
+import com.sabgil.contena.data.local.repository.BookmarkRepository
+import com.sabgil.contena.data.local.repository.BookmarkRepositoryImpl
 import com.sabgil.contena.data.remote.repository.*
 import com.sabgil.contena.di.annotation.ApplicationScope
 import dagger.Binds
@@ -33,4 +35,8 @@ abstract class RepositoryModule {
     @Binds
     @ApplicationScope
     abstract fun bindAppRepository(appRepositoryImpl: AppRepositoryImpl): AppRepository
+
+    @Binds
+    @ApplicationScope
+    abstract fun bindBookmarkRepository(bookmarkRepository: BookmarkRepositoryImpl): BookmarkRepository
 }

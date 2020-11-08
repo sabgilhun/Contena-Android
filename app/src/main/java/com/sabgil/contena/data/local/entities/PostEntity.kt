@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.sabgil.contena.domain.model.NewProduct
+import com.sabgil.contena.domain.model.Post
 
 @Entity(tableName = "POST")
 data class PostEntity constructor(
@@ -23,4 +24,17 @@ data class PostEntity constructor(
 
     @ColumnInfo(name = "new_product_list")
     val newProductList: List<NewProduct>
-)
+) {
+
+    companion object {
+
+        fun from(from: Post) =
+            PostEntity(
+                postId = from.postId,
+                uploadDate = from.uploadDate,
+                shopName = from.shopName,
+                shopLogoUrl = from.shopLogoUrl,
+                newProductList = from.newProductList
+            )
+    }
+}

@@ -1,4 +1,4 @@
-package com.sabgil.contena.data.remote.mapper
+package com.sabgil.contena.data.mapper
 
 import com.sabgil.contena.data.remote.dto.PostSubscribeResponse
 import com.sabgil.contena.data.remote.dto.PostUnsubscribeResponse

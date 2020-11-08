@@ -15,7 +15,7 @@ import com.sabgil.contena.data.local.entities.PostEntity
     exportSchema = false
 )
 @TypeConverters(TypeConverter::class)
-abstract class LocalDatabase : RoomDatabase() {
+abstract class BookmarkDatabase : RoomDatabase() {
 
     abstract fun getPostDao(): PostDao
 
