@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
@@ -97,8 +96,6 @@ class BottomNavigationBar @JvmOverloads constructor(
         ).apply {
             icon.setImageResource(button.icon)
             icon.tintIcon(false, button)
-            text.text = button.text
-            text.tintText(false, button)
             root.layoutParams = LinearLayout.LayoutParams(
                 0, LayoutParams.WRAP_CONTENT, 1f
             )
@@ -109,10 +106,8 @@ class BottomNavigationBar @JvmOverloads constructor(
         buttons?.forEachIndexed { index, (button: Tab, binding: ButtonBinding) ->
             if (index == unselectedIdx) {
                 binding.icon.tintIcon(false, button)
-                binding.text.tintText(false, button)
             } else if (index == selectedIdx) {
                 binding.icon.tintIcon(true, button)
-                binding.text.tintText(true, button)
             }
         }
     }
@@ -121,17 +116,8 @@ class BottomNavigationBar @JvmOverloads constructor(
         setColorFilter(
             ContextCompat.getColor(
                 context,
-                if (isSelected) button.colorWhenSelected else button.colorWhenUnselected
+                if (isSelected) button.selectedColor else button.unselectedColor
             ), android.graphics.PorterDuff.Mode.SRC_IN
-        )
-    }
-
-    private fun TextView.tintText(isSelected: Boolean, button: Tab) {
-        setTextColor(
-            ContextCompat.getColor(
-                context,
-                if (isSelected) button.colorWhenSelected else button.colorWhenUnselected
-            )
         )
     }
 
@@ -246,13 +232,11 @@ class BottomNavigationBar @JvmOverloads constructor(
         @DrawableRes
         val icon: Int,
 
-        val text: String,
+        @ColorRes
+        val selectedColor: Int,
 
         @ColorRes
-        val colorWhenSelected: Int,
-
-        @ColorRes
-        val colorWhenUnselected: Int,
+        val unselectedColor: Int,
 
         val tab: Class<out BaseTabFragment<*>>
     )

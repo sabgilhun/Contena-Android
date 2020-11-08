@@ -29,18 +29,30 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             init(R.id.tabContainer, supportFragmentManager)
             tabSetup(
                 BottomNavigationBar.Tab(
-                    icon = R.drawable.vector_list_gray900,
-                    text = "신상품",
-                    colorWhenSelected = R.color.colorBeigeWhite,
-                    colorWhenUnselected = R.color.colorDarkGray,
+                    icon = R.drawable.bottom_nav_ic_main,
+                    selectedColor = R.color.colorBeigeWhite,
+                    unselectedColor = R.color.colorDarkGray,
                     tab = NewItemTabFragment::class.java
                 ),
 
                 BottomNavigationBar.Tab(
-                    icon = R.drawable.vector_search_begie_white,
-                    text = "쇼핑몰 검색",
-                    colorWhenSelected = R.color.colorBeigeWhite,
-                    colorWhenUnselected = R.color.colorDarkGray,
+                    icon = R.drawable.bottom_nav_ic_add,
+                    selectedColor = R.color.colorBeigeWhite,
+                    unselectedColor = R.color.colorDarkGray,
+                    tab = SearchTabFragment::class.java
+                ),
+
+                BottomNavigationBar.Tab(
+                    icon = R.drawable.bottom_nav_ic_bookmark,
+                    selectedColor = R.color.colorBeigeWhite,
+                    unselectedColor = R.color.colorDarkGray,
+                    tab = SearchTabFragment::class.java
+                ),
+
+                BottomNavigationBar.Tab(
+                    icon = R.drawable.bottom_nav_ic_settings,
+                    selectedColor = R.color.colorBeigeWhite,
+                    unselectedColor = R.color.colorDarkGray,
                     tab = SearchTabFragment::class.java
                 )
             )

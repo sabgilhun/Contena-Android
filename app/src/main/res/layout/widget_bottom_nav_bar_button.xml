@@ -21,14 +21,5 @@
 			android:layout_gravity="center"
 			android:src="@drawable/vector_list_gray400"
 			tools:ignore="ContentDescription" />
-		
-		<TextView
-			android:id="@+id/text"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:textColor="@color/colorGray400"
-			android:textSize="12dp"
-			tools:ignore="SpUsage" />
 	</LinearLayout>
 </layout>
