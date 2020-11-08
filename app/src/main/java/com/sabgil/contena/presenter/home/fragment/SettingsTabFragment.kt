@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentSettingsTabBinding
-import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 
 class SettingsTabFragment :

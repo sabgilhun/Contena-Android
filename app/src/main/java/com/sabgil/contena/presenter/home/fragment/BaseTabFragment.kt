@@ -1,4 +1,4 @@
-package com.sabgil.contena.presenter.home.fragment.tabmanager
+package com.sabgil.contena.presenter.home.fragment
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding

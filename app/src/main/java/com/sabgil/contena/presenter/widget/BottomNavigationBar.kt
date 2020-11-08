@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.layoutInflater
-import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
+import com.sabgil.contena.presenter.home.fragment.BaseTabFragment
 import com.sabgil.contena.databinding.WidgetBottomNavBarBinding as LayoutBinding
 import com.sabgil.contena.databinding.WidgetBottomNavBarButtonBinding as ButtonBinding
 

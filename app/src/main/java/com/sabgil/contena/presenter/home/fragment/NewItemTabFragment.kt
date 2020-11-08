@@ -6,11 +6,9 @@ import android.widget.PopupMenu
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentNewItemTabBinding
 import com.sabgil.contena.presenter.home.adapter.PostAdapter
-import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity
-import com.sabgil.contena.presenter.settings.activity.SettingsActivity
 
 class NewItemTabFragment :
     BaseTabFragment<FragmentNewItemTabBinding>(R.layout.fragment_new_item_tab) {

@@ -5,7 +5,6 @@ import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentSearchTabBinding
 import com.sabgil.contena.presenter.home.adapter.SearchedShopAdapter
-import com.sabgil.contena.presenter.home.fragment.tabmanager.BaseTabFragment
 import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
