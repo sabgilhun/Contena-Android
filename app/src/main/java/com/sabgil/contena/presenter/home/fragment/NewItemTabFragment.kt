@@ -2,6 +2,7 @@ package com.sabgil.contena.presenter.home.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.PopupMenu
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentNewItemTabBinding
 import com.sabgil.contena.presenter.home.adapter.PostAdapter
@@ -73,6 +74,19 @@ class NewItemTabFragment :
 
         fun goToPostDetailActivity(postId: Long, updateDate: String) {
             PostDetailActivity.start(requireActivity(), postId, updateDate)
+        }
+
+        fun showPostMenu(anchor: View) {
+            PopupMenu(context, anchor).apply {
+                setOnMenuItemClickListener { item ->
+                    return@setOnMenuItemClickListener when (item.itemId) {
+                        R.id.report -> true // TODO: 다이얼르그 추가
+                        else -> false
+                    }
+                }
+                inflate(R.menu.menu_post_item)
+                show()
+            }
         }
     }
 }
