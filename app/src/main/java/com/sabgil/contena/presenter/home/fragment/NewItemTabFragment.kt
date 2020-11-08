@@ -84,8 +84,7 @@ class NewItemTabFragment :
             }
         }
 
-        fun registerBookmarkPost(postItem: BasePostItem.PostItem) {
+        fun registerBookmarkPost(postItem: BasePostItem.PostItem) =
             viewModel.registerBookmarkPost(postItem)
-        }
     }
 }

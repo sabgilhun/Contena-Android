@@ -7,6 +7,7 @@ import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.startWith
 import com.sabgil.contena.databinding.ActivityPostDetailBinding
 import com.sabgil.contena.presenter.base.BaseActivity
+import com.sabgil.contena.presenter.postdetail.DetailNewProduct
 import com.sabgil.contena.presenter.postdetail.adapter.NewProductAdapter
 import com.sabgil.contena.presenter.postdetail.viewmodel.PostDetailViewModel
 import com.sabgil.contena.presenter.web.WebViewActivity
@@ -47,9 +48,11 @@ class PostDetailActivity : BaseActivity<ActivityPostDetailBinding>(R.layout.acti
 
     inner class Handler {
 
-        fun showPageOnWebView(pageUrl: String) {
+        fun showPageOnWebView(pageUrl: String) =
             WebViewActivity.start(this@PostDetailActivity, pageUrl)
-        }
+
+        fun registerBookmarkNewProduct(detailNewProduct: DetailNewProduct) =
+            viewModel.registerBookmarkNewProduct(detailNewProduct)
     }
 
     companion object {

@@ -114,6 +114,7 @@
 				android:background="@drawable/selector_new_product_bookmark_button"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
+				android:onClick="@{() -> handler.registerBookmarkNewProduct(newProduct)}"
 				app:selected="@{newProduct.isBookmarked}"
 				tools:ignore="ContentDescription" />
 		

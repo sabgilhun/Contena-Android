@@ -25,5 +25,15 @@ data class DetailNewProduct(
             isBookmarked = bookmarkedIds.contains(from.productId),
             originPrice = from.originPrice
         )
+
+        fun toNewProduct(from: DetailNewProduct) = NewProduct(
+            productId = from.productId,
+            productName = from.productName,
+            brand = from.brand,
+            imageUrl = from.imageUrl,
+            pageUrl = from.pageUrl,
+            price = from.price,
+            originPrice = from.originPrice
+        )
     }
 }
