@@ -9,6 +9,10 @@
 		<variable
 			name="newProduct"
 			type="com.sabgil.contena.presenter.postdetail.DetailNewProduct" />
+		
+		<variable
+			name="handler"
+			type="com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity.Handler" />
 	
 	</data>
 	
@@ -19,6 +23,7 @@
 		android:layout_marginTop="4dp"
 		android:layout_marginEnd="8dp"
 		android:layout_marginBottom="4dp"
+		android:onClick="@{() -> handler.showPageOnWebView(newProduct.pageUrl)}"
 		app:cardCornerRadius="8dp">
 		
 		<ImageView

@@ -43,6 +43,10 @@
 			android:name=".presenter.manage.activity.ShopManageActivity"
 			android:screenOrientation="portrait" />
 		
+		<activity
+			android:name=".presenter.web.WebViewActivity"
+			android:screenOrientation="portrait" />
+		
 		<service
 			android:name=".fcm.ContenaFcmService"
 			android:exported="false">

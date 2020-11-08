@@ -9,6 +9,7 @@ import com.sabgil.contena.databinding.ActivityPostDetailBinding
 import com.sabgil.contena.presenter.base.BaseActivity
 import com.sabgil.contena.presenter.postdetail.adapter.NewProductAdapter
 import com.sabgil.contena.presenter.postdetail.viewmodel.PostDetailViewModel
+import com.sabgil.contena.presenter.web.WebViewActivity
 
 class PostDetailActivity : BaseActivity<ActivityPostDetailBinding>(R.layout.activity_post_detail) {
 
@@ -35,13 +36,20 @@ class PostDetailActivity : BaseActivity<ActivityPostDetailBinding>(R.layout.acti
     }
 
     private fun setupNewItemRecyclerView() {
-        adapter = NewProductAdapter(this)
+        adapter = NewProductAdapter(this, Handler())
         binding.newItemRecyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.newItemRecyclerView.adapter = adapter
     }
 
     private fun setupObserver() {
         viewModel.newItemList.registerNonNullObserver(adapter::replaceAll)
+    }
+
+    inner class Handler {
+
+        fun showPageOnWebView(pageUrl: String) {
+            WebViewActivity.start(this@PostDetailActivity, pageUrl)
+        }
     }
 
     companion object {
