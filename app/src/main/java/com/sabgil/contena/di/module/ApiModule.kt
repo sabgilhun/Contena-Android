@@ -1,6 +1,6 @@
 package com.sabgil.contena.di.module
 
-import com.sabgil.contena.data.remote.contena.api.*
+import com.sabgil.contena.data.remote.api.*
 import com.sabgil.contena.di.annotation.ApplicationScope
 import dagger.Module
 import dagger.Provides

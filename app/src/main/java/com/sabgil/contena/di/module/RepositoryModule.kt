@@ -1,6 +1,8 @@
 package com.sabgil.contena.di.module
 
-import com.sabgil.contena.data.repository.*
+import com.sabgil.contena.data.local.repository.AppRepository
+import com.sabgil.contena.data.local.repository.AppRepositoryImpl
+import com.sabgil.contena.data.remote.repository.*
 import com.sabgil.contena.di.annotation.ApplicationScope
 import dagger.Binds
 import dagger.Module

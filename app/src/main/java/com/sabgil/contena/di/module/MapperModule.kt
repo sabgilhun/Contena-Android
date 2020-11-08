@@ -1,7 +1,6 @@
 package com.sabgil.contena.di.module
 
-import com.sabgil.contena.data.mapper.*
-import com.sabgil.contena.data.repository.ShopRepositoryImpl
+import com.sabgil.contena.data.remote.mapper.*
 import com.sabgil.contena.di.annotation.ApplicationScope
 import dagger.Binds
 import dagger.Module

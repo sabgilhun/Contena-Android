@@ -2,7 +2,7 @@ package com.sabgil.contena.presenter.splash
 
 import androidx.lifecycle.LiveData
 import com.sabgil.contena.common.SingleLiveEvent
-import com.sabgil.contena.data.repository.AppRepository
+import com.sabgil.contena.data.local.repository.AppRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
 import javax.inject.Inject
 

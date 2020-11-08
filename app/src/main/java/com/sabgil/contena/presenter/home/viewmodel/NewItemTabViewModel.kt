@@ -3,8 +3,8 @@ package com.sabgil.contena.presenter.home.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sabgil.contena.common.ext.valueOrEmpty
-import com.sabgil.contena.data.local.AppSharedPreference
-import com.sabgil.contena.data.repository.PostRepository
+import com.sabgil.contena.data.local.pref.AppSharedPreference
+import com.sabgil.contena.data.remote.repository.PostRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
 import com.sabgil.contena.presenter.home.model.BasePostItem
 import com.sabgil.contena.presenter.home.model.BasePostItem.*

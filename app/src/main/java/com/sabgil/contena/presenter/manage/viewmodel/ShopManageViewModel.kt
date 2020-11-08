@@ -2,11 +2,9 @@ package com.sabgil.contena.presenter.manage.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sabgil.contena.data.repository.AppRepository
-import com.sabgil.contena.domain.model.Shop
+import com.sabgil.contena.data.local.repository.AppRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
 import com.sabgil.contena.presenter.manage.model.SubscribedShop
-import com.sabgil.contena.presenter.manage.model.toSubscribedShop
 import javax.inject.Inject
 
 class ShopManageViewModel @Inject constructor(

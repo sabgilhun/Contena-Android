@@ -5,11 +5,11 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.sabgil.contena.common.SingleLiveEvent
 import com.sabgil.contena.common.ext.valueOrEmpty
-import com.sabgil.contena.data.remote.contena.dto.PostSubscriptionRequest
-import com.sabgil.contena.data.remote.contena.dto.PostUnsubscriptionRequest
-import com.sabgil.contena.data.repository.AppRepository
-import com.sabgil.contena.data.repository.ShopRepository
-import com.sabgil.contena.data.repository.SubscriptionRepository
+import com.sabgil.contena.data.remote.dto.PostSubscriptionRequest
+import com.sabgil.contena.data.remote.dto.PostUnsubscriptionRequest
+import com.sabgil.contena.data.local.repository.AppRepository
+import com.sabgil.contena.data.remote.repository.ShopRepository
+import com.sabgil.contena.data.remote.repository.SubscriptionRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
 import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem
 import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem.EmptyItem

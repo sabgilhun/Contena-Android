@@ -2,7 +2,7 @@ package com.sabgil.contena.presenter.postdetail.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sabgil.contena.data.repository.NewItemRepository
+import com.sabgil.contena.data.remote.repository.NewItemRepository
 import com.sabgil.contena.presenter.base.BaseViewModel
 import com.sabgil.contena.presenter.postdetail.DetailNewProduct
 import javax.inject.Inject
