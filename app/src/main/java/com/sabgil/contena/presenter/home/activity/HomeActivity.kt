@@ -6,8 +6,10 @@ import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.startOnTop
 import com.sabgil.contena.databinding.ActivityHomeBinding
 import com.sabgil.contena.presenter.base.BaseActivity
+import com.sabgil.contena.presenter.home.fragment.BookmarkTabFragment
 import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
 import com.sabgil.contena.presenter.home.fragment.SearchTabFragment
+import com.sabgil.contena.presenter.home.fragment.SettingsTabFragment
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.widget.BottomNavigationBar
 
@@ -46,14 +48,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
                     icon = R.drawable.bottom_nav_ic_bookmark,
                     selectedColor = R.color.colorBeigeWhite,
                     unselectedColor = R.color.colorDarkGray,
-                    tab = SearchTabFragment::class.java
+                    tab = BookmarkTabFragment::class.java
                 ),
 
                 BottomNavigationBar.Tab(
                     icon = R.drawable.bottom_nav_ic_settings,
                     selectedColor = R.color.colorBeigeWhite,
                     unselectedColor = R.color.colorDarkGray,
-                    tab = SearchTabFragment::class.java
+                    tab = SettingsTabFragment::class.java
                 )
             )
 
