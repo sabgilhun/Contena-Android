@@ -90,4 +90,10 @@ dependencies {
 
     // Custom View
     implementation "com.github.rbro112:Android-Indefinite-Pager-Indicator:$indefinitePagerIndicator"
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    implementation "androidx.room:room-rxjava2:$roomVersion"
 }

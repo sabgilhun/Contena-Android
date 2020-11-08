@@ -1,5 +1,7 @@
 package com.sabgil.contena.domain.model
 
+import java.io.Serializable
+
 data class NewProduct(
     val productId: Long,
     val productName: String,
@@ -8,4 +10,4 @@ data class NewProduct(
     val pageUrl: String,
     val price: String,
     val originPrice: String?
-)
+): Serializable
