@@ -2,8 +2,8 @@ package com.sabgil.contena.data.local.repository
 
 import com.sabgil.contena.domain.model.NewProduct
 import com.sabgil.contena.domain.model.Post
-import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Completable
+import io.reactivex.Single
 
 interface BookmarkRepository {
 

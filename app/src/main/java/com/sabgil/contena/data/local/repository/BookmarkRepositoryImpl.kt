@@ -8,7 +8,7 @@ import com.sabgil.contena.data.mapper.NewProductMapper
 import com.sabgil.contena.data.mapper.PostMapper
 import com.sabgil.contena.domain.model.NewProduct
 import com.sabgil.contena.domain.model.Post
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 import javax.inject.Inject
 
 class BookmarkRepositoryImpl @Inject constructor(
