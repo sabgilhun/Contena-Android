@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 	
 	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="android:statusBarColor">@color/colorBlack</item>
@@ -39,4 +39,10 @@
 		<item name="android:background">@drawable/selector_subscribe_button</item>
 		<item name="android:textColor">@drawable/selector_subscribe_text_color</item>
 	</style>
+	
+	<style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
+		<item name="android:textSize" tools:ignore="SpUsage">18dp</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+
 </resources>

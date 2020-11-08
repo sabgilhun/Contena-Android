@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentBookmarkTabBinding
+import com.sabgil.contena.presenter.home.adapter.BookmarkViewPagerAdapter
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 
 class BookmarkTabFragment :
@@ -15,6 +16,14 @@ class BookmarkTabFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViews()
+    }
+
+    private fun setupViews() {
+        with(binding) {
+            viewPager.adapter = BookmarkViewPagerAdapter(parentFragmentManager)
+            tabLayout.setupWithViewPager(viewPager)
+        }
     }
 
     override fun refreshTab() {
