@@ -106,14 +106,15 @@
 				tools:ignore="SpUsage"
 				tools:text="59,000" />
 			
-			<ImageView
+			<View
 				android:layout_width="16dp"
 				android:layout_height="16dp"
 				android:layout_marginEnd="8dp"
 				android:layout_marginBottom="8dp"
-				android:src="@drawable/vector_filled_favorite_black"
+				android:background="@drawable/selector_new_product_bookmark_button"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
+				app:selected="@{true}"
 				tools:ignore="ContentDescription" />
 		
 		</androidx.constraintlayout.widget.ConstraintLayout>

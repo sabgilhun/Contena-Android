@@ -114,9 +114,9 @@
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="16dp"
 			android:background="@null"
+			android:onClick="@{v -> handler.showPostMenu(v)}"
 			android:scaleType="centerInside"
 			android:src="@drawable/vector_three_dot_begie_white"
-			android:onClick="@{v -> handler.showPostMenu(v)}"
 			app:layout_constraintBottom_toBottomOf="@id/shopNameTextView"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="@id/shopNameTextView"
@@ -161,13 +161,13 @@
 			app:layout_constraintTop_toBottomOf="@id/itemViewPager"
 			app:selectedDotColor="@color/colorBeigeWhite" />
 		
-		<ImageButton
+		<View
 			android:id="@+id/markFavoriteImageButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
 			android:layout_marginStart="16dp"
-			android:background="@null"
-			android:src="@drawable/vector_filled_favorite_begie_white"
+			android:background="@drawable/selector_post_bookmark_button"
+			app:selected="@{true}"
 			app:layout_constraintBottom_toBottomOf="@id/tabLayout"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="@id/tabLayout"
@@ -179,11 +179,11 @@
 			android:layout_height="36dp"
 			android:layout_marginEnd="16dp"
 			android:background="@null"
+			android:onClick="@{() -> handler.goToPostDetailActivity(item.postId, item.uploadDate)}"
 			android:src="@drawable/vector_right_direction_bracket_begie_white"
 			app:layout_constraintBottom_toBottomOf="@id/tabLayout"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="@id/tabLayout"
-			android:onClick="@{() -> handler.goToPostDetailActivity(item.postId, item.uploadDate)}"
 			tools:ignore="ContentDescription" />
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
