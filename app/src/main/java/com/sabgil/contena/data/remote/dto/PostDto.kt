@@ -16,6 +16,7 @@ data class GetPostListResponse(
     )
 
     data class NewItem(
+        @SerializedName("item_id") val itemId: Long,
         @SerializedName("product_name") val productName: String,
         @SerializedName("brand") val brand: String,
         @SerializedName("image_url") val imageUrl: String,

@@ -23,6 +23,7 @@ sealed class BasePostItem(key: Any) : BaseItem(key) {
             get() = newProductItems.size
 
         data class NewProductItem(
+            val productId: Long,
             val productName: String,
             val brand: String,
             val imageUrl: String,
@@ -33,6 +34,7 @@ sealed class BasePostItem(key: Any) : BaseItem(key) {
             companion object {
                 fun from(from: NewProduct) =
                     NewProductItem(
+                        productId = from.productId,
                         productName = from.productName,
                         brand = from.brand,
                         imageUrl = from.imageUrl,
@@ -43,8 +45,7 @@ sealed class BasePostItem(key: Any) : BaseItem(key) {
 
                 fun toNewProduct(from: NewProductItem): NewProduct =
                     NewProduct(
-                        // TODO
-                        productId = 0L,
+                        productId = from.productId,
                         productName = from.productName,
                         brand = from.brand,
                         imageUrl = from.imageUrl,
