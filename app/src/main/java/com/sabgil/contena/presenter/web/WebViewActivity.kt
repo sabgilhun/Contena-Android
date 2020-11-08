@@ -1,12 +1,15 @@
 package com.sabgil.contena.presenter.web
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.webkit.WebViewClient
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.startWith
 import com.sabgil.contena.databinding.ActivityWebViewBinding
 import com.sabgil.contena.presenter.base.BaseActivity
+
 
 class WebViewActivity : BaseActivity<ActivityWebViewBinding>(R.layout.activity_web_view) {
 
@@ -15,7 +18,16 @@ class WebViewActivity : BaseActivity<ActivityWebViewBinding>(R.layout.activity_w
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupWebView()
+        setupViews()
         binding.webView.loadUrl(pageUrl)
+    }
+
+    private fun setupViews() {
+        with(binding) {
+            backButton.setOnClickListener { finish() }
+            openBrowserButton.setOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(pageUrl)))}
+        }
     }
 
     private fun setupWebView() {
