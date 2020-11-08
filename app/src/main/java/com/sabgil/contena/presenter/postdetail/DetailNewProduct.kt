@@ -10,17 +10,19 @@ data class DetailNewProduct(
     val imageUrl: String,
     val pageUrl: String,
     val price: String,
+    val isBookmarked: Boolean,
     val originPrice: String?
 ) : BaseItem(productId) {
 
     companion object {
-        fun from(from: NewProduct) = DetailNewProduct(
+        fun from(from: NewProduct, bookmarkedIds: Set<Long>) = DetailNewProduct(
             productId = from.productId,
             productName = from.productName,
             brand = from.brand,
             imageUrl = from.imageUrl,
             pageUrl = from.pageUrl,
             price = from.price,
+            isBookmarked = bookmarkedIds.contains(from.productId),
             originPrice = from.originPrice
         )
     }

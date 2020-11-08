@@ -15,6 +15,7 @@ sealed class BasePostItem(key: Any) : BaseItem(key) {
         val shopName: String,
         val shopLogoUrl: String,
         val subscriberCount: String,
+        val isBookmarked: Boolean,
         val newProductItems: List<NewProductItem>
     ) : BasePostItem(postId) {
 
@@ -39,11 +40,23 @@ sealed class BasePostItem(key: Any) : BaseItem(key) {
                         price = from.price,
                         originPrice = from.originPrice
                     )
+
+                fun toNewProduct(from: NewProductItem): NewProduct =
+                    NewProduct(
+                        // TODO
+                        productId = 0L,
+                        productName = from.productName,
+                        brand = from.brand,
+                        imageUrl = from.imageUrl,
+                        pageUrl = from.pageUrl,
+                        price = from.price,
+                        originPrice = from.originPrice
+                    )
             }
         }
 
         companion object {
-            fun from(from: Post): PostItem =
+            fun from(from: Post, bookmarkedIds: Set<Long>): PostItem =
                 PostItem(
                     postId = from.postId,
                     diffDate = from.uploadDate,  // TODO 변경할 예정
@@ -51,7 +64,18 @@ sealed class BasePostItem(key: Any) : BaseItem(key) {
                     shopName = from.shopName,
                     shopLogoUrl = from.shopLogoUrl,
                     subscriberCount = from.subscriberCount.toString(),
+                    isBookmarked = bookmarkedIds.contains(from.postId),
                     newProductItems = from.newProductList.map { NewProductItem.from(it) }
+                )
+
+            fun toPost(from: PostItem): Post =
+                Post(
+                    postId = from.postId,
+                    uploadDate = from.uploadDate,
+                    shopName = from.shopName,
+                    shopLogoUrl = from.shopLogoUrl,
+                    subscriberCount = null,
+                    newProductList = from.newProductItems.map { NewProductItem.toNewProduct(it) }
                 )
         }
     }

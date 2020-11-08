@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sabgil.contena.common.SingleLiveEvent
+import io.reactivex.Completable
+import io.reactivex.CompletableTransformer
 import io.reactivex.Single
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -41,13 +43,18 @@ abstract class BaseViewModel : ViewModel() {
             .doFinally { _isLoading.value = false }
     }
 
-    protected fun <T : Any> Single<T>.autoDispose(block: SubscribeScope<T>.() -> Unit) {
-        val scope = SubscribeScope(this, disposables)
+    protected fun <T : Any> Single<T>.autoDispose(block: SingleSubscribeScope<T>.() -> Unit) {
+        val scope = SingleSubscribeScope(this, disposables)
         scope.block()
         scope.subscribe()
     }
 
-    class SubscribeScope<T : Any>(
+    protected fun apiCompletableTransformer() = CompletableTransformer {
+        it.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    class SingleSubscribeScope<T : Any>(
         private val source: Single<T>,
         private val disposables: CompositeDisposable
     ) {
@@ -55,6 +62,39 @@ abstract class BaseViewModel : ViewModel() {
         var onError: (Throwable) -> Unit = {}
 
         fun success(onSuccess: (T) -> Unit) {
+            this.onSuccess = onSuccess
+        }
+
+        fun error(onError: (Throwable) -> Unit) {
+            this.onError = onError
+        }
+
+        fun subscribe() {
+            disposables.add(source.subscribe(onSuccess, onError))
+        }
+    }
+
+    protected fun apiLoadingCompletableTransformer() = CompletableTransformer {
+        it.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { _isLoading.value = true }
+            .doFinally { _isLoading.value = false }
+    }
+
+    protected fun Completable.autoDispose(block: CompletableSubscribeScope.() -> Unit) {
+        val scope = CompletableSubscribeScope(this, disposables)
+        scope.block()
+        scope.subscribe()
+    }
+
+    class CompletableSubscribeScope(
+        private val source: Completable,
+        private val disposables: CompositeDisposable
+    ) {
+        private var onSuccess: () -> Unit = {}
+        var onError: (Throwable) -> Unit = {}
+
+        fun success(onSuccess: () -> Unit) {
             this.onSuccess = onSuccess
         }
 

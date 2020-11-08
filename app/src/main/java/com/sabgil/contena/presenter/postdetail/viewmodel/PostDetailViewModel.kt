@@ -19,7 +19,7 @@ class PostDetailViewModel @Inject constructor(
             .compose(apiLoadingSingleTransformer())
             .autoDispose {
                 success { response ->
-                    _newItemList.value = response.map { DetailNewProduct.from(it) }
+                    _newItemList.value = response.map { DetailNewProduct.from(it, emptySet()) }
                 }
                 error {
                     handleApiErrorMessage(it)

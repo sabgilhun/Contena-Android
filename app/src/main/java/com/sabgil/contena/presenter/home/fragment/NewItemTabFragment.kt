@@ -6,6 +6,7 @@ import android.widget.PopupMenu
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentNewItemTabBinding
 import com.sabgil.contena.presenter.home.adapter.PostAdapter
+import com.sabgil.contena.presenter.home.model.BasePostItem
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity
@@ -81,6 +82,10 @@ class NewItemTabFragment :
                 inflate(R.menu.menu_post_item)
                 show()
             }
+        }
+
+        fun registerBookmarkPost(postItem: BasePostItem.PostItem) {
+            viewModel.registerBookmarkPost(postItem)
         }
     }
 }
