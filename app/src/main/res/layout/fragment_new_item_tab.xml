@@ -36,21 +36,6 @@
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
 				tools:ignore="SpUsage" />
-			
-			<ImageView
-				android:id="@+id/settingImageButton"
-				android:layout_width="28dp"
-				android:layout_height="28dp"
-				android:layout_marginEnd="16dp"
-				android:background="?android:selectableItemBackgroundBorderless"
-				android:clickable="true"
-				android:focusable="true"
-				android:padding="4dp"
-				android:src="@drawable/bottom_nav_ic_settings"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				tools:ignore="ContentDescription" />
 		</androidx.constraintlayout.widget.ConstraintLayout>
 		
 		<androidx.recyclerview.widget.RecyclerView

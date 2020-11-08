@@ -45,10 +45,6 @@ class NewItemTabFragment :
 
     private fun setViews() {
         with(binding) {
-            settingImageButton.setOnClickListener {
-                SettingsActivity.start(requireActivity())
-            }
-
             postAdapter = PostAdapter(this@NewItemTabFragment.requireContext(), Handler())
             postRecyclerView.adapter = postAdapter
         }

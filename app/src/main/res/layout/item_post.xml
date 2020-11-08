@@ -22,7 +22,6 @@
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:background="@drawable/shape_card_background"
 		android:paddingTop="12dp"
 		android:paddingBottom="12dp">
 		
