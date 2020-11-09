@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".presenter.home.adapter.post.NewItemViewPagerAdapter">
+	
+	<data>
+		
+		<import type="android.view.View" />
+		
+		<variable
+			name="newItem"
+			type="com.sabgil.contena.presenter.home.model.BookmarkedPostItem.NewProductItem" />
+	</data>
+	
+	<androidx.cardview.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:cardCornerRadius="8dp"
+		app:cardElevation="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintDimensionRatio="H,1:1"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/logoHolder">
+		
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			tools:background="@color/colorBlack">
+			
+			<ImageView
+				android:id="@+id/postImageView"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:scaleType="matrix"
+				app:image="@{newItem.imageUrl}"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:ignore="ContentDescription" />
+			
+			<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:background="#33FFFFFF"
+				android:orientation="vertical"
+				android:paddingTop="12dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent">
+				
+				<TextView
+					android:id="@+id/brandNameTextView"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="12dp"
+					android:includeFontPadding="false"
+					android:text="@{newItem.brand}"
+					android:textColor="@color/colorBlack"
+					android:textSize="12dp"
+					tools:ignore="SpUsage"
+					tools:text="bluesman" />
+				
+				<TextView
+					android:id="@+id/productNameTextView"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="bottom"
+					android:layout_marginStart="12dp"
+					android:includeFontPadding="false"
+					android:text="@{newItem.productName}"
+					android:textColor="@color/colorBlack"
+					android:textSize="12dp"
+					tools:ignore="SpUsage"
+					tools:text="wool crop cardigan-soft cream" />
+				
+				<TextView
+					android:id="@+id/productOriginPriceTextView"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="bottom"
+					android:layout_marginStart="12dp"
+					android:layout_marginBottom="4dp"
+					android:includeFontPadding="false"
+					android:text="@{newItem.originPrice}"
+					android:textColor="@color/colorBlack"
+					android:textSize="12dp"
+					android:visibility="@{newItem.originPrice == null ? View.GONE : View.VISIBLE}"
+					tools:ignore="SpUsage"
+					tools:text="65,000" />
+				
+				<TextView
+					android:id="@+id/productPriceTextView"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="bottom"
+					android:layout_marginStart="12dp"
+					android:layout_marginBottom="12dp"
+					android:text="@{newItem.price}"
+					android:textColor="@color/colorBlack"
+					android:textSize="14dp"
+					android:textStyle="bold"
+					tools:ignore="SpUsage"
+					tools:text="59,000" />
+			</LinearLayout>
+		
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.cardview.widget.CardView>
+</layout>

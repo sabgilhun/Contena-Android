@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".presenter.home.adapter.PostAdapter">
+	
+	<data>
+		
+		<variable
+			name="item"
+			type="com.sabgil.contena.presenter.home.model.BookmarkedPostItem" />
+		
+		<variable
+			name="pageNo"
+			type="Integer" />
+		
+		<variable
+			name="handler"
+			type="com.sabgil.contena.presenter.home.fragment.PostBookmarkFragment.Handler" />
+	</data>
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingTop="12dp"
+		android:paddingBottom="12dp">
+		
+		<!--TODO: transformation 방식으로 변경 필요-->
+		<FrameLayout
+			android:id="@+id/logoHolder"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_marginStart="16dp"
+			android:layout_marginBottom="4dp"
+			android:background="@drawable/shapre_circle_white_backgorund_gray200_border"
+			android:padding="6dp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+			
+			<ImageView
+				android:id="@+id/shopLogoImageView"
+				android:layout_width="28dp"
+				android:layout_height="28dp"
+				app:image="@{item.shopLogoUrl}"
+				tools:ignore="ContentDescription" />
+		</FrameLayout>
+		
+		<TextView
+			android:id="@+id/shopNameTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_marginStart="12dp"
+			android:includeFontPadding="false"
+			android:text="@{item.shopName}"
+			android:textColor="@color/colorBeigeWhite"
+			android:textSize="16dp"
+			app:layout_constraintBottom_toTopOf="@id/uploadDateTextView"
+			app:layout_constraintStart_toEndOf="@id/logoHolder"
+			app:layout_constraintTop_toTopOf="@id/logoHolder"
+			tools:ignore="SpUsage"
+			tools:text="bluesman" />
+		
+		<TextView
+			android:id="@+id/uploadDateTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_marginStart="12dp"
+			android:includeFontPadding="false"
+			android:text="@{item.uploadDate}"
+			android:textColor="@color/colorGray"
+			android:textSize="10dp"
+			app:layout_constraintBottom_toBottomOf="@id/logoHolder"
+			app:layout_constraintStart_toEndOf="@id/logoHolder"
+			app:layout_constraintTop_toBottomOf="@id/shopNameTextView"
+			app:layout_constraintVertical_chainStyle="packed"
+			tools:ignore="SpUsage"
+			tools:text="2017.02.02" />
+		
+		<androidx.viewpager.widget.ViewPager
+			android:id="@+id/itemViewPager"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginTop="12dp"
+			android:clipToPadding="false"
+			android:paddingStart="14dp"
+			android:paddingEnd="14dp"
+			app:layout_constraintDimensionRatio="H,1:1"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/logoHolder"
+			app:pageMarginWithDp="@{@dimen/_14dp}" />
+		
+		<TextView
+			android:id="@+id/pageNoTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:layout_marginEnd="24dp"
+			android:background="@drawable/shape_r14_background_black_transperent"
+			android:padding="6dp"
+			android:text="@{@string/page_no_format((pageNo + 1), item.productSize)}"
+			android:textColor="@color/colorWhite"
+			app:layout_constraintEnd_toEndOf="@id/itemViewPager"
+			app:layout_constraintTop_toTopOf="@id/itemViewPager"
+			tools:text="1/8" />
+		
+		<com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+			android:id="@+id/tabLayout"
+			android:layout_width="120dp"
+			android:layout_height="50dp"
+			app:dotColor="@color/colorDarkGray"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@id/goToDetailImageButton"
+			app:layout_constraintStart_toEndOf="@id/markFavoriteImageButton"
+			app:layout_constraintTop_toBottomOf="@id/itemViewPager"
+			app:selectedDotColor="@color/colorBeigeWhite" />
+		
+		<View
+			android:id="@+id/markFavoriteImageButton"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			android:layout_marginStart="16dp"
+			android:background="@drawable/selector_post_bookmark_button"
+			android:onClick="@{() -> handler.unregisterBookmark(item)}"
+			app:layout_constraintBottom_toBottomOf="@id/tabLayout"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="@id/tabLayout"
+			app:selected="@{true}"
+			tools:ignore="ContentDescription" />
+		
+		<ImageButton
+			android:id="@+id/goToDetailImageButton"
+			android:layout_width="36dp"
+			android:layout_height="36dp"
+			android:layout_marginEnd="16dp"
+			android:background="@null"
+			android:onClick="@{() -> handler.goToPostDetailActivity(item.postId, item.uploadDate)}"
+			android:src="@drawable/vector_right_direction_bracket_begie_white"
+			app:layout_constraintBottom_toBottomOf="@id/tabLayout"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@id/tabLayout"
+			tools:ignore="ContentDescription" />
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
