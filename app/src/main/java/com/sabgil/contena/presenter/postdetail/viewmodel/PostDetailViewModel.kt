@@ -46,7 +46,7 @@ class PostDetailViewModel @Inject constructor(
         }
 
         toggleBookmark
-            .compose(apiLoadingCompletableTransformer())
+            .compose(apiCompletableTransformer())
             .autoDispose {
                 success {
                     val index = _newItemList.valueOrEmpty.indexOf(detailNewProduct)
