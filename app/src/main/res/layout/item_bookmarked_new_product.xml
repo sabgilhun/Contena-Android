@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".presenter.home.adapter.ShopShortcutAdapter">
+	
+	<data>
+		
+		<variable
+			name="newProduct"
+			type="com.sabgil.contena.presenter.home.model.BookmarkedNewProductItem" />
+		
+		<variable
+			name="handler"
+			type="com.sabgil.contena.presenter.home.fragment.NewProductBookmarkFragment.Handler" />
+	
+	</data>
+	
+	<androidx.cardview.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="220dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="4dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="4dp"
+		android:onClick="@{() -> handler.showPageOnWebView(newProduct.pageUrl)}"
+		app:cardCornerRadius="8dp">
+		
+		<ImageView
+			android:id="@+id/postImageView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:scaleType="center"
+			app:image="@{newProduct.imageUrl}"
+			tools:ignore="ContentDescription" />
+		
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:background="#33FFFFFF"
+			android:orientation="vertical"
+			android:paddingTop="12dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent">
+			
+			<TextView
+				android:id="@+id/brandNameTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="4dp"
+				android:includeFontPadding="false"
+				android:text="@{newProduct.brand}"
+				android:textColor="@color/colorBlack"
+				android:textSize="10dp"
+				app:layout_constraintBottom_toTopOf="@id/productNameTextView"
+				app:layout_constraintStart_toStartOf="parent"
+				tools:ignore="SpUsage"
+				tools:text="bluesman" />
+			
+			<TextView
+				android:id="@+id/productNameTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+				android:layout_marginStart="4dp"
+				android:includeFontPadding="false"
+				android:text="@{newProduct.productName}"
+				android:textColor="@color/colorBlack"
+				android:textSize="8dp"
+				app:layout_constraintBottom_toTopOf="@id/productOriginPriceTextView"
+				app:layout_constraintStart_toStartOf="parent"
+				tools:ignore="SpUsage"
+				tools:text="wool crop cardigan-soft cream" />
+			
+			<TextView
+				android:id="@+id/productOriginPriceTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+				android:layout_marginStart="4dp"
+				android:includeFontPadding="false"
+				android:text="@{newProduct.originPrice}"
+				android:textColor="@color/colorBlack"
+				android:textSize="8dp"
+				app:layout_constraintBottom_toTopOf="@id/productPriceTextView"
+				app:layout_constraintStart_toStartOf="parent"
+				app:visibleOrGone="@{newProduct.originPrice != null}"
+				tools:ignore="SpUsage"
+				tools:text="65,000" />
+			
+			<TextView
+				android:id="@+id/productPriceTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+				android:layout_marginStart="4dp"
+				android:layout_marginBottom="8dp"
+				android:text="@{newProduct.price}"
+				android:textColor="@color/colorBlack"
+				android:textSize="10dp"
+				android:textStyle="bold"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				tools:ignore="SpUsage"
+				tools:text="59,000" />
+			
+			<View
+				android:layout_width="16dp"
+				android:layout_height="16dp"
+				android:layout_marginEnd="8dp"
+				android:layout_marginBottom="8dp"
+				android:background="@drawable/selector_new_product_bookmark_button"
+				android:onClick="@{() -> handler.unregisterBookmark(newProduct)}"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:selected="@{true}"
+				tools:ignore="ContentDescription" />
+		
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.cardview.widget.CardView>
+</layout>

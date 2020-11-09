@@ -5,10 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.sabgil.contena.di.annotation.ApplicationScope
 import com.sabgil.contena.di.annotation.ViewModelKey
 import com.sabgil.contena.di.factory.ViewModelFactory
-import com.sabgil.contena.presenter.home.viewmodel.BookmarkedPostsViewModel
-import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
-import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
-import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
+import com.sabgil.contena.presenter.home.viewmodel.*
 import com.sabgil.contena.presenter.manage.viewmodel.ShopManageViewModel
 import com.sabgil.contena.presenter.postdetail.viewmodel.PostDetailViewModel
 import com.sabgil.contena.presenter.settings.viewmodel.SettingsViewModel
@@ -63,4 +60,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BookmarkedPostsViewModel::class)
     abstract fun bindBookmarkedPostsViewModel(bookmarkedPostsViewModel: BookmarkedPostsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BookmarkedNewProductsViewModel::class)
+    abstract fun bindBookmarkedNewProductsViewModel(bookmarkedNewProductsViewModel: BookmarkedNewProductsViewModel): ViewModel
 }
