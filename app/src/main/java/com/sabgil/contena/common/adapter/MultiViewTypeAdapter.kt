@@ -36,6 +36,7 @@ abstract class MultiViewTypeAdapter : RecyclerView.Adapter<BindingViewHolder>() 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         val item = items[position]
         viewTypeMap.getOnBindViewHolder(item::class.java)(item, holder.binding, position)
+        holder.binding.executePendingBindings()
     }
 
     override fun getItemCount() = items.size

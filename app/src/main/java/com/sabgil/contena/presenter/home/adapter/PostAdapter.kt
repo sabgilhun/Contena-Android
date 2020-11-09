@@ -16,11 +16,16 @@ class PostAdapter(
 
     override val viewTypeMap: ViewTypeMap = multiViewType(context) {
         viewType<PostItem, ItemPostBinding> {
-            onCreate { binding, _ ->
+            onCreate { binding, holder ->
                 with(binding.itemViewPager) {
                     adapter = NewItemsViewPagerAdapter()
                     addOnPageSelected {
                         binding.pageNo = it
+                        val adapterPosition = holder.adapterPosition
+                        if (adapterPosition != RecyclerView.NO_POSITION) {
+                            val item = items[adapterPosition] as PostItem
+                            pageNoMap[item.postId] = currentItem
+                        }
                     }
                 }
 
@@ -66,19 +71,6 @@ class PostAdapter(
                 }
             }
         }
-    }
-
-    override fun onViewDetachedFromWindow(holder: BindingViewHolder) {
-        val adapterPosition = holder.adapterPosition
-        if (adapterPosition != RecyclerView.NO_POSITION) {
-            val item = items[adapterPosition]
-            if (item is PostItem) {
-                val binding = holder.binding as ItemPostBinding
-                pageNoMap[item.postId] = binding.itemViewPager.currentItem
-            }
-        }
-
-        super.onViewDetachedFromWindow(holder)
     }
 
     override fun replaceAll(items: List<BaseItem>) {
