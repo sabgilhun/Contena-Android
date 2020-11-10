@@ -39,7 +39,7 @@ class BottomNavigationBar @JvmOverloads constructor(
     private var fm: FragmentManager? = null
 
     private var buttons: List<Pair<Tab, ImageView>>? = emptyList()
-    private var tabManager: TabManager2? = null
+    private var tabManager: TabManager? = null
 
     private var onEmpty: (() -> Unit)? = null
     private var onChangeTab: ((Tab) -> Unit)? = null
@@ -66,7 +66,7 @@ class BottomNavigationBar @JvmOverloads constructor(
 
         this.buttons = buttons
 
-        tabManager = TabManager2(containerId, fm, buttons.map { it.first })
+        tabManager = TabManager(containerId, fm, buttons.map { it.first })
     }
 
     fun goToBackTab() {
@@ -123,7 +123,7 @@ class BottomNavigationBar @JvmOverloads constructor(
         )
     }
 
-    private inner class TabManager2(
+    private inner class TabManager(
         @IdRes
         private val containerId: Int,
         private val fragmentManager: FragmentManager,
