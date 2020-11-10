@@ -12,12 +12,13 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.layoutInflater
+import com.sabgil.contena.databinding.WidgetBottomNavBarBinding
+import com.sabgil.contena.databinding.WidgetBottomNavBarButtonBinding
 import com.sabgil.contena.presenter.home.fragment.BaseTabFragment
-import com.sabgil.contena.databinding.WidgetBottomNavBarBinding as LayoutBinding
-import com.sabgil.contena.databinding.WidgetBottomNavBarButtonBinding as ButtonBinding
 
 class BottomNavigationBar @JvmOverloads constructor(
     context: Context,
@@ -25,7 +26,7 @@ class BottomNavigationBar @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private var binding: LayoutBinding =
+    private var binding: WidgetBottomNavBarBinding =
         DataBindingUtil.inflate(
             context.layoutInflater,
             R.layout.widget_bottom_nav_bar,
@@ -35,60 +36,61 @@ class BottomNavigationBar @JvmOverloads constructor(
 
     @IdRes
     private var tabContainerId: Int? = null
-    private var fragmentManager: FragmentManager? = null
+    private var fm: FragmentManager? = null
 
-    private var buttons: List<Pair<Tab, ButtonBinding>>? = emptyList()
-    private var indexManager: IndexManager? = null
+    private var buttons: List<Pair<Tab, ImageView>>? = emptyList()
+    private var tabManager: TabManager2? = null
 
     private var onEmpty: (() -> Unit)? = null
-    private var onChangeTab: ((BaseTabFragment<*>) -> Unit)? = null
+    private var onChangeTab: ((Tab) -> Unit)? = null
 
     fun init(@IdRes tabContainerId: Int, fragmentManager: FragmentManager) {
         this.tabContainerId = tabContainerId
-        this.fragmentManager = fragmentManager
+        this.fm = fragmentManager
     }
 
     fun tabSetup(vararg tabData: Tab) {
         val containerId = requireNotNull(tabContainerId)
-        val fm = requireNotNull(fragmentManager)
+        val fm = requireNotNull(fm)
 
         if (buttons?.isNotEmpty() == true) {
             binding.bottomNavButtonContainer.removeAllViews()
         }
 
-        val buttons: List<Pair<Tab, ButtonBinding>> =
-            tabData.asList().mapIndexed { idx, button ->
-                val buttonBinding = inflateButtonBinding(idx, button)
+        val buttons: List<Pair<Tab, ImageView>> =
+            tabData.asList().map { button ->
+                val buttonBinding = inflateButtonBinding(button)
                 binding.bottomNavButtonContainer.addView(buttonBinding.root)
-                button to buttonBinding
+                button to buttonBinding.icon
             }
 
         this.buttons = buttons
 
-        val tabManager = TabManager(containerId, fm, tabData.map { it.tab })
-        indexManager = IndexManager(
-            stackSize = buttons.size, tabManager = tabManager, onChangeTab = this::tintTab
-        )
+        tabManager = TabManager2(containerId, fm, buttons.map { it.first })
     }
 
     fun goToBackTab() {
-        indexManager?.popBackTab()
+        tabManager?.goToBackTab()
     }
 
-    fun select(index: Int) {
-        indexManager?.selectTab(index)
+    fun select(tab: Tab) {
+        tabManager?.selectTab(tab)
+    }
+
+    fun currentTabRefresh() {
+        tabManager?.currentTabRefresh()
     }
 
     fun setOnEmpty(onEmpty: () -> Unit) {
         this.onEmpty = onEmpty
     }
 
-    fun setOnChangeTab(onChangeTab: (BaseTabFragment<*>) -> Unit) {
+    fun setOnChangeTab(onChangeTab: (Tab) -> Unit) {
         this.onChangeTab = onChangeTab
     }
 
-    private fun inflateButtonBinding(index: Int, button: Tab) =
-        DataBindingUtil.inflate<ButtonBinding>(
+    private fun inflateButtonBinding(button: Tab) =
+        DataBindingUtil.inflate<WidgetBottomNavBarButtonBinding>(
             context.layoutInflater,
             R.layout.widget_bottom_nav_bar_button,
             this,
@@ -99,15 +101,15 @@ class BottomNavigationBar @JvmOverloads constructor(
             root.layoutParams = LinearLayout.LayoutParams(
                 0, LayoutParams.WRAP_CONTENT, 1f
             )
-            root.setOnClickListener { select(index) }
+            root.setOnClickListener { select(button) }
         }
 
     private fun tintTab(unselectedIdx: Int?, selectedIdx: Int) {
-        buttons?.forEachIndexed { index, (button: Tab, binding: ButtonBinding) ->
+        buttons?.forEachIndexed { index, (button: Tab, icon: ImageView) ->
             if (index == unselectedIdx) {
-                binding.icon.tintIcon(false, button)
+                icon.tintIcon(false, button)
             } else if (index == selectedIdx) {
-                binding.icon.tintIcon(true, button)
+                icon.tintIcon(true, button)
             }
         }
     }
@@ -121,123 +123,119 @@ class BottomNavigationBar @JvmOverloads constructor(
         )
     }
 
-    private class IndexManager(
-        private val stackSize: Int,
-        private val tabManager: TabManager,
-        private val onChangeTab: (Int?, Int) -> Unit
-    ) {
-        private val backStack: MutableSet<Int> = LinkedHashSet()
-        var index: Int
-
-        init {
-            index = 0
-            tabManager.initTab(index)
-            onChangeTab(null, 0)
-        }
-
-        fun popBackTab() {
-            val cur = index
-            val new = peek()
-
-            if (new == null) {
-                tabManager.onTabEmpty()
-            } else {
-                tabManager.changeTab(cur, new)
-                onChangeTab(cur, new)
-                pop()
-                index = new
-            }
-        }
-
-        fun selectTab(new: Int) {
-            val cur = index
-
-            if (cur == new) {
-                tabManager.refreshTab(new)
-            } else {
-                tabManager.changeTab(cur, new)
-                onChangeTab(cur, new)
-                push(cur)
-                index = new
-            }
-        }
-
-        private fun push(index: Int) {
-            if (backStack.size < stackSize) {
-                backStack.add(index)
-            }
-        }
-
-        private fun pop(): Int? =
-            if (backStack.isNotEmpty()) {
-                val item = backStack.last()
-                backStack.remove(backStack.size - 1)
-                item
-            } else null
-
-        private fun peek(): Int? =
-            if (backStack.isNotEmpty()) backStack.last() else null
-    }
-
-    private inner class TabManager(
+    private inner class TabManager2(
         @IdRes
         private val containerId: Int,
         private val fragmentManager: FragmentManager,
-        private val tabs: List<Class<out BaseTabFragment<*>>>
+        private val tabs: List<Tab>
     ) {
+        private val backStack: BackStack
 
-        fun initTab(index: Int) {
-            fragmentManager.commit {
-                add(
-                    containerId,
-                    tabs[index].newInstance() as Fragment,
-                    tabs[index].canonicalName
-                )
+        init {
+            val initTab = tabs.first()
+            backStack = BackStack(tabs.size, initTab)
+            fragmentManager.commit { addTab(initTab) }
+            tintTab(null, 0)
+        }
+
+        fun selectTab(new: Tab) {
+            val cur = backStack.currentTab()
+            if (cur == new) {
+                scrollOnTop(new)
+                return
+            } else {
+                changeTab(cur, new)
+                backStack.push(new)
+                onChangeTab?.invoke(new)
             }
         }
 
-        fun changeTab(cur: Int, new: Int) {
-            val curTab = fragmentManager.findFragmentByTag(tabs[cur].canonicalName)
-            val newTab = fragmentManager.findFragmentByTag(tabs[new].canonicalName)
-            fragmentManager.commit {
-                curTab?.let { hide(it) }
-                val addedTab = if (newTab == null) {
-                    val newInstanceTab = tabs[new].newInstance()
-                    add(
-                        containerId,
-                        newInstanceTab,
-                        tabs[new].canonicalName
-                    )
-                    newInstanceTab
-                } else {
-                    show(newTab)
-                    newTab as BaseTabFragment<*>
-                }
-                this@BottomNavigationBar.onChangeTab?.invoke(addedTab)
+        fun goToBackTab() {
+            if (backStack.peek() == null) {
+                onEmpty?.invoke()
+            } else {
+                changeTab(backStack.currentTab(), backStack.pop())
             }
         }
 
-        fun refreshTab(cur: Int) {
-            fragmentManager.findFragmentByTag(tabs[cur].canonicalName)?.let {
+        fun currentTabRefresh() {
+            findTabFragment(backStack.currentTab())?.let {
                 (it as BaseTabFragment<*>).refreshTab()
             }
         }
 
-        fun onTabEmpty() {
-            this@BottomNavigationBar.onEmpty?.invoke()
+        private fun scrollOnTop(tab: Tab) {
+            findTabFragment(tab)?.let {
+                (it as BaseTabFragment<*>).scrollOnTop()
+            }
+        }
+
+        private fun changeTab(old: Tab, new: Tab) {
+            val oldTabFragment = findTabFragment(old)
+            val newTabFragment = findTabFragment(new)
+            fragmentManager.commit {
+                oldTabFragment?.let { hide(it) }
+                if (newTabFragment == null) {
+                    addTab(new)
+                } else {
+                    show(newTabFragment)
+                }
+            }
+
+            val oldIndex = tabs.indexOf(old)
+            val newIndex = tabs.indexOf(new)
+            tintTab(oldIndex, newIndex)
+        }
+
+        private fun findTabFragment(tab: Tab): Fragment? =
+            fragmentManager.findFragmentByTag(tab.getTag())
+
+        private fun FragmentTransaction.addTab(tab: Tab) {
+            add(
+                containerId,
+                tab.fragmentClazz.newInstance(),
+                tab.getTag()
+            )
         }
     }
 
-    data class Tab(
-        @DrawableRes
-        val icon: Int,
+    private class BackStack(private val maxSize: Int, initTab: Tab) {
+        private val backStack: MutableSet<Tab> = LinkedHashSet()
+        private var currentTab: Tab = initTab
 
-        @ColorRes
-        val selectedColor: Int,
+        fun currentTab() = currentTab
 
-        @ColorRes
-        val unselectedColor: Int,
+        fun push(tab: Tab) {
+            if (backStack.size < maxSize) {
+                backStack.add(currentTab)
+                currentTab = tab
+            }
+        }
 
-        val tab: Class<out BaseTabFragment<*>>
-    )
+        fun pop(): Tab {
+            require(backStack.isNotEmpty())
+            return backStack.last().let {
+                backStack.remove(it)
+                currentTab = it
+                it
+            }
+        }
+
+        fun peek(): Tab? = if (backStack.isNotEmpty()) backStack.last() else null
+    }
+
+    interface Tab {
+        @get:DrawableRes
+        val icon: Int
+
+        @get:ColorRes
+        val selectedColor: Int
+
+        @get:ColorRes
+        val unselectedColor: Int
+
+        val fragmentClazz: Class<out BaseTabFragment<*>>
+
+        fun getTag() = fragmentClazz.canonicalName
+    }
 }

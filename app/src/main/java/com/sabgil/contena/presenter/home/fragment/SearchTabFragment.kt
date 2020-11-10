@@ -6,6 +6,7 @@ import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentSearchTabBinding
 import com.sabgil.contena.presenter.home.adapter.SearchedShopAdapter
 import com.sabgil.contena.presenter.home.model.BaseSearchedShopItem
+import com.sabgil.contena.presenter.home.model.Tab
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.home.viewmodel.SearchTabViewModel
 
@@ -35,6 +36,9 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
         // TODO: scroll top
     }
 
+    override fun scrollOnTop() {
+
+    }
 
     private fun setViews() {
         with(binding) {
@@ -51,7 +55,7 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
     private fun setupObserver() {
         with(viewModel) {
             searchedShop.registerObserver(searchedShopAdapter::replaceAll)
-            subscribeSuccess.registerObserver { homeViewModel.needsPostReload.value = true }
+            subscribeSuccess.registerObserver { homeViewModel.registerNeedsRefresh(Tab.MAIN) }
         }
 
     }

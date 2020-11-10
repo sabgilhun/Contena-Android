@@ -6,12 +6,8 @@ import com.sabgil.contena.R
 import com.sabgil.contena.common.ext.startOnTop
 import com.sabgil.contena.databinding.ActivityHomeBinding
 import com.sabgil.contena.presenter.base.BaseActivity
-import com.sabgil.contena.presenter.home.fragment.BookmarkTabFragment
-import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
-import com.sabgil.contena.presenter.home.fragment.SearchTabFragment
-import com.sabgil.contena.presenter.home.fragment.SettingsTabFragment
+import com.sabgil.contena.presenter.home.model.Tab
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
-import com.sabgil.contena.presenter.widget.BottomNavigationBar
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
@@ -29,48 +25,21 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private fun setupViews() {
         with(binding.bottomNavigation) {
             init(R.id.tabContainer, supportFragmentManager)
-            tabSetup(
-                BottomNavigationBar.Tab(
-                    icon = R.drawable.bottom_nav_ic_main,
-                    selectedColor = R.color.colorBeigeWhite,
-                    unselectedColor = R.color.colorDarkGray,
-                    tab = NewItemTabFragment::class.java
-                ),
-
-                BottomNavigationBar.Tab(
-                    icon = R.drawable.bottom_nav_ic_add,
-                    selectedColor = R.color.colorBeigeWhite,
-                    unselectedColor = R.color.colorDarkGray,
-                    tab = SearchTabFragment::class.java
-                ),
-
-                BottomNavigationBar.Tab(
-                    icon = R.drawable.bottom_nav_ic_bookmark,
-                    selectedColor = R.color.colorBeigeWhite,
-                    unselectedColor = R.color.colorDarkGray,
-                    tab = BookmarkTabFragment::class.java
-                ),
-
-                BottomNavigationBar.Tab(
-                    icon = R.drawable.bottom_nav_ic_settings,
-                    selectedColor = R.color.colorBeigeWhite,
-                    unselectedColor = R.color.colorDarkGray,
-                    tab = SettingsTabFragment::class.java
-                )
-            )
-
+            tabSetup(Tab.MAIN, Tab.ADD, Tab.BOOKMARK, Tab.SETTINGS)
             setOnEmpty { finish() }
-            setOnChangeTab {
-                if (it is NewItemTabFragment && viewModel.needsPostReload.value == true) {
-                    viewModel.needsPostReload.value = false
-                    it.loadFirstPage()
+            setOnChangeTab { tab ->
+                Tab.values().find { it.fragmentClazz == tab }?.let {
+                    viewModel.refreshTabIfNeeded(it)
                 }
             }
         }
     }
 
     private fun setupObservers() {
-        viewModel.changeTab.registerNonNullObserver { binding.bottomNavigation.select(it) }
+        with(viewModel) {
+            changeTab.registerNonNullObserver { binding.bottomNavigation.select(it) }
+            currentTabRefresh.registerObserver { binding.bottomNavigation.currentTabRefresh() }
+        }
     }
 
     companion object {

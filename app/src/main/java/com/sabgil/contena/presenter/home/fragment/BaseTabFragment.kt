@@ -9,4 +9,6 @@ abstract class BaseTabFragment<B : ViewDataBinding>(
 ) : BaseFragment<B>(layoutId) {
 
     abstract fun refreshTab()
+
+    abstract fun scrollOnTop()
 }

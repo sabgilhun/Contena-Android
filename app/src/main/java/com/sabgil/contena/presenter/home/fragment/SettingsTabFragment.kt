@@ -20,4 +20,8 @@ class SettingsTabFragment :
     override fun refreshTab() {
         // TODO: scroll top
     }
+
+    override fun scrollOnTop() {
+
+    }
 }

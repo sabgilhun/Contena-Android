@@ -29,4 +29,8 @@ class BookmarkTabFragment :
     override fun refreshTab() {
         // TODO: scroll top
     }
+
+    override fun scrollOnTop() {
+
+    }
 }

@@ -7,6 +7,7 @@ import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentNewItemTabBinding
 import com.sabgil.contena.presenter.home.adapter.PostAdapter
 import com.sabgil.contena.presenter.home.model.BasePostItem
+import com.sabgil.contena.presenter.home.model.Tab
 import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.home.viewmodel.NewItemTabViewModel
 import com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity
@@ -31,15 +32,15 @@ class NewItemTabFragment :
         setViews()
         setupObserver()
 
-        loadFirstPage()
+        viewModel.loadFirstPage()
     }
 
     override fun refreshTab() {
-        // TODO: scroll top
+        viewModel.loadFirstPage()
     }
 
-    fun loadFirstPage() {
-        viewModel.loadFirstPage()
+    override fun scrollOnTop() {
+
     }
 
     private fun setViews() {
@@ -64,7 +65,7 @@ class NewItemTabFragment :
         }
 
         fun goToSearchTab() {
-            homeViewModel.changeTab.setValue(1)
+            homeViewModel.changeTab(Tab.ADD)
         }
 
         fun goToPostDetailActivity(postId: Long, updateDate: String) {
