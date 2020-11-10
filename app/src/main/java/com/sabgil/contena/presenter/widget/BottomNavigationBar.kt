@@ -133,7 +133,7 @@ class BottomNavigationBar @JvmOverloads constructor(
 
         init {
             val initTab = tabs.first()
-            backStack = BackStack(tabs.size, initTab)
+            backStack = BackStack(initTab)
             fragmentManager.commit { addTab(initTab) }
             tintTab(null, 0)
         }
@@ -199,26 +199,23 @@ class BottomNavigationBar @JvmOverloads constructor(
         }
     }
 
-    private class BackStack(private val maxSize: Int, initTab: Tab) {
-        private val backStack: MutableSet<Tab> = LinkedHashSet()
+    private class BackStack(initTab: Tab) {
+        private val backStack = mutableListOf<Tab>()
         private var currentTab: Tab = initTab
 
         fun currentTab() = currentTab
 
         fun push(tab: Tab) {
-            if (backStack.size < maxSize) {
-                backStack.add(currentTab)
-                currentTab = tab
-            }
+            backStack.remove(tab)
+            backStack.add(currentTab)
+            currentTab = tab
         }
 
         fun pop(): Tab {
             require(backStack.isNotEmpty())
-            return backStack.last().let {
-                backStack.remove(it)
-                currentTab = it
-                it
-            }
+            val removed = backStack.removeAt(backStack.lastIndex)
+            currentTab = removed
+            return removed
         }
 
         fun peek(): Tab? = if (backStack.isNotEmpty()) backStack.last() else null
