@@ -1,5 +1,6 @@
 package com.sabgil.contena.presenter.home.adapter
 
+import android.util.SparseArray
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -12,25 +13,33 @@ class BookmarkViewPagerAdapter(
     fragmentManager,
     BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 ) {
+    private val sparseArray: SparseArray<Fragment> = SparseArray(2)
+
+    init {
+        sparseArray.append(0, Page.POST.fragment.newInstance())
+        sparseArray.append(1, Page.NEW_PRODUCT.fragment.newInstance())
+    }
 
     override fun getCount() = 2
 
-    override fun getItem(position: Int) =
+    override fun getItem(position: Int): Fragment =
         when (position) {
-            0 -> Tab.POST.fragment.newInstance()
-            1 -> Tab.NEW_PRODUCT.fragment.newInstance()
+            0 -> sparseArray[0]
+            1 -> sparseArray[1]
             else -> throw IllegalStateException("Exceed pager count")
         }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
-            0 -> Tab.POST.title
-            1 -> Tab.NEW_PRODUCT.title
+            0 -> Page.POST.title
+            1 -> Page.NEW_PRODUCT.title
             else -> throw java.lang.IllegalStateException("Exceed pager count")
         }
     }
 
-    private enum class Tab(val title: String, val fragment: Class<out Fragment>) {
+    fun getPage(position: Int) = sparseArray[position]
+
+    private enum class Page(val title: String, val fragment: Class<out Fragment>) {
         POST("포스트", PostBookmarkFragment::class.java),
         NEW_PRODUCT("신상품", NewProductBookmarkFragment::class.java)
     }

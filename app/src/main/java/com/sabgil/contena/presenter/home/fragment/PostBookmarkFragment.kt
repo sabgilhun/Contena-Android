@@ -7,13 +7,17 @@ import com.sabgil.contena.databinding.FragmentPostBookmarkBinding
 import com.sabgil.contena.presenter.base.BaseFragment
 import com.sabgil.contena.presenter.home.adapter.BookmarkedPostAdapter
 import com.sabgil.contena.presenter.home.model.BookmarkedPostItem
+import com.sabgil.contena.presenter.home.model.Tab
 import com.sabgil.contena.presenter.home.viewmodel.BookmarkedPostsViewModel
+import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 import com.sabgil.contena.presenter.postdetail.activity.PostDetailActivity
 
 class PostBookmarkFragment :
-    BaseFragment<FragmentPostBookmarkBinding>(R.layout.fragment_post_bookmark) {
+    BaseFragment<FragmentPostBookmarkBinding>(R.layout.fragment_post_bookmark), BookmarkPage {
 
     private val viewModel by lazy { getViewModel(BookmarkedPostsViewModel::class) }
+    private val homeViewModel: HomeViewModel by lazy { getSharedViewModel(HomeViewModel::class) }
+
     private lateinit var bookmarkedPostAdapter: BookmarkedPostAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -24,12 +28,14 @@ class PostBookmarkFragment :
         viewModel.loadBookmarkedPost()
     }
 
+    override fun refresh() {
+        binding.bookmarkedPostRecyclerView.scrollToPosition(0)
+        viewModel.loadBookmarkedPost()
+    }
+
     private fun setupViews() {
         with(binding) {
-            bookmarkedPostAdapter = BookmarkedPostAdapter(
-                this@PostBookmarkFragment.requireContext(),
-                Handler()
-            )
+            bookmarkedPostAdapter = BookmarkedPostAdapter(requireContext(), Handler())
             bookmarkedPostRecyclerView.adapter = bookmarkedPostAdapter
         }
     }
@@ -39,12 +45,14 @@ class PostBookmarkFragment :
     }
 
     inner class Handler {
-        fun unregisterBookmark(bookmarkedPostItem: BookmarkedPostItem) {
-            viewModel.unregisterBookmark(bookmarkedPostItem)
-        }
 
         fun goToPostDetailActivity(postId: Long, updateDate: String) {
             PostDetailActivity.start(requireActivity(), postId, updateDate)
+        }
+
+        fun unregisterBookmark(bookmarkedPostItem: BookmarkedPostItem) {
+            viewModel.unregisterBookmark(bookmarkedPostItem)
+            homeViewModel.registerNeedsRefresh(Tab.MAIN)
         }
     }
 }

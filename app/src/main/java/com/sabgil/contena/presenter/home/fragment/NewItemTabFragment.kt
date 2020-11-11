@@ -36,16 +36,17 @@ class NewItemTabFragment :
     }
 
     override fun refreshTab() {
+        binding.postRecyclerView.scrollToPosition(0)
         viewModel.loadFirstPage()
     }
 
     override fun scrollOnTop() {
-
+        binding.postRecyclerView.scrollToPosition(0)
     }
 
     private fun setViews() {
         with(binding) {
-            postAdapter = PostAdapter(this@NewItemTabFragment.requireContext(), Handler())
+            postAdapter = PostAdapter(requireContext(), Handler())
             postRecyclerView.adapter = postAdapter
         }
     }
@@ -85,7 +86,9 @@ class NewItemTabFragment :
             }
         }
 
-        fun registerBookmarkPost(postItem: BasePostItem.PostItem) =
+        fun registerBookmarkPost(postItem: BasePostItem.PostItem) {
             viewModel.registerBookmarkPost(postItem)
+            homeViewModel.registerNeedsRefresh(Tab.BOOKMARK)
+        }
     }
 }

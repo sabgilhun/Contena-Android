@@ -33,11 +33,11 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
     }
 
     override fun refreshTab() {
-        // TODO: scroll top
+        /* Do Nothing */
     }
 
     override fun scrollOnTop() {
-
+        binding.searchedShopRecyclerView.scrollToPosition(0)
     }
 
     private fun setViews() {

@@ -28,7 +28,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             tabSetup(Tab.MAIN, Tab.ADD, Tab.BOOKMARK, Tab.SETTINGS)
             setOnEmpty { finish() }
             setOnChangeTab { tab ->
-                Tab.values().find { it.fragmentClazz == tab }?.let {
+                Tab.values().find { it == tab }?.let {
                     viewModel.refreshTabIfNeeded(it)
                 }
             }

@@ -5,14 +5,11 @@ import android.view.View
 import com.sabgil.contena.R
 import com.sabgil.contena.databinding.FragmentBookmarkTabBinding
 import com.sabgil.contena.presenter.home.adapter.BookmarkViewPagerAdapter
-import com.sabgil.contena.presenter.home.viewmodel.HomeViewModel
 
 class BookmarkTabFragment :
     BaseTabFragment<FragmentBookmarkTabBinding>(R.layout.fragment_bookmark_tab) {
 
-    private val homeViewModel: HomeViewModel by lazy {
-        getSharedViewModel(HomeViewModel::class)
-    }
+    private lateinit var adapter: BookmarkViewPagerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -21,16 +18,19 @@ class BookmarkTabFragment :
 
     private fun setupViews() {
         with(binding) {
-            viewPager.adapter = BookmarkViewPagerAdapter(parentFragmentManager)
+            adapter = BookmarkViewPagerAdapter(parentFragmentManager)
+            viewPager.adapter = adapter
             tabLayout.setupWithViewPager(viewPager)
         }
     }
 
     override fun refreshTab() {
-        // TODO: scroll top
+        for (i in 0 until 2) {
+            (adapter.getPage(i) as BookmarkPage).refresh()
+        }
     }
 
     override fun scrollOnTop() {
-
+        /* Do Nothing */
     }
 }
