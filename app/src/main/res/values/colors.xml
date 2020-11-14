@@ -9,6 +9,13 @@
 	<color name="commonBorderColor">@color/colorGray300</color>
 	
 	<color name="buttonRippleColor">#FF757575</color>
+
+	<!--background-->
+	<color name="background00">#00121212</color>
+	<color name="background04">#17121212</color>
+	<color name="background08">#1E121212</color>
+	<color name="background12">#23121212</color>
+	<color name="background16">#26121212</color>
 	
 	<!--palette-->
 	<color name="colorBeigeWhite">#F6F3ED</color>

@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 	
 	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-		<item name="android:statusBarColor">@color/colorBlack</item>
-		<item name="android:windowBackground">@color/colorBlack</item>
+		<item name="android:statusBarColor">@color/background00</item>
+		<item name="android:windowBackground">@color/background00</item>
 		<item name="android:navigationBarColor">@color/transparent</item>
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primaryDark</item>
@@ -11,9 +11,7 @@
 		<item name="android:buttonStyle">@style/ButtonStyle</item>
 	</style>
 	
-	<style name="SplashTheme" parent="AppTheme">
-	
-	</style>
+	<style name="SplashTheme" parent="AppTheme"/>
 	
 	<style name="LoadingDialog" parent="Theme.AppCompat.Dialog.Alert">
 		<item name="android:windowBackground">@android:color/transparent</item>
@@ -45,4 +43,27 @@
 		<item name="android:textStyle">bold</item>
 	</style>
 
+	<style name="DarkThemeBackground00">
+		<item name="background">@color/background00</item>
+	</style>
+	
+	<style name="DarkThemeBackground04">
+		<item name="background">@color/background04</item>
+		<item name="elevation">4dp</item>
+	</style>
+	
+	<style name="DarkThemeBackground08">
+		<item name="background">@color/background08</item>
+		<item name="elevation">8dp</item>
+	</style>
+	
+	<style name="DarkThemeBackground12">
+		<item name="background">@color/background12</item>
+		<item name="elevation">12dp</item>
+	</style>
+	
+	<style name="DarkThemeBackground16">
+		<item name="background">@color/background16</item>
+		<item name="elevation">16dp</item>
+	</style>
 </resources>
