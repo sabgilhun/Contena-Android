@@ -5,7 +5,9 @@
 	tools:context=".presenter.home.fragment.SettingsTabFragment">
 	
 	<data>
-	
+		<variable
+			name="handler"
+			type="com.sabgil.contena.presenter.home.fragment.SettingsTabFragment.Handler" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -54,54 +56,14 @@
 				android:showDividers="middle|end">
 				
 				<TextView
-					android:id="@+id/goShopManageButton"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:background="?android:selectableItemBackground"
-					android:clickable="true"
-					android:focusable="true"
-					android:gravity="center_vertical"
-					android:minHeight="48dp"
-					android:paddingStart="12dp"
-					android:paddingEnd="12dp"
-					android:text="@string/activity_settings_go_shop_manage"
-					android:textColor="@color/colorBeigeWhite"
-					android:textSize="16sp" />
-				
-				<com.sabgil.contena.presenter.widget.SwitchTextView
-					android:id="@+id/useAlarmButton"
-					android:layout_width="match_parent"
-					android:layout_height="48dp"
-					android:background="?android:selectableItemBackground"
-					android:clickable="true"
-					android:focusable="true"
-					app:switchOn="true"
-					app:switchText="@string/activity_settings_use_alarm"
-					app:switchTextColor="@color/colorBeigeWhite"
-					app:switchTextSize="16sp" />
-				
-				<com.sabgil.contena.presenter.widget.SwitchTextView
-					android:id="@+id/useInternetViewerButton"
-					android:layout_width="match_parent"
-					android:layout_height="48dp"
-					android:background="?android:selectableItemBackground"
-					android:clickable="true"
-					android:focusable="true"
-					app:switchOn="false"
-					app:switchText="@string/activity_settings_use_internet_viewer"
-					app:switchTextColor="@color/colorBeigeWhite"
-					app:switchTextSize="16sp" />
-				
-				<TextView
 					android:id="@+id/goAppEvaluationButton"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:background="?android:selectableItemBackground"
-					android:clickable="true"
-					android:focusable="true"
 					android:gravity="center_vertical"
 					android:minHeight="48dp"
 					android:paddingStart="12dp"
+					android:onClick="@{() -> handler.evaluationApplication()}"
 					android:paddingEnd="12dp"
 					android:text="@string/activity_settings_go_app_evaluation"
 					android:textColor="@color/colorBeigeWhite"
@@ -112,8 +74,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:background="?android:selectableItemBackground"
-					android:clickable="true"
-					android:focusable="true"
+					android:onClick="@{() -> handler.sendEmail()}"
 					android:gravity="center_vertical"
 					android:minHeight="48dp"
 					android:paddingStart="12dp"
@@ -122,20 +83,6 @@
 					android:textColor="@color/colorBeigeWhite"
 					android:textSize="16sp" />
 				
-				<TextView
-					android:id="@+id/shareAppButton"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:background="?android:selectableItemBackground"
-					android:clickable="true"
-					android:focusable="true"
-					android:gravity="center_vertical"
-					android:minHeight="48dp"
-					android:paddingStart="12dp"
-					android:paddingEnd="12dp"
-					android:text="@string/activity_settings_share_app"
-					android:textColor="@color/colorBeigeWhite"
-					android:textSize="16sp" />
 			</LinearLayout>
 		</ScrollView>
 	</androidx.constraintlayout.widget.ConstraintLayout>
