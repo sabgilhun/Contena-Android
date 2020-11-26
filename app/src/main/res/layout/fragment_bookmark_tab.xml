@@ -16,16 +16,18 @@
 			android:id="@+id/tabLayout"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
+			android:background="@color/background"
+			android:elevation="16dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:tabGravity="fill"
 			app:tabIndicatorColor="@color/colorBeigeWhite"
-			app:tabIndicatorGravity="bottom"
 			app:tabIndicatorFullWidth="false"
+			app:tabIndicatorGravity="bottom"
 			app:tabMode="fixed"
-			app:tabTextAppearance="@style/TabLayoutTextStyle"
 			app:tabSelectedTextColor="@color/colorBeigeWhite"
+			app:tabTextAppearance="@style/TabLayoutTextStyle"
 			app:tabTextColor="@color/colorDarkGray" />
 		
 		<androidx.viewpager.widget.ViewPager

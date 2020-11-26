@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 	
 	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-		<item name="android:statusBarColor">@color/background00</item>
-		<item name="android:windowBackground">@color/background00</item>
-		<item name="android:navigationBarColor">@color/transparent</item>
+		<item name="android:statusBarColor">@color/background</item>
+		<item name="android:windowBackground">@color/background</item>
+		<item name="android:navigationBarColor">@color/background</item>
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primaryDark</item>
 		<item name="colorAccent">@color/colorBeigeWhite</item>
@@ -41,29 +41,5 @@
 	<style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
 		<item name="android:textSize" tools:ignore="SpUsage">18dp</item>
 		<item name="android:textStyle">bold</item>
-	</style>
-
-	<style name="DarkThemeBackground00">
-		<item name="background">@color/background00</item>
-	</style>
-	
-	<style name="DarkThemeBackground04">
-		<item name="background">@color/background04</item>
-		<item name="elevation">4dp</item>
-	</style>
-	
-	<style name="DarkThemeBackground08">
-		<item name="background">@color/background08</item>
-		<item name="elevation">8dp</item>
-	</style>
-	
-	<style name="DarkThemeBackground12">
-		<item name="background">@color/background12</item>
-		<item name="elevation">12dp</item>
-	</style>
-	
-	<style name="DarkThemeBackground16">
-		<item name="background">@color/background16</item>
-		<item name="elevation">16dp</item>
 	</style>
 </resources>

@@ -19,6 +19,8 @@
 			android:id="@+id/searchEditText"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:background="@color/background"
+			android:elevation="16dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
