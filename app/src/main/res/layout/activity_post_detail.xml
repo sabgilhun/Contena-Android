@@ -24,6 +24,8 @@
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:id="@+id/appBarLayout"
 			android:layout_width="0dp"
+			android:background="@color/background"
+			android:elevation="16dp"
 			android:layout_height="?android:actionBarSize"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"

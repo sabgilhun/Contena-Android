@@ -29,6 +29,7 @@
 			android:importantForAutofill="no"
 			android:inputType="text"
 			android:paddingStart="4dp"
+			android:textColorHint="@color/colorGray"
 			android:paddingTop="12dp"
 			android:paddingEnd="4dp"
 			android:paddingBottom="12dp"
