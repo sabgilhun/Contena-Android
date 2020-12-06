@@ -54,7 +54,7 @@ class SearchTabFragment : BaseTabFragment<FragmentSearchTabBinding>(R.layout.fra
 
     private fun setupObserver() {
         with(viewModel) {
-            searchedShop.registerObserver(searchedShopAdapter::replaceAll)
+            searchedShop.registerObserver(searchedShopAdapter::update)
             subscribeSuccess.registerObserver { homeViewModel.registerNeedsRefresh(Tab.MAIN) }
         }
 

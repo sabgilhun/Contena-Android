@@ -15,8 +15,8 @@ class SearchedShopAdapter(
     context: Context,
     private val handler: SearchTabFragment.Handler
 ) : MultiViewTypeAdapter() {
-    override val viewTypeMap: ViewTypeMap = multiViewType(context) {
-        viewType<ShopItem, ItemSearchedShopBinding> {
+    override val viewTypeMapStore = context.viewTypeMapStore {
+        type<ShopItem, ItemSearchedShopBinding> {
             onCreate { binding, viewHolder ->
                 binding.subscribeButton.setOnClickListener {
                     val position = viewHolder.adapterPosition
@@ -25,12 +25,12 @@ class SearchedShopAdapter(
                 }
             }
 
-            onBind { searchedShop, binding, _ ->
+            onBind { searchedShop, binding ->
                 binding.item = searchedShop
             }
         }
 
-        viewType<EmptyItem, ItemSearchedShopEmptyBinding>()
+        type<EmptyItem, ItemSearchedShopEmptyBinding>()
     }
 
     private fun toggleSubscribeButton(

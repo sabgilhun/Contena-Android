@@ -1,8 +1,10 @@
 package com.sabgil.contena.presenter.home.adapter
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
-import com.sabgil.contena.common.adapter.*
+import com.sabgil.contena.common.adapter.BaseItem
+import com.sabgil.contena.common.adapter.MultiViewTypeAdapter
+import com.sabgil.contena.common.adapter.type
+import com.sabgil.contena.common.adapter.viewTypeMapStore
 import com.sabgil.contena.common.ext.addOnPageSelected
 import com.sabgil.contena.databinding.*
 import com.sabgil.contena.presenter.home.fragment.NewItemTabFragment
@@ -14,25 +16,21 @@ class PostAdapter(
 ) : MultiViewTypeAdapter() {
     private val pageNoMap = mutableMapOf<Long, Int>()
 
-    override val viewTypeMap: ViewTypeMap = multiViewType(context) {
-        viewType<PostItem, ItemPostBinding> {
-            onCreate { binding, holder ->
+    override val viewTypeMapStore = context.viewTypeMapStore {
+        type<PostItem, ItemPostBinding> {
+            onCreate { binding, _, itemSupplier ->
                 with(binding.itemViewPager) {
                     adapter = NewItemsViewPagerAdapter()
                     addOnPageSelected {
                         binding.pageNo = it
-                        val adapterPosition = holder.adapterPosition
-                        if (adapterPosition != RecyclerView.NO_POSITION) {
-                            val item = items[adapterPosition] as PostItem
-                            pageNoMap[item.postId] = currentItem
-                        }
+                        itemSupplier()?.let { item -> pageNoMap[item.postId] = currentItem }
                     }
                 }
 
                 binding.tabLayout.attachToViewPager(binding.itemViewPager)
             }
 
-            onBind { postItem, binding, _ ->
+            onBind { postItem, binding ->
                 with(binding) {
                     val adapter = (itemViewPager.adapter as NewItemsViewPagerAdapter)
                     adapter.replaceAll(postItem.newProductItems)
@@ -47,24 +45,24 @@ class PostAdapter(
             }
         }
 
-        viewType<LoadingItem, ItemPostLoadingBinding> {
-            onBind { loadingItem, _, _ ->
+        type<LoadingItem, ItemPostLoadingBinding> {
+            onBind { loadingItem ->
                 if (!loadingItem.statedLoading.getAndSet(true)) {
                     handler.loadMorePost(loadingItem.nextCursor)
                 }
             }
         }
 
-        viewType<EmptyItem, ItemPostEmptyBinding> {
-            onBind { _, binding, _ ->
+        type<EmptyItem, ItemPostEmptyBinding> {
+            onBind { _, binding ->
                 binding.handler = handler
             }
         }
 
-        viewType<NoMoreItem, ItemPostNoMoreBinding>()
+        type<NoMoreItem, ItemPostNoMoreBinding>()
 
-        viewType<MoreLoadFailItem, ItemMoreLoadFailBinding> {
-            onBind { moreLoadFailItem, binding, _ ->
+        type<MoreLoadFailItem, ItemMoreLoadFailBinding> {
+            onBind { moreLoadFailItem, binding ->
                 with(binding) {
                     item = moreLoadFailItem
                     handler = this@PostAdapter.handler
@@ -73,7 +71,7 @@ class PostAdapter(
         }
     }
 
-    override fun replaceAll(items: List<BaseItem>) {
+    override fun update(items: List<BaseItem>) {
         val newItemIds = items.filterIsInstance(PostItem::class.java).map {
             it.postId
         }
@@ -84,6 +82,6 @@ class PostAdapter(
             }
         }
 
-        super.replaceAll(items)
+        super.update(items)
     }
 }

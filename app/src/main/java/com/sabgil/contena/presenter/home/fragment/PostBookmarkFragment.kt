@@ -41,7 +41,7 @@ class PostBookmarkFragment :
     }
 
     private fun setupObserver() {
-        viewModel.bookmarkedPosts.registerObserver(bookmarkedPostAdapter::replaceAll)
+        viewModel.bookmarkedPosts.registerObserver(bookmarkedPostAdapter::update)
     }
 
     inner class Handler {

@@ -44,7 +44,7 @@ class NewProductBookmarkFragment :
     }
 
     private fun setupObserver() {
-        viewModel.bookmarkedNewProducts.registerObserver(bookmarkNewProductAdapter::replaceAll)
+        viewModel.bookmarkedNewProducts.registerObserver(bookmarkNewProductAdapter::update)
     }
 
     inner class Handler {

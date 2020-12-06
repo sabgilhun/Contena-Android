@@ -24,9 +24,9 @@ class BookmarkedPostAdapter(
 ) : MultiViewTypeAdapter() {
     private val pageNoMap = mutableMapOf<Long, Int>()
 
-    override val viewTypeMap: ViewTypeMap = multiViewType(context) {
-        viewType<BookmarkedPostItem, ItemBookmarkedPostBinding> {
-            onCreate { binding, _ ->
+    override val viewTypeMapStore = context.viewTypeMapStore {
+        type<BookmarkedPostItem, ItemBookmarkedPostBinding> {
+            onCreate { binding ->
                 with(binding.itemViewPager) {
                     adapter = NewItemsViewPagerAdapter()
                     addOnPageSelected {
@@ -37,7 +37,7 @@ class BookmarkedPostAdapter(
                 binding.tabLayout.attachToViewPager(binding.itemViewPager)
             }
 
-            onBind { bookmarkedPostItem, binding, _ ->
+            onBind { bookmarkedPostItem, binding ->
                 with(binding) {
                     val adapter = (itemViewPager.adapter as NewItemsViewPagerAdapter)
                     adapter.replaceAll(bookmarkedPostItem.newProductItems)
@@ -66,7 +66,7 @@ class BookmarkedPostAdapter(
         super.onViewDetachedFromWindow(holder)
     }
 
-    override fun replaceAll(items: List<BaseItem>) {
+    override fun update(items: List<BaseItem>) {
         val newItemIds = items.filterIsInstance(PostItem::class.java).map {
             it.postId
         }
@@ -77,7 +77,7 @@ class BookmarkedPostAdapter(
             }
         }
 
-        super.replaceAll(items)
+        super.update(items)
     }
 
     private class NewItemsViewPagerAdapter : PagerAdapter() {

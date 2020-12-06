@@ -52,7 +52,7 @@ class NewItemTabFragment :
     }
 
     private fun setupObserver() {
-        viewModel.postList.registerObserver(postAdapter::replaceAll)
+        viewModel.postList.registerObserver(postAdapter::update)
     }
 
     inner class Handler {

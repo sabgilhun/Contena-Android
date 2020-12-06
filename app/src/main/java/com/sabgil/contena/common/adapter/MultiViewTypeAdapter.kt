@@ -6,17 +6,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.sabgil.contena.common.adapter.dsl.OnBindInvoker
 import kotlin.properties.Delegates
 
 abstract class MultiViewTypeAdapter : RecyclerView.Adapter<BindingViewHolder>() {
 
-    protected abstract val viewTypeMap: ViewTypeMap
+    protected abstract val viewTypeMapStore: ViewTypeMapStore
 
-    protected var items: List<BaseItem> by Delegates.observable(mutableListOf())
-    { _, old, new -> autoNotify(old, new) { o, n -> o.id == n.id } }
+    private var _items: List<BaseItem> by Delegates.observable(mutableListOf())
+    { _, old, new -> dispatchDiff(old, new) }
+    val items: List<BaseItem> get() = _items
 
-    open fun replaceAll(items: List<BaseItem>) {
-        this.items = items.toList()
+    open fun update(items: List<BaseItem>) {
+        this._items = items.toList()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
@@ -28,42 +30,37 @@ abstract class MultiViewTypeAdapter : RecyclerView.Adapter<BindingViewHolder>() 
                 false
             )
         val viewHolder = BindingViewHolder(binding)
-        viewTypeMap.getOnCreateViewHolder(viewType)(binding, viewHolder)
-
+        viewTypeMapStore.getOnCreateInvoker(viewType).invokeOnCreate(viewHolder, _items)
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         val item = items[position]
-        viewTypeMap.getOnBindViewHolder(item::class.java)(item, holder.binding, position)
-        holder.binding.executePendingBindings()
+        viewTypeMapStore.getOnBindInvoker(item::class.java).invokeOnBind(item, holder, position)
     }
 
     override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int) =
-        viewTypeMap.getLayoutId(items[position]::class.java)
-}
+        viewTypeMapStore.getLayoutId(items[position]::class.java)
 
-private fun <T> RecyclerView.Adapter<*>.autoNotify(
-    old: List<T>,
-    new: List<T>,
-    compare: (T, T) -> Boolean
-) {
-    val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+    private fun dispatchDiff(
+        old: List<BaseItem>,
+        new: List<BaseItem>
+    ) {
+        val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
 
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return compare(old[oldItemPosition], new[newItemPosition])
-        }
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                old[oldItemPosition].id == new[newItemPosition].id
 
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return old[oldItemPosition] == new[newItemPosition]
-        }
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                old[oldItemPosition] == new[newItemPosition]
 
-        override fun getOldListSize() = old.size
+            override fun getOldListSize() = old.size
 
-        override fun getNewListSize() = new.size
-    })
+            override fun getNewListSize() = new.size
+        })
 
-    diff.dispatchUpdatesTo(this)
+        diff.dispatchUpdatesTo(this)
+    }
 }
